@@ -8,14 +8,6 @@ SELECT * FROM vehículos;
 SELECT * FROM rental_data_history_pretty; 
 SELECT * FROM vehicles_information_pretty; 
 
-UPDATE alquileres
-SET 	
-		fecha_salida = '2022-01-15 8:00:00',
-		fecha_llegada = '2022-02-01 07:14:00',
-		fecha_recogida = '2022-02-01 10:14:00', 
-		fecha_entrega_pactada = '2022-02-21 10:14:00'
-WHERE id_alquiler = 3; 
-
 /*VISTA PARA MOSTRAR LA INFORMACIÓN DE LAS FACTURAS DE UN MODO FÁCIL DE ENTENDER*/
 CREATE VIEW BILLS_PRETTY AS
 SELECT f.id_factura, CONCAT(u.nombres,' ',u.apellidos) 'Nombre cliente', a1.dias_mora,  f.totaL_pagar, f.valor_pagado, f.was_paid
