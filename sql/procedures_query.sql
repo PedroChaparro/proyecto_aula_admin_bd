@@ -15,11 +15,14 @@ CREATE PROCEDURE register_new_client(
 	IN ciudad_residencia VARCHAR(255), 
 	IN celular VARCHAR(10), 
 	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
+	IN hash_contraseña VARCHAR(255) 
 )
 BEGIN 
 
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario) VALUES(
+	/*Encriptar la contraseña*/
+	SET @hashed = SHA2(contraseña, 256); 
+	
+	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, hash_contrase, código_tipo_usuario) VALUES(
 		nombres, 
 		apellidos, 
 		identificacion, 
@@ -27,7 +30,7 @@ BEGIN
 		ciudad_residencia, 
 		celular, 
 		correo_electrónico, 
-		contraseña, 
+		@hashed, 
 		3
 	); 
 
@@ -429,6 +432,7 @@ BEGIN
 	
 	ELSE
 	
+		SELECT 'hola'; 
 		/*Si no ha sido pagada, actualiza los datos para mostrarlos*/
 		/* ESTOY TRABAJANDO EN ESTO */
 	
