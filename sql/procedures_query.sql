@@ -2,7 +2,12 @@
 /* PROCEDURES */
 /* ############## */
 
+/* ---- */
+/*Procedures para el manejo de cuentas de usuario ¿*/
+
+
 /*Procedimiento para el registro por parte de clientes*/
+DELETE FROM usuarios; 
 
 DROP PROCEDURE IF EXISTS register_new_client; 
 DELIMITER //
@@ -15,14 +20,14 @@ CREATE PROCEDURE register_new_client(
 	IN ciudad_residencia VARCHAR(255), 
 	IN celular VARCHAR(10), 
 	IN correo_electrónico VARCHAR(255), 
-	IN hash_contraseña VARCHAR(255) 
+	IN contraseña VARCHAR(255) 
 )
 BEGIN 
 
 	/*Encriptar la contraseña*/
 	SET @hashed = SHA2(contraseña, 256); 
 	
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, hash_contrase, código_tipo_usuario) VALUES(
+	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario) VALUES(
 		nombres, 
 		apellidos, 
 		identificacion, 
@@ -40,6 +45,54 @@ DELIMITER ;
 
 /*
 CALL register_new_client('Pedro Andrés', 'Chaparro Quintero', '1005142366', 'Cra 4 No. 4-32 Cañaveral','Bucaramanga', '3221458999', 'pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
+*/
+
+
+/*
+CALL user_exists_from_mail('pedro.chaparro.2020@upb.edu.co'); 
+*/
+
+/* Procedimiento para el inicio de sesión por parte de clientes */
+DROP PROCEDURE IF EXISTS user_login; 
+DELIMITER //
+
+CREATE PROCEDURE user_login(
+	IN correo_electrónico VARCHAR(255), 
+	IN contraseña VARCHAR(255) 
+)
+BEGIN 
+
+	SET @success = 0; 
+
+	SELECT COUNT(*) 'exists' INTO @user_exists FROM USUARIOS
+			WHERE usuarios.correo_electrónico = correo_electrónico; 
+	
+	/*Si el usuario existe verifica que la contraseña sea correcta*/
+	IF @user_exists = 1 THEN  
+		
+		SET @hashed = SHA2(contraseña, 256); 
+		
+		SELECT contraseña INTO @saved_password FROM USUARIOS 
+			WHERE USUARIOS.correo_electrónico = correo_electrónico; 
+			
+		SELECT CONCAT(@saved_password, ',', @hashed); 
+		
+		IF @saved_password = @hashed THEN
+			SET @success = 1; 
+		END IF;
+
+	END IF; 
+	
+	SELECT @success; 
+	
+END //
+
+DELIMITER ;
+
+SELECT * FROM usuarios; 
+
+/*
+CALL user_login('pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
 */
 
 /*Procedimiento para el registro de cuentas internas*/
