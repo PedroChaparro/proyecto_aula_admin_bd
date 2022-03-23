@@ -35,8 +35,9 @@ END //
 
 DELIMITER ; 
 
-
+/*
 CALL register_new_client('Pedro Andrés', 'Chaparro Quintero', '1005142366', 'Cra 4 No. 4-32 Cañaveral','Bucaramanga', '3221458999', 'pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
+*/
 
 /*Procedimiento para el registro de cuentas internas*/
 
@@ -74,9 +75,11 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL register_new_internal_user('Daniela Catalina', 'Hernández', '1005142367', 'Cra 4 No. 4-32 El Refugio','Piedecuesta', '3221458998', 'daniela@gmail.com', 'daniela123', 1, 1); 
 
 CALL register_new_internal_user('Juan Sebastián', 'Rojas', '1005142344', 'Cra 4 No. 4-32 Paseo Alcalá','Piedecuesta', '3145663233', 'juanrojas@gmail.com', 'juan00001', 2, 1); 
+*/
 
 /*Procedimiento para consultar vehículos disponibles*/
 
@@ -92,7 +95,9 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL get_available_vehicles(); 
+*/
 
 /*Procedimiento para consultar vehículos disponibles por su tipo*/
 DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_type; 
@@ -112,7 +117,9 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL get_available_vehicles_filter_by_type('Compacto'); 
+*/
 
 /*Procedimiento para consultar vehículos disponibles por un rango de precios*/
 DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_price; 
@@ -134,7 +141,9 @@ END //
 
 DELIMITER ;
 
+/*
 CALL get_available_vehicles_filter_by_price(400000, 540000);
+*/
 
 /*Procedimiento para alquilar un vehículo*/
 DROP PROCEDURE IF EXISTS register_vehicle_rental; 
@@ -185,7 +194,7 @@ END //
 
 DELIMITER ;
  
-
+/*
 CALL register_vehicle_rental(
 	1, 
 	3, 
@@ -218,6 +227,7 @@ CALL register_vehicle_rental(
 	'2022/2/01', 
 	20
 ); 
+*/
 
 /*Procedimiento para ver el historial de alquileres*/
 
@@ -253,9 +263,11 @@ END//
 
 DELIMITER ;
 
+/*
 CALL register_vehicle_arrival(1); 
 CALL register_vehicle_arrival(2);
 CALL register_vehicle_arrival(3);
+*/
 
 /*Procedimiento para registrar cuando un cliente reocge el vehículo en la sucursal destino*/
 
@@ -281,9 +293,11 @@ END //
 
 DELIMITER ;
 
+/*
 CALL register_vehicle_pickup(1); 
 CALL register_vehicle_pickup(2); 
 CALL register_vehicle_pickup(3); 
+*/
 
 /*Procedimiento para registrar cuando un cliente entrega el vehículo*/
 DROP PROCEDURE IF EXISTS register_vehicle_return; 
@@ -318,9 +332,11 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL register_vehicle_return(1); 
 CALL register_vehicle_return(2); 
 CALL register_vehicle_return(3); 
+*/
 
 /*Procedimiento para agregar descuento a un tipo de vehículo específico*/
 DROP PROCEDURE IF EXISTS set_disccount_to_vehicle_type; 
@@ -341,10 +357,12 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL set_disccount_to_vehicle_type(
 	6, 
 	30.5
-); 
+);
+*/ 
 
 /*Procedimiento para crear una factura*/
 
@@ -371,6 +389,7 @@ END //
 
 DELIMITER ; 
 
+/*
 CALL create_bill(
 	1
 ); 
@@ -382,6 +401,7 @@ CALL create_bill(
 CALL create_bill(
 	3
 ); 
+*/
 
 /*Procedimiento para consultar una factura*/
 
