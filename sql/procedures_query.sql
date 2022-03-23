@@ -243,7 +243,9 @@ END //
 
 DELIMITER ;
 
+/*
 CALL get_rental_history; 
+*/
 
 /*Procedimiento para registrar la llegada del vehículo a la sucursal destino*/
 DROP PROCEDURE IF EXISTS register_vehicle_arrival; 

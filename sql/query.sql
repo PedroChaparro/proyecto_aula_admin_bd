@@ -1,5 +1,5 @@
-CREATE DATABASE laboratorio_3; 
-USE laboratorio_3; 
+CREATE DATABASE proyecto_aula_bd; 
+USE proyecto_aula_bd; 
 
 CREATE TABLE TIPO_USUARIO(
 	código_tipo_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
