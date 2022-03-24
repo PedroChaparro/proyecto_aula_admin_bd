@@ -27,7 +27,7 @@ WHERE	 	f.id_alquiler = a.id_alquiler AND
 /*VISTA PARA MOSTRAR LA INFORMACIÓNDE LOS VEHÍCULOS DE UN MODO FÁCIL DE ENTENDER*/
 DROP VIEW IF EXISTS VEHICLES_INFORMATION_PRETTY; 
 CREATE VIEW VEHICLES_INFORMATION_PRETTY AS
-SELECT v.matrícula, tv.tipo_vehículo, v.modelo, v.numero_puertas, v.capacidad, v.has_sunfoof, tm.motor, v.color, v.valor_alquiler_semanal, v.valor_alquiler_diario, v.disponible 
+SELECT v.matrícula, tv.tipo_vehículo, v.modelo, v.numero_puertas, v.capacidad, v.has_sunroof, tm.motor, v.color, v.valor_alquiler_semanal, v.valor_alquiler_diario, v.disponible 
 FROM VEHÍCULOS AS v, tipo_vehículo AS tv, tipo_motor AS tm
 WHERE v.código_tipo_vehículo = tv.código_tipo_vehículo AND
 		v.código_tipo_motor = tm.código_tipo_motor; 

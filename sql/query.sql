@@ -179,7 +179,7 @@ CREATE TABLE VEHÍCULOS(
 	modelo VARCHAR(64) NOT NULL, 
 	numero_puertas TINYINT(2) UNSIGNED NOT NULL, 
 	capacidad TINYINT(2) UNSIGNED NOT NULL, 
-	has_sunfoof TINYINT(1) UNSIGNED NOT NULL, 
+	has_sunroof TINYINT(1) UNSIGNED NOT NULL, 
 	código_tipo_motor INT UNSIGNED NOT NULL, 
 	color VARCHAR(64) NOT NULL, 
 	disponible TINYINT(1) UNSIGNED NOT NULL, 
@@ -208,7 +208,7 @@ CREATE TABLE VEHÍCULOS(
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 
-INSERT INTO VEHÍCULOS(matrícula, código_tipo_vehículo, modelo, numero_puertas, capacidad, has_sunfoof, código_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
+INSERT INTO VEHÍCULOS(matrícula, código_tipo_vehículo, modelo, numero_puertas, capacidad, has_sunroof, código_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
 ('GOA001',1,'Onix',4,5,1,2,'Negro',1,460000,55857, 0),
 ('GOA002',1,'Logan',4,5,0,3,'Blanco',1,470000,57071, 0),
 ('GOA003',1,'Beat',4,5,1,4,'Azul',1,480000,58285, 0),
