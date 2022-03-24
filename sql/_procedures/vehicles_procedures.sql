@@ -2,6 +2,117 @@
 /* PROCEDIMIENTOS RELACIONADOS AL MANEJO DE VEHÍCULOS 		   */
 /* ------------------------------------------------------------*/
 
+/* ------------------------- */
+/*        CRUD BASICS        */
+/* ------------------------- */
+
+/* ----- */
+/* CREATE */
+DROP PROCEDURE IF EXISTS register_vehicle; 
+DELIMITER //
+
+CREATE PROCEDURE register_vehicle(
+	IN matrícula VARCHAR(6), 
+	IN código_tipo_vehículo INT UNSIGNED, 
+	IN modelo VARCHAR(64), 
+	IN número_puertas TINYINT(2) UNSIGNED, 
+	IN capacidad TINYINT(2) UNSIGNED,
+	IN has_sunfoof TINYINT(1) UNSIGNED, 
+	IN código_tipo_motor INT UNSIGNED, 
+	IN color VARCHAR(64), 
+	IN disponible TINYINT(1) UNSIGNED, 
+	IN valor_alquiler_semanal DECIMAL(12,2), 
+	IN valor_alquiler_diario DECIMAL(12,2),
+	IN descuento DECIMAL(3,1) 
+)
+BEGIN
+
+	INSERT INTO VEHÍCULOS(
+		matrícula, 
+		código_tipo_vehículo, 
+		modelo, 
+		número_puertas, 
+		capacidad, 
+		has_sunfoof, 
+		código_tipo_motor, 
+		color, 
+		disponible, 
+		valor_alquiler_semanal, 
+		valor_alquiler_diario, 
+		descuento
+	) VALUES (
+		matrícula, 
+		código_tipo_vehículo, 
+		modelo, 
+		número_puertas, 
+		capacidad, 
+		has_sunfoof, 
+		código_tipo_motor, 
+		color, 
+		disponible, 
+		valor_alquiler_semanal, 
+		valor_alquiler_diario, 
+		descuento
+	); 
+
+
+END//
+DELIMITER ;
+
+/* ----- */
+/* DELETE */
+/* En este caso el vehículo no se elimina de la base de datos, ya que eso podría causar problemas
+	en la integridad referencial de las órdenes de compra pasadas, solamente se cambia el estado 
+	disponible a falso
+*/
+DROP PROCEDURE IF EXISTS disable_vehicle; 
+DELIMITER //
+
+CREATE PROCEDURE disable_vehicle(
+	IN id_vehículo INT UNSIGNED
+)
+BEGIN 
+	
+	UPDATE VEHÍCULOS SET disponible = 0 
+		WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+	
+END//
+
+DELIMITER ;
+
+/* ----- */
+/* UPDATE */
+DROP PROCEDURE IF EXISTS update_vehicle; 
+DELIMITER //
+
+CREATE PROCEDURE update_vehicle(
+	IN id_vehículo INT UNSIGNED,
+	IN matrícula VARCHAR(6), 
+	IN has_sunfoof TINYINT(1) UNSIGNED, 
+	IN código_tipo_motor INT UNSIGNED, 
+	IN color VARCHAR(64), 
+	IN disponible TINYINT(1) UNSIGNED, 
+	IN valor_alquiler_semanal DECIMAL(12,2), 
+	IN valor_alquiler_diario DECIMAL(12,2),
+	IN descuento DECIMAL(3,1) 
+)
+BEGIN
+
+	UPDATE VEHÍCULOS SET
+		VEHÍCULOS.`matrícula` = matrícula, 
+		VEHÍCULOS.has_sunfoof = has_sunfoof, 
+		VEHÍCULOS.`código_tipo_motor` = código_tipo_motor, 
+		VEHÍCULOS.color = color, 
+		VEHÍCULOS.disponible = disponible, 
+		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
+		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
+		VEHÍCULOS.descuento = descuento
+	WHERE VEHÍCULOS.`id_vehículo` = 
+
+
+END//
+DELIMITER ;
+
 /* ----- */
 /*Procedimiento para consultar vehículos disponibles*/
 
