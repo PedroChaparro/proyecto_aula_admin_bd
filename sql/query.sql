@@ -72,6 +72,8 @@ CREATE TABLE CIUDADES(
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';  
 
+SELECT id_ciudad, ciudad FROM ciudades WHERE id_ciudad = 198; 
+
 /* -- */
 CREATE TABLE SUCURSALES(
 	id_sucursal INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -91,11 +93,11 @@ CREATE TABLE SUCURSALES(
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 INSERT INTO SUCURSALES(id_ciudad, dirección, teléfono_fijo, celular, correo_electrónico) VALUES
-	(1, 'Cra 4 #6-75 San Cristóbal', '6550000', '3170000000', 'sucursalbga@gmail.com'),
-	(2, 'Cra 4 #6-75 San Joaquín', '6550001', '3170000001', 'sucursalmedellin@gmail.com'),
-	(3, 'Cra 4 #6-75 Chapinero', '6550002', '3170000002', 'sucursalbgta@gmail.com'), 
-	(4, 'Cra 4 #6-75 El peñón', '6550003', '3170000003', 'sucursalcali@gmail.com'),
-	(5, 'Cra 4 #6-75 Bella Vista', '6550004', '3170000004', 'sucursalbarranquilla@gmail.com'); 
+	(486, 'Cra 4 #6-75 San Cristóbal', '6550000', '3170000000', 'sucursalbga@gmail.com'),
+	(757, 'Cra 4 #6-75 San Joaquín', '6550001', '3170000001', 'sucursalmedellin@gmail.com'),
+	(198, 'Cra 4 #6-75 Chapinero', '6550002', '3170000002', 'sucursalbgta@gmail.com'), 
+	(1090, 'Cra 4 #6-75 El peñón', '6550003', '3170000003', 'sucursalcali@gmail.com'),
+	(4, 'Cra 4 #6-75 Bella Vista', '6550004', '3170000004', 'sucursalbarranquilla@gmail.com'); 
 
 
 /* -- */
@@ -105,12 +107,11 @@ CREATE TABLE USUARIOS(
 	apellidos VARCHAR(255) NOT NULL, 
 	identificacion VARCHAR(14) NOT NULL UNIQUE COMMENT 'Cédula del cliente', 
 	direccion VARCHAR(255) NOT NULL, 
-	ciudad_residencia VARCHAR(255) NOT NULL, 
+	id_ciudad_residencia INT UNSIGNED NOT NULL, 
 	celular VARCHAR(10) NOT NULL, 
 	correo_electrónico VARCHAR(255) NOT NULL UNIQUE, 
 	contraseña VARCHAR(255) NOT NULL, 
 	código_tipo_usuario INT UNSIGNED NOT NULL, 
-	código_sucursal INT UNSIGNED NULL DEFAULT NULL, 
 	
 	
 	INDEX usuarios_id_usuario(id_usuario), 
@@ -122,10 +123,10 @@ CREATE TABLE USUARIOS(
 		FOREIGN KEY (código_tipo_usuario)
 		REFERENCES `TIPO_USUARIO`(código_tipo_usuario)
 		ON UPDATE CASCADE, 
-	
-	CONSTRAINT fk_usuario_sucursal
-		FOREIGN KEY (código_sucursal)
-		REFERENCES `SUCURSALES`(id_sucursal)
+		
+	CONSTRAINT fk_usuario_ciudad
+		FOREIGN KEY (id_ciudad_residencia)
+		REFERENCES `CIUDADES`(id_ciudad)
 		ON UPDATE CASCADE
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
