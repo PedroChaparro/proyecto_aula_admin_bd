@@ -1,11 +1,11 @@
-CREATE DATABASE proyecto_aula_bd; 
+CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 USE proyecto_aula_bd; 
 
 CREATE TABLE TIPO_USUARIO(
 	código_tipo_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	tipo_usuario VARCHAR(64) NOT NULL
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 CREATE TABLE SUCURSALES(
 	id_sucursal INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -17,7 +17,7 @@ CREATE TABLE SUCURSALES(
 	
 	INDEX sucursales_correo_electrónico(correo_electrónico)
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 CREATE TABLE USUARIOS(
 	id_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -48,13 +48,13 @@ CREATE TABLE USUARIOS(
 		REFERENCES `SUCURSALES`(id_sucursal)
 		ON UPDATE CASCADE
 )
-COLLATE 'utf8mb4_general_ci';
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
 
 CREATE TABLE TIPO_VEHÍCULO(
 	código_tipo_vehículo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	tipo_vehículo VARCHAR(64) NOT NULL
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 CREATE TABLE VEHÍCULOS(
 	id_vehículo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -83,7 +83,7 @@ CREATE TABLE VEHÍCULOS(
 		ON UPDATE CASCADE
 	
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 CREATE TABLE ALQUILERES(
 	id_alquiler INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -136,7 +136,7 @@ CREATE TABLE ALQUILERES(
 		ON UPDATE CASCADE
 	
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
  
 CREATE TABLE FACTURA(
@@ -151,7 +151,7 @@ CREATE TABLE FACTURA(
 		REFERENCES ALQUILERES(id_alquiler)
 		ON UPDATE CASCADE
 )
-COLLATE 'utf8mb4_general_ci'; 
+CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 /* ############## */
 /* INSERTAR DATOS EN LAS TABLAS */

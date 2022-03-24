@@ -5,10 +5,6 @@
 /* ---- */
 /*Procedures para el manejo de cuentas de usuario ¿*/
 
-
-/*Procedimiento para el registro por parte de clientes*/
-DELETE FROM usuarios; 
-
 DROP PROCEDURE IF EXISTS register_new_client; 
 DELIMITER //
 
@@ -48,10 +44,6 @@ CALL register_new_client('Pedro Andrés', 'Chaparro Quintero', '1005142366', 'Cr
 */
 
 
-/*
-CALL user_exists_from_mail('pedro.chaparro.2020@upb.edu.co'); 
-*/
-
 /* Procedimiento para el inicio de sesión por parte de clientes */
 DROP PROCEDURE IF EXISTS user_login; 
 DELIMITER //
@@ -64,7 +56,7 @@ BEGIN
 
 	SET @success = 0; 
 
-	SELECT COUNT(*) 'exists' INTO @user_exists FROM USUARIOS
+	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists FROM usuarios
 			WHERE usuarios.correo_electrónico = correo_electrónico; 
 	
 	/*Si el usuario existe verifica que la contraseña sea correcta*/
@@ -72,10 +64,10 @@ BEGIN
 		
 		SET @hashed = SHA2(contraseña, 256); 
 		
-		SELECT contraseña INTO @saved_password FROM USUARIOS 
-			WHERE USUARIOS.correo_electrónico = correo_electrónico; 
+		SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
+			WHERE usuarios.correo_electrónico = correo_electrónico; 
 			
-		SELECT CONCAT(@saved_password, ',', @hashed); 
+		SELECT @saved_password; 
 		
 		IF @saved_password = @hashed THEN
 			SET @success = 1; 
@@ -83,13 +75,13 @@ BEGIN
 
 	END IF; 
 	
+	/*Retorna True (1) o False (0) según si el login fue correcto*/
 	SELECT @success; 
 	
 END //
 
 DELIMITER ;
 
-SELECT * FROM usuarios; 
 
 /*
 CALL user_login('pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
