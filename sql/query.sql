@@ -24,11 +24,39 @@ CREATE TABLE DEPARTAMENTOS(
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci'; 
 
 INSERT INTO DEPARTAMENTOS (departamento) VALUES
-	('Santander'), 
-	('Antioquia'), 
-	('Cundinamarca'), 
-	('Valle del cauca'), 
-	('Atlántico'); 
+	('Antioquia'),
+	('Boyacá'),
+	('Córdoba'),
+	('Chocó'),
+	('Nariño'),
+	('Santander'),
+	('Meta'),
+	('Atlántico'),
+	('Bolívar'),
+	('Caldas'),
+	('Caquetá'),
+	('Cauca'),
+	('Cesar'),
+	('Cundinamarca'),
+	('Huila'),
+	('La Guajira'),
+	('Magdalena'),
+	('Quindío'),
+	('Risaralda'),
+	('Sucre'),
+	('Tolima'),
+	('Arauca'),
+	('Casanare'),
+	('Putumayo'),
+	('Amazonas'),
+	('Guainía'),
+	('Vaupés'),
+	('Vichada'),
+	('Guaviare'),
+	('Archipiélago de San Andrés, Providencia y Santa Catalina'),
+	('Bogotá D.C.'),
+	('Norte de Santander'),
+	('Valle del Cauca'); 
 
 /* -- */
 CREATE TABLE CIUDADES(
@@ -43,13 +71,6 @@ CREATE TABLE CIUDADES(
 	
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';  
-
-INSERT INTO CIUDADES (ciudad, id_departamento) VALUES 
-	('Bucaramanga', 1), 
-	('Medellín', 2), 
-	('Bogotá', 3), 
-	('Cali', 4), 
-	('Barranquilla', 5); 
 
 /* -- */
 CREATE TABLE SUCURSALES(
