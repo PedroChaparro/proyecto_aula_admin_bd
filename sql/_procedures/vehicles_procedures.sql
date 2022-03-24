@@ -200,6 +200,10 @@ END //
 
 DELIMITER ; 
 
+/* 
+CALL set_disccount_to_vehicle_type(1, 20); 
+*/
+
 /*
 CALL set_disccount_to_vehicle_type(
 	6, 

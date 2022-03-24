@@ -19,34 +19,48 @@ CREATE PROCEDURE register_vehicle_rental(
 )
 BEGIN 
 
-	/*Calcular el precio*/
-	SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
-	FROM VEHÍCULOS
-	WHERE VEHÍCULOS.id_vehículo = id_vehículo;  
+	SET @success = 0; 
+
+	/*Revisa que el vehículo aún se encuentre disponible*/
+	SELECT disponible INTO @is_disponible FROM VEHÍCULOS 
+		WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+		
+	IF @is_disponible = 1 THEN
 	
-	SET @semanas = TRUNCATE((dias/7), 0);
-	SET @dias_restantes = dias - (@semanas * 7); 
+		/*Calcular el precio*/
+		SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
+		FROM VEHÍCULOS
+		WHERE VEHÍCULOS.id_vehículo = id_vehículo;  
+		
+		SET @semanas = TRUNCATE((dias/7), 0);
+		SET @dias_restantes = dias - (@semanas * 7); 
+		
+		SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario);
+		SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
+		
+		/*El vehículo ya no estará disponible para alquilar*/
+		UPDATE VEHÍCULOS 
+		SET VEHÍCULOS.disponible = 0 
+		WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
+		
+		/*Insertar el dato*/
+		INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquiler, id_sucursal_entrega, fecha_salida, fecha_esperada_llegada, dias, valor_cotizado) VALUES (
+			id_cliente, 
+			id_empleado, 
+			id_vehículo, 
+			id_sucursal_alquiler, 
+			id_sucursal_entrega,
+			fecha_salida,  
+			fecha_esperada_llegada, 
+			dias, 
+			@valor_cotizado
+		); 
+		
+		SET @success = 1; 
 	
-	SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario);
-	SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
+	END IF;
 	
-	/*El vehículo ya no estará disponible para alquilar*/
-	UPDATE VEHÍCULOS 
-	SET VEHÍCULOS.disponible = 0 
-	WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
-	
-	/*Insertar el dato*/
-	INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquiler, id_sucursal_entrega, fecha_salida, fecha_esperada_llegada, dias, valor_cotizado) VALUES (
-		id_cliente, 
-		id_empleado, 
-		id_vehículo, 
-		id_sucursal_alquiler, 
-		id_sucursal_entrega,
-		fecha_salida,  
-		fecha_esperada_llegada, 
-		dias, 
-		@valor_cotizado
-	); 
+	SELECT @success; 
 
 END //
 
@@ -56,13 +70,17 @@ DELIMITER ;
 CALL register_vehicle_rental(
 	1, 
 	3, 
-	6, 
 	1, 
-	3, 
-	'2022/2/15', 
-	'2022/2/28', 
+	6, 
+	8, 
+	'2022/3/25', 
+	'2022/3/31', 
 	15
 ); 
+
+SELECT * FROM SUCURSALES;
+
+SELECT matrícula, valor_alquiler_semanal, valor_alquiler_diario, descuento FROM VEHÍCULOS WHERE id_vehículo = 1; 
 
 CALL register_vehicle_rental(
 	1, 
