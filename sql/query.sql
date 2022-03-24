@@ -112,6 +112,7 @@ CREATE TABLE USUARIOS(
 	contraseña VARCHAR(255) NOT NULL, 
 	código_tipo_usuario INT UNSIGNED NOT NULL, 
 	código_sucursal INT UNSIGNED NULL DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
+	is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
 	
 	
 	INDEX usuarios_id_usuario(id_usuario), 
@@ -135,6 +136,7 @@ CREATE TABLE USUARIOS(
 		ON UPDATE CASCADE
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
+
 
 /* -- */
 CREATE TABLE TIPO_MOTOR(

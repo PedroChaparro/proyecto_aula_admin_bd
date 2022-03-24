@@ -2,6 +2,13 @@
 /* PROCEDIMIENTOS RELACIONADOS AL MANEJO DE CUENTAS DE USUARIOS*/
 /* ------------------------------------------------------------*/
 
+/* ------------------------- */
+/*        CRUD BASICS        */
+/* ------------------------- */
+
+/* ----- */
+/* CREATE */
+
 /* ----- */
 /*Procedures para el manejo de cuentas de usuario ¿*/
 
@@ -101,6 +108,124 @@ CALL register_new_client('Debra','McGlynn','108444809','Cra 285 Vía McGlynn Gar
 CALL register_new_client('Johanna','Halvorson','109920440','Cra 967 Vía Connelly Loop',4,'3177722824','Johanna.Halvorson@gmail.com','Johanna.Halvorson2021*/');
 
 /* ----- */
+/*Procedimiento para el registro de cuentas internas*/
+
+DROP PROCEDURE IF EXISTS register_new_internal_user; 
+DELIMITER //
+
+CREATE PROCEDURE register_new_internal_user(
+	IN nombres VARCHAR(255), 
+	IN apellidos VARCHAR(255), 
+	IN identificacion VARCHAR(14), 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electrónico VARCHAR(255), 
+	IN contraseña VARCHAR(255), 
+	IN código_tipo_usuario INT UNSIGNED, 
+	IN código_sucursal INT UNSIGNED
+)
+BEGIN 
+
+	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, id_ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario, código_sucursal) VALUES(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario, 
+		código_sucursal
+	); 
+
+END //
+
+DELIMITER ; 
+
+/* ----- */
+/* REMOVE */
+/* En este caso la cuenta no se elimina de la base de datos, ya que eso podría causar problemas
+	en la integridad referencial de las órdenes de compra pasadas, solamente se cambia el estado 
+	is_active a falso
+*/
+DROP PROCEDURE IF EXISTS disable_user; 
+DELIMITER //
+
+CREATE PROCEDURE disable_user(
+	IN id_usuario INT UNSIGNED
+)
+BEGIN 
+
+	UPDATE usuarios SET is_active = 0
+		WHERE usuarios.id_usuario = id_usuario; 
+
+END// 
+DELIMITER ;
+
+/* ----- */
+/* UPDATE */
+DROP PROCEDURE IF EXISTS update_user; 
+DELIMITER //
+
+CREATE PROCEDURE update_user(
+	IN id_usuario INT UNSIGNED, 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electrónico VARCHAR(255),
+	IN contraseña_actual VARCHAR(255)
+)
+BEGIN 
+
+	SET @success = 0; 
+
+	/*Encriptar la contraseña*/
+	SET @hashed = SHA2(contraseña_actual, 256); 
+	
+	/*Obtener la contraseña actual*/
+	SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
+			WHERE usuarios.id_usuario = id_usuario; 
+	
+	IF @hashed = @saved_password THEN 
+		
+		UPDATE usuarios SET
+			usuarios.direccion = direccion, 
+			usuarios.id_ciudad_residencia = id_ciudad_residencia, 
+			usuarios.celular = celular, 
+			usuarios.`correo_electrónico` = correo_electrónico
+		WHERE usuarios.id_usuario = id_usuario;
+		
+		SET @success = 1; 
+		
+	END IF; 
+	
+	SELECT @success; 
+	
+END//
+
+/*Creación de los administradores de cada sucursal*/
+
+CALL register_new_internal_user('Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,6);
+CALL register_new_internal_user('Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,7);
+CALL register_new_internal_user('Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,8);
+CALL register_new_internal_user('Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,9);
+CALL register_new_internal_user('Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,10);
+
+/* Creación de los trabajadores de cada sucursal */
+CALL register_new_internal_user('Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,6);
+CALL register_new_internal_user('Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,6);
+CALL register_new_internal_user('Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,7);
+CALL register_new_internal_user('Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,7);
+CALL register_new_internal_user('Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,8);
+CALL register_new_internal_user('Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,8);
+CALL register_new_internal_user('Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,9);
+CALL register_new_internal_user('Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,9);
+CALL register_new_internal_user('Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,10);
+CALL register_new_internal_user('Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,10);
+
+/* ----- */
 /* Procedimiento para el inicio de sesión por parte de clientes */
 DROP PROCEDURE IF EXISTS user_login; 
 DELIMITER //
@@ -138,60 +263,3 @@ END //
 DELIMITER ;
 
 -- CALL user_login('Maria.Feil@gmail.com', 'Maria.Feil2021*/'); 
-
-/* ----- */
-/*Procedimiento para el registro de cuentas internas*/
-
-DROP PROCEDURE IF EXISTS register_new_internal_user; 
-DELIMITER //
-
-CREATE PROCEDURE register_new_internal_user(
-	IN nombres VARCHAR(255), 
-	IN apellidos VARCHAR(255), 
-	IN identificacion VARCHAR(14), 
-	IN direccion VARCHAR(255), 
-	IN id_ciudad_residencia INT UNSIGNED, 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255), 
-	IN código_tipo_usuario INT UNSIGNED, 
-	IN código_sucursal INT UNSIGNED
-)
-BEGIN 
-
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, id_ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario, código_sucursal) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
-	); 
-
-END //
-
-DELIMITER ; 
-
-/*Creación de los administradores de cada sucursal*/
-
-CALL register_new_internal_user('Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,6);
-CALL register_new_internal_user('Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,7);
-CALL register_new_internal_user('Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,8);
-CALL register_new_internal_user('Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,9);
-CALL register_new_internal_user('Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,10);
-
-/* Creación de los trabajadores de cada sucursal */
-CALL register_new_internal_user('Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,6);
-CALL register_new_internal_user('Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,6);
-CALL register_new_internal_user('Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,7);
-CALL register_new_internal_user('Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,7);
-CALL register_new_internal_user('Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,8);
-CALL register_new_internal_user('Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,8);
-CALL register_new_internal_user('Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,9);
-CALL register_new_internal_user('Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,9);
-CALL register_new_internal_user('Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,10);
-CALL register_new_internal_user('Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,10);
