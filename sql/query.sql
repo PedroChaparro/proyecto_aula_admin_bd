@@ -72,8 +72,6 @@ CREATE TABLE CIUDADES(
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';  
 
-SELECT id_ciudad, ciudad FROM ciudades WHERE id_ciudad = 198; 
-
 /* -- */
 CREATE TABLE SUCURSALES(
 	id_sucursal INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -99,6 +97,7 @@ INSERT INTO SUCURSALES(id_ciudad, dirección, teléfono_fijo, celular, correo_el
 	(1090, 'Cra 4 #6-75 El peñón', '6550003', '3170000003', 'sucursalcali@gmail.com'),
 	(4, 'Cra 4 #6-75 Bella Vista', '6550004', '3170000004', 'sucursalbarranquilla@gmail.com'); 
 
+SELECT * FROM sucursales; 
 
 /* -- */
 CREATE TABLE USUARIOS(
@@ -112,6 +111,7 @@ CREATE TABLE USUARIOS(
 	correo_electrónico VARCHAR(255) NOT NULL UNIQUE, 
 	contraseña VARCHAR(255) NOT NULL, 
 	código_tipo_usuario INT UNSIGNED NOT NULL, 
+	código_sucursal INT UNSIGNED NULL DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
 	
 	
 	INDEX usuarios_id_usuario(id_usuario), 
@@ -122,6 +122,11 @@ CREATE TABLE USUARIOS(
 	CONSTRAINT fk_usuario_tipo_usuario 
 		FOREIGN KEY (código_tipo_usuario)
 		REFERENCES `TIPO_USUARIO`(código_tipo_usuario)
+		ON UPDATE CASCADE, 
+		
+	CONSTRAINT fk_usuario_sucursal
+		FOREIGN KEY (código_sucursal)
+		REFERENCES `sucursales`(id_sucursal)
 		ON UPDATE CASCADE, 
 		
 	CONSTRAINT fk_usuario_ciudad
