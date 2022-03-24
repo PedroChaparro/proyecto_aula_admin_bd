@@ -1,198 +1,8 @@
-/* ############## */
-/* PROCEDURES */
-/* ############## */
+/* ------------------------------------------------------------*/
+/* PROCEDIMIENTOS RELACIONADOS A LAS VENTAS / RENTAS DE LA EMPRESA */
+/* ------------------------------------------------------------*/
 
-/* ---- */
-/*Procedures para el manejo de cuentas de usuario ¿*/
-
-DROP PROCEDURE IF EXISTS register_new_client; 
-DELIMITER //
-
-CREATE PROCEDURE register_new_client(
-	IN nombres VARCHAR(255), 
-	IN apellidos VARCHAR(255), 
-	IN identificacion VARCHAR(14), 
-	IN direccion VARCHAR(255), 
-	IN ciudad_residencia VARCHAR(255), 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
-)
-BEGIN 
-
-	/*Encriptar la contraseña*/
-	SET @hashed = SHA2(contraseña, 256); 
-	
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		@hashed, 
-		3
-	); 
-
-END //
-
-DELIMITER ; 
-
-/*
-CALL register_new_client('Pedro Andrés', 'Chaparro Quintero', '1005142366', 'Cra 4 No. 4-32 Cañaveral','Bucaramanga', '3221458999', 'pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
-*/
-
-
-/* Procedimiento para el inicio de sesión por parte de clientes */
-DROP PROCEDURE IF EXISTS user_login; 
-DELIMITER //
-
-CREATE PROCEDURE user_login(
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
-)
-BEGIN 
-
-	SET @success = 0; 
-
-	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists FROM usuarios
-			WHERE usuarios.correo_electrónico = correo_electrónico; 
-	
-	/*Si el usuario existe verifica que la contraseña sea correcta*/
-	IF @user_exists = 1 THEN  
-		
-		SET @hashed = SHA2(contraseña, 256); 
-		
-		SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
-			WHERE usuarios.correo_electrónico = correo_electrónico; 
-			
-		SELECT @saved_password; 
-		
-		IF @saved_password = @hashed THEN
-			SET @success = 1; 
-		END IF;
-
-	END IF; 
-	
-	/*Retorna True (1) o False (0) según si el login fue correcto*/
-	SELECT @success; 
-	
-END //
-
-DELIMITER ;
-
-
-/*
-CALL user_login('pedro.chaparro.2020@upb.edu.co', 'contraseñasegura'); 
-*/
-
-/*Procedimiento para el registro de cuentas internas*/
-
-DROP PROCEDURE IF EXISTS register_new_internal_user; 
-DELIMITER //
-
-CREATE PROCEDURE register_new_internal_user(
-	IN nombres VARCHAR(255), 
-	IN apellidos VARCHAR(255), 
-	IN identificacion VARCHAR(14), 
-	IN direccion VARCHAR(255), 
-	IN ciudad_residencia VARCHAR(255), 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255), 
-	IN código_tipo_usuario INT UNSIGNED, 
-	IN código_sucursal INT UNSIGNED
-)
-BEGIN 
-
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario, código_sucursal) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
-	); 
-
-END //
-
-DELIMITER ; 
-
-/*
-CALL register_new_internal_user('Daniela Catalina', 'Hernández', '1005142367', 'Cra 4 No. 4-32 El Refugio','Piedecuesta', '3221458998', 'daniela@gmail.com', 'daniela123', 1, 1); 
-
-CALL register_new_internal_user('Juan Sebastián', 'Rojas', '1005142344', 'Cra 4 No. 4-32 Paseo Alcalá','Piedecuesta', '3145663233', 'juanrojas@gmail.com', 'juan00001', 2, 1); 
-*/
-
-/*Procedimiento para consultar vehículos disponibles*/
-
-DROP PROCEDURE IF EXISTS get_available_vehicles; 
-DELIMITER //
-
-CREATE PROCEDURE get_available_vehicles()
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY WHERE disponible = 1; 
-
-END //
-
-DELIMITER ; 
-
-/*
-CALL get_available_vehicles(); 
-*/
-
-/*Procedimiento para consultar vehículos disponibles por su tipo*/
-DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_type; 
-DELIMITER //
-
-CREATE PROCEDURE get_available_vehicles_filter_by_type(
-	IN tipo_vehículo VARCHAR(255) 
-)
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY
-	WHERE 
-		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
-
-END //
-
-DELIMITER ; 
-
-/*
-CALL get_available_vehicles_filter_by_type('Compacto'); 
-*/
-
-/*Procedimiento para consultar vehículos disponibles por un rango de precios*/
-DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_price; 
-DELIMITER //
-
-CREATE PROCEDURE get_available_vehicles_filter_by_price(
-	IN min_price DECIMAL(12,2), 
-	IN max_price DECIMAL(12,2)
-)
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY
-	WHERE 
-		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal >= min_price AND
-		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; 
-
-END //
-
-DELIMITER ;
-
-/*
-CALL get_available_vehicles_filter_by_price(400000, 540000);
-*/
-
+/* ----- */
 /*Procedimiento para alquilar un vehículo*/
 DROP PROCEDURE IF EXISTS register_vehicle_rental; 
 DELIMITER //
@@ -277,8 +87,8 @@ CALL register_vehicle_rental(
 ); 
 */
 
+/* ----- */
 /*Procedimiento para ver el historial de alquileres*/
-
 DROP PROCEDURE IF EXISTS get_rental_history; 
 DELIMITER //
 
@@ -295,6 +105,7 @@ DELIMITER ;
 CALL get_rental_history; 
 */
 
+/* ----- */
 /*Procedimiento para registrar la llegada del vehículo a la sucursal destino*/
 DROP PROCEDURE IF EXISTS register_vehicle_arrival; 
 DELIMITER //
@@ -319,8 +130,8 @@ CALL register_vehicle_arrival(2);
 CALL register_vehicle_arrival(3);
 */
 
+/* ----- */
 /*Procedimiento para registrar cuando un cliente reocge el vehículo en la sucursal destino*/
-
 DROP PROCEDURE IF EXISTS register_vehicle_pickup; 
 DELIMITER //
 
@@ -349,6 +160,7 @@ CALL register_vehicle_pickup(2);
 CALL register_vehicle_pickup(3); 
 */
 
+/* ----- */
 /*Procedimiento para registrar cuando un cliente entrega el vehículo*/
 DROP PROCEDURE IF EXISTS register_vehicle_return; 
 DELIMITER //
@@ -388,34 +200,8 @@ CALL register_vehicle_return(2);
 CALL register_vehicle_return(3); 
 */
 
-/*Procedimiento para agregar descuento a un tipo de vehículo específico*/
-DROP PROCEDURE IF EXISTS set_disccount_to_vehicle_type; 
-DELIMITER //
-
-CREATE PROCEDURE set_disccount_to_vehicle_type(
-	IN tipo_vehículo INT UNSIGNED, 
-	IN descuento DECIMAL(3,1)
-)
-BEGIN 
-
-	UPDATE VEHÍCULOS
-	SET VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo; 
-	 
-
-END //
-
-DELIMITER ; 
-
-/*
-CALL set_disccount_to_vehicle_type(
-	6, 
-	30.5
-);
-*/ 
-
+/* ----- */
 /*Procedimiento para crear una factura*/
-
 DROP PROCEDURE IF EXISTS create_bill; 
 
 DELIMITER //
@@ -453,8 +239,8 @@ CALL create_bill(
 ); 
 */
 
+/* ----- */
 /*Procedimiento para consultar una factura*/
-
 DROP PROCEDURE IF EXISTS consult_bill; 
 DELIMITER //
 
