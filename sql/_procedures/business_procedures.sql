@@ -316,7 +316,9 @@ CREATE PROCEDURE register_payment(
 BEGIN 
 
 	/*Cambia la columna de estado was_paid*/
-	UPDATE factura SET factura.was_paid = 1 
+	UPDATE factura SET 
+		factura.was_paid = 1,
+		factura.valor_pagado = factura.totaL_pagar
 		WHERE factura.id_factura = id_factura; 
 
 END//
