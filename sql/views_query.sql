@@ -10,6 +10,7 @@ SELECT * FROM vehicles_information_pretty;
 SELECT * FROM USERS_SUMMARY_PRETTY; 
 
 /*VISTA PARA MOSTRAR INFORMACIÓN DE LOS CLIENTES DE UNA MANERA RESUMIDA*/
+DROP VIEW IF EXISTS USERS_SUMMARY_PRETTY; 
 CREATE VIEW USERS_SUMMARY_PRETTY AS
 SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'Nombre completo', correo_electrónico, c.ciudad, tu.tipo_usuario
 FROM USUARIOS, ciudades AS c, TIPO_USUARIO AS tu
@@ -17,6 +18,7 @@ WHERE USUARIOS.id_ciudad_residencia = c.id_ciudad AND
 		USUARIOS.código_tipo_usuario = tu.`código_tipo_usuario`; 
 
 /*VISTA PARA MOSTRAR LA INFORMACIÓN DE LAS FACTURAS DE UN MODO FÁCIL DE ENTENDER*/
+DROP VIEW IF EXISTS BILLS_PRETTY; 
 CREATE VIEW BILLS_PRETTY AS
 SELECT f.id_factura, CONCAT(u.nombres,' ',u.apellidos) 'Nombre cliente', a1.dias_mora,  f.totaL_pagar, f.valor_pagado, f.was_paid
 FROM (factura AS f, usuarios AS u, alquileres AS a)

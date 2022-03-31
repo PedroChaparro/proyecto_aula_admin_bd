@@ -107,7 +107,7 @@ BEGIN
 		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
 		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
 		VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`id_vehículo` = 
+	WHERE VEHÍCULOS.`id_vehículo` = `id_vehículo`; 
 
 
 END//
@@ -115,7 +115,6 @@ DELIMITER ;
 
 /* ----- */
 /*Procedimiento para consultar vehículos disponibles*/
-
 DROP PROCEDURE IF EXISTS get_available_vehicles; 
 DELIMITER //
 

@@ -10,7 +10,9 @@
 /* CREATE */
 
 /* ----- */
-/*Procedures para el manejo de cuentas de usuario ¿*/
+/*Procedures para el manejo de cuentas de usuario
+Este es el procedure que usarían los clientes al momento de registrarse desde el aplicativo web o móvil
+*/
 
 DROP PROCEDURE IF EXISTS register_new_client; 
 DELIMITER //
@@ -45,6 +47,8 @@ BEGIN
 END //
 
 DELIMITER ; 
+
+SELECT * FROM USUARIOS; 
 
 
 /*Clientes para la sucursal de bucaramanga*/
@@ -108,8 +112,9 @@ CALL register_new_client('Debra','McGlynn','108444809','Cra 285 Vía McGlynn Gar
 CALL register_new_client('Johanna','Halvorson','109920440','Cra 967 Vía Connelly Loop',4,'3177722824','Johanna.Halvorson@gmail.com','Johanna.Halvorson2021*/');
 
 /* ----- */
-/*Procedimiento para el registro de cuentas internas*/
-
+/*Procedimiento para el registro de cuentas internas
+Este procedure sería el usado por los administradores para crear cuentas con permisos dentro de la empresa
+*/
 DROP PROCEDURE IF EXISTS register_new_internal_user; 
 DELIMITER //
 
@@ -244,6 +249,7 @@ BEGIN
 	/*Si el usuario existe verifica que la contraseña sea correcta*/
 	IF @user_exists = 1 THEN  
 		
+		/*Encripta la contraseña para compararla con la que está en la base de datos*/
 		SET @hashed = SHA2(contraseña, 256); 
 		
 		SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
