@@ -206,7 +206,7 @@ BEGIN
 	WHERE alquileres.id_alquiler = id_alquiler; 
 	
 	/*Se calculan los días de mora*/
-	SELECT fecha_entrega_pactada, fecha_entrega INTO @fecha_entrega_pactada, @fecha_entrega
+	SELECT fecha_entrega_pactada, fecha_entrega, id_vehículo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
 	FROM alquileres
 	WHERE alquileres.id_alquiler = id_alquiler; 
 	
@@ -219,6 +219,11 @@ BEGIN
 			WHERE alquileres.id_alquiler = id_alquiler; 
 			
 	END IF; 
+	
+	/*Se actualiza el estado disponible del vehículo*/
+	UPDATE `VEHÍCULOS` SET
+		`VEHÍCULOS`.disponible = 1
+		WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
 
 END // 
 
