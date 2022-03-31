@@ -102,8 +102,6 @@ INSERT INTO SUCURSALES(id_ciudad, dirección, teléfono_fijo, celular, correo_el
 	(1090, 'Cra 4 #6-75 El peñón', '6550003', '3170000003', 'sucursalcali@gmail.com'),
 	(4, 'Cra 4 #6-75 Bella Vista', '6550004', '3170000004', 'sucursalbarranquilla@gmail.com'); 
 
-SELECT * FROM sucursales; 
-
 /* -- */
 CREATE TABLE USUARIOS(
 	id_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
