@@ -9,6 +9,8 @@ SELECT * FROM rental_data_history_pretty;
 SELECT * FROM vehicles_information_pretty; 
 SELECT * FROM USERS_SUMMARY_PRETTY; 
 
+UPDATE alquileres SET fecha_entrega_pactada = '2022-03-15' WHERE alquileres.id_alquiler = 1; 
+
 /*VISTA PARA MOSTRAR INFORMACIÓN DE LOS CLIENTES DE UNA MANERA RESUMIDA*/
 DROP VIEW IF EXISTS USERS_SUMMARY_PRETTY; 
 CREATE VIEW USERS_SUMMARY_PRETTY AS
@@ -37,11 +39,13 @@ WHERE v.código_tipo_vehículo = tv.código_tipo_vehículo AND
 /*VISTA PARA MOSTRAR LA INFORMACIÓN DE LOS ALQUILERES DE UN MODO FÁCIL DE ENTENDER*/
 DROP VIEW IF EXISTS rental_data_history_pretty; 
 CREATE VIEW rental_data_history_pretty AS
-SELECT CONCAT(u1.nombres,' ',u1.apellidos) 'Nombre_cliente', CONCAT(u2.nombres,' ',u2.apellidos) 'Nombre_vendedor', v.modelo, v.matrícula, a.dias, a.valor_cotizado, a.fecha_salida, s1.id_ciudad 'Ciudad_alquiler', a.fecha_esperada_llegada,  a.fecha_llegada, s2.id_ciudad 'Ciudad_entrega'
+SELECT CONCAT(u1.nombres,' ',u1.apellidos) 'Nombre_cliente', CONCAT(u2.nombres,' ',u2.apellidos) 'Nombre_vendedor', v.modelo, v.matrícula, c1.ciudad 'Ciudad_alquiler', c2.ciudad 'Ciudad_entrega', a.dias, a.valor_cotizado, a.fecha_salida , a.fecha_esperada_llegada,  a.fecha_llegada
 FROM vehículos AS v, alquileres AS a
 LEFT JOIN usuarios u1 ON u1.id_usuario = a.id_cliente
 LEFT JOIN usuarios u2 ON u2.id_usuario = a.id_empleado
 LEFT JOIN sucursales s1 ON s1.id_sucursal = a.id_sucursal_alquiler
+LEFT JOIN ciudades c1 ON c1.id_ciudad = s1.id_ciudad
 LEFT JOIN sucursales s2 ON s2.id_sucursal = a.id_sucursal_entrega
+LEFT JOIN ciudades c2 ON c2.id_ciudad = s2.id_ciudad
 WHERE v.id_vehículo = a.id_vehículo; 
 		

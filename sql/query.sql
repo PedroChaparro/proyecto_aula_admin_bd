@@ -276,7 +276,9 @@ CREATE TABLE ALQUILERES(
 	id_sucursal_alquiler INT UNSIGNED NOT NULL, 
 	id_sucursal_entrega INT UNSIGNED NOT NULL, 
 	dias TINYINT UNSIGNED NOT NULL, 
-	valor_cotizado DECIMAL(12,2) NOT NULL, 
+	valor_diario_cotizado DECIMAL(12,2) NOT NULL COMMENT 'Columna para congelar el valor diario al que el cliente alquiló el vehículo', 
+	valor_semanal_cotizado DECIMAL(12,2) NOT NULL COMMENT 'Column para congelar el valor semanal al que el cliente alquiló el vehículo', 
+	valor_cotizado DECIMAL(12,2) NOT NULL COMMENT 'Columna para congelar el valor total que el cliente cotizó por el vehículo', 
 	valor_pagado DECIMAL(12,2) NULL DEFAULT NULL,
 	
 	fecha_salida TIMESTAMP NOT NULL, 

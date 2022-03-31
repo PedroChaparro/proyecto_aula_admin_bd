@@ -4,6 +4,10 @@
 
 /* ----- */
 /*Procedimiento para alquilar un vehículo*/
+/* 
+Procedimiento para realizar el elquiler de un vehículo, cambia el estado de disponible a no disponible y 
+agrega el resgistro a la tabla de alquileres. 
+*/
 DROP PROCEDURE IF EXISTS register_vehicle_rental; 
 DELIMITER //
 
@@ -43,8 +47,12 @@ BEGIN
 		SET VEHÍCULOS.disponible = 0 
 		WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
 		
-		/*Insertar el dato*/
-		INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquiler, id_sucursal_entrega, fecha_salida, fecha_esperada_llegada, dias, valor_cotizado) VALUES (
+		/*
+		Insertar el registro del alquiler
+		Dentro del registro del alquiler, debe calcular insertar el precio de alquiler diario y semanal del vehículo al momento
+		en que el usuario realizó la solicitud
+		*/
+		INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquiler, id_sucursal_entrega, fecha_salida, fecha_esperada_llegada, dias, valor_diario_cotizado, valor_semanal_cotizado, valor_cotizado) VALUES (
 			id_cliente, 
 			id_empleado, 
 			id_vehículo, 
@@ -53,6 +61,8 @@ BEGIN
 			fecha_salida,  
 			fecha_esperada_llegada, 
 			dias, 
+			@alquiler_diario, 
+			@alquiler_semanal,
 			@valor_cotizado
 		); 
 		
@@ -71,16 +81,12 @@ CALL register_vehicle_rental(
 	1, 
 	3, 
 	1, 
-	6, 
-	8, 
+	1, 
+	2, 
 	'2022/3/25', 
 	'2022/3/31', 
 	15
 ); 
-
-SELECT * FROM SUCURSALES;
-
-SELECT matrícula, valor_alquiler_semanal, valor_alquiler_diario, descuento FROM VEHÍCULOS WHERE id_vehículo = 1; 
 
 CALL register_vehicle_rental(
 	1, 
@@ -106,7 +112,7 @@ CALL register_vehicle_rental(
 */
 
 /* ----- */
-/*Procedimiento para ver el historial de alquileres*/
+/*Procedimiento para ver el historial de alquileres de todos los clientes*/
 DROP PROCEDURE IF EXISTS get_rental_history; 
 DELIMITER //
 
@@ -149,7 +155,10 @@ CALL register_vehicle_arrival(3);
 */
 
 /* ----- */
-/*Procedimiento para registrar cuando un cliente reocge el vehículo en la sucursal destino*/
+/*Procedimiento para registrar cuando un cliente reocge el vehículo en la sucursal destino
+Cuando el cliente recoje el vehículo, se añade el registro a la columna de fecha_entrega_pactada añadiendo
+los días de alquiler a la fecha de recogida. 
+*/
 DROP PROCEDURE IF EXISTS register_vehicle_pickup; 
 DELIMITER //
 
@@ -179,7 +188,10 @@ CALL register_vehicle_pickup(3);
 */
 
 /* ----- */
-/*Procedimiento para registrar cuando un cliente entrega el vehículo*/
+/*Procedimiento para registrar cuando un cliente entrega el vehículo
+Si el cliente entregó el vehículo luego de la fecha pactada, se calculan el monto por mora a partir
+de los días de demora. 
+*/
 DROP PROCEDURE IF EXISTS register_vehicle_return; 
 DELIMITER //
 
@@ -229,14 +241,26 @@ CREATE PROCEDURE create_bill(
 )
 BEGIN 
 	
-	/*Se obtiene el valor a pagar desde la tabla alquileres*/
-	SELECT a.valor_cotizado INTO @total_pagar
+	SET @recargo = 0; 
+	
+	/*Se genera el valor a pagar a partir del valor cotizado y los días de mora (si se da el caso)*/
+	
+	/*Valor base que el cliente paga si no hay nada de mora*/
+	SELECT a.valor_cotizado, a.dias_mora, a.valor_diario_cotizado INTO @total_pagar, @dias_mora, @freezed_daily
 	FROM alquileres AS a
 	WHERE a.id_alquiler = id_alquiler; 
 	
+	/*Interés por mora que se cobra al cliente por los días de retraso*/
+	IF ( @dias_mora > 0 ) THEN 
+		/*Cálculo del 8% de recargo*/
+		SET @recargo = (@dias_mora * @freezed_daily) * 0.08 ; 
+	END IF; 	
+	
+	/*Crea la factura, siendo el total a pagar el valor cotizado por el cliente mas los recargos por mora, 
+	en caso de ser necesario */
 	INSERT INTO factura (id_alquiler, totaL_pagar) VALUES (
 		id_alquiler, 
-		@totaL_pagar
+		(@totaL_pagar + @recargo)
 	); 
 
 END //
@@ -267,26 +291,38 @@ CREATE PROCEDURE consult_bill(
 )
 BEGIN 
 
-	/*SE OBTIENE EL ESTADO DE LA FACTURA*/
-	SELECT f.was_paid INTO @bill_was_paid
-	FROM FACTURA AS f
-	WHERE f.id_alquiler = id_alquiler; 
-	
-	/*Si ya fue pagada solamente muestra los datos*/
-	IF @bill_was_paid = 1 THEN
-	
-		SELECT * 
+	SELECT * 
 		FROM factura AS f
 		WHERE f.id_alquiler = id_alquiler; 
-	
-	ELSE
-	
-		SELECT 'hola'; 
-		/*Si no ha sido pagada, actualiza los datos para mostrarlos*/
-		/* ESTOY TRABAJANDO EN ESTO */
-	
-	END IF; 
 
 END //
 
 DELIMITER ;
+
+/* 
+CALL consult_bill(1); 
+*/
+
+/* ------- */
+/*Procedimiento para registrar el pago de una factura
+Se sobre-entiende que el pago completo se realiza en un solo pago*/
+DROP PROCEDURE IF EXISTS register_payment; 
+
+DELIMITER //
+
+CREATE PROCEDURE register_payment(
+ IN id_factura INT UNSIGNED
+)
+BEGIN 
+
+	/*Cambia la columna de estado was_paid*/
+	UPDATE factura SET factura.was_paid = 1 
+		WHERE factura.id_factura = id_factura; 
+
+END//
+
+DELIMITER ; 
+
+/* 
+CALL register_payment(1); 
+*/
