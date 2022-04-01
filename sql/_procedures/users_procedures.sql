@@ -212,23 +212,23 @@ END//
 
 /*Creación de los administradores de cada sucursal*/
 
-CALL register_new_internal_user('Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,6);
-CALL register_new_internal_user('Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,7);
-CALL register_new_internal_user('Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,8);
-CALL register_new_internal_user('Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,9);
-CALL register_new_internal_user('Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,10);
+CALL register_new_internal_user('Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,1);
+CALL register_new_internal_user('Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,2);
+CALL register_new_internal_user('Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,3);
+CALL register_new_internal_user('Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,4);
+CALL register_new_internal_user('Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,5);
 
 /* Creación de los trabajadores de cada sucursal */
-CALL register_new_internal_user('Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,6);
-CALL register_new_internal_user('Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,6);
-CALL register_new_internal_user('Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,7);
-CALL register_new_internal_user('Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,7);
-CALL register_new_internal_user('Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,8);
-CALL register_new_internal_user('Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,8);
-CALL register_new_internal_user('Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,9);
-CALL register_new_internal_user('Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,9);
-CALL register_new_internal_user('Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,10);
-CALL register_new_internal_user('Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,10);
+CALL register_new_internal_user('Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,1);
+CALL register_new_internal_user('Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,1);
+CALL register_new_internal_user('Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,2);
+CALL register_new_internal_user('Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,2);
+CALL register_new_internal_user('Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,3);
+CALL register_new_internal_user('Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,3);
+CALL register_new_internal_user('Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,4);
+CALL register_new_internal_user('Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,4);
+CALL register_new_internal_user('Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,5);
+CALL register_new_internal_user('Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,5);
 
 /* ----- */
 /* Procedimiento para el inicio de sesión por parte de clientes */
