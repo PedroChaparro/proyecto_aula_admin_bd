@@ -8,8 +8,7 @@ SELECT * FROM vehículos;
 SELECT * FROM rental_data_history_pretty; 
 SELECT * FROM vehicles_information_pretty; 
 SELECT * FROM USERS_SUMMARY_PRETTY; 
-
-UPDATE alquileres SET fecha_entrega_pactada = '2022-03-15' WHERE alquileres.id_alquiler = 1; 
+SELECT * FROM INTERNAL_USERS_SUMMARY_PRETTY; 
 
 /*VISTA PARA MOSTRAR INFORMACIÓN DE LOS CLIENTES DE UNA MANERA RESUMIDA*/
 DROP VIEW IF EXISTS USERS_SUMMARY_PRETTY; 
@@ -18,6 +17,28 @@ SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'Nombre completo', correo_elec
 FROM USUARIOS, ciudades AS c, TIPO_USUARIO AS tu
 WHERE USUARIOS.id_ciudad_residencia = c.id_ciudad AND
 		USUARIOS.código_tipo_usuario = tu.`código_tipo_usuario`; 
+		
+/*VISTA PARA MOSTRAR INFORMACIÓN DEL PERSONAL INTERNO DE UNA MANERA RESUMIDA*/
+DROP VIEW IF EXISTS INTERNAL_USERS_SUMMARY_PRETTY; 
+CREATE VIEW INTERNAL_USERS_SUMMARY_PRETTY AS
+SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'Nombre completo', USUARIOS.`correo_electrónico`, c.ciudad, tu.tipo_usuario
+FROM USUARIOS, TIPO_USUARIO AS TU, SUCURSALES AS s, CIUDADES AS c
+WHERE 	USUARIOS.código_tipo_usuario = tu.`código_tipo_usuario` AND
+			USUARIOS.`código_sucursal` = s.id_sucursal AND
+			s.id_ciudad = c.id_ciudad; 
+
+	id_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	nombres VARCHAR(255) NOT NULL, 
+	apellidos VARCHAR(255) NOT NULL, 
+	identificacion VARCHAR(14) NOT NULL UNIQUE COMMENT 'Cédula del cliente', 
+	direccion VARCHAR(255) NOT NULL, 
+	id_ciudad_residencia INT UNSIGNED NOT NULL, 
+	celular VARCHAR(10) NOT NULL, 
+	correo_electrónico VARCHAR(255) NOT NULL UNIQUE, 
+	contraseña VARCHAR(255) NOT NULL, 
+	código_tipo_usuario INT UNSIGNED NOT NULL, 
+	código_sucursal INT UNSIGNED NULL DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
+	is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
 
 /*VISTA PARA MOSTRAR LA INFORMACIÓN DE LAS FACTURAS DE UN MODO FÁCIL DE ENTENDER*/
 DROP VIEW IF EXISTS BILLS_PRETTY; 
