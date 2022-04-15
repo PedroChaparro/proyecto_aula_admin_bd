@@ -224,7 +224,3 @@ arg id_factura
 /* 
 arg id_factura
 */ CALL register_payment(3); 
-
-SELECT * FROM usuarios; 
-SELECT * FROM alquileres;
-SELECT * FROM factura; 
