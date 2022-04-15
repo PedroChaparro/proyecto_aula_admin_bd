@@ -35,7 +35,9 @@ WHERE VEHÍCULOS.id_vehículo = id_vehículo; SET @semanas =
 TRUNCATE((dias/7), 0); SET @dias_restantes = dias - (@semanas * 7); SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
 		
 		/*El vehículo ya no estará disponible para alquilar*/
-UPDATE VEHÍCULOS SET VEHÍCULOS.disponible = 0
+UPDATE VEHÍCULOS SET 
+	VEHÍCULOS.disponible = 0, 
+	VEHICULOS.veces_alquilado = VEHÍCULOS.veces_alquilado + 1 
 WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
 		
 		/*
@@ -55,8 +57,12 @@ INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquil
 			@alquiler_diario, 
 			@alquiler_semanal,
 			@valor_cotizado
-		); SET @success = 1; END IF;
-SELECT @success; END //
+		); SET @success = 1; 
+		
+	END IF;
+	
+SELECT @success; 
+END //
 
 DELIMITER ;
  
