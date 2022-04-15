@@ -2,6 +2,7 @@
 /*Escenarios para probar los procedures*/
 
 /*
+##############################################################################################################
 ESCENARIO 1 (SIN RECARGO) 
 La persona con id_usuario = 1 (Violet Nicolas) alquila el vehíhculo con id = 1 teniendo en cuenta:
 - El alquiler se realiza el día 10-enero-2022
@@ -15,6 +16,7 @@ La persona con id_usuario = 1 (Violet Nicolas) alquila el vehíhculo con id = 1 
 
 El vehículo con id = 1 tiene un valor de alquiler semanal de 460.000 y alquiler diario de 55.857, por tanto,
 la persona debería pagar 460.000x2 + 55857 = 975.857
+##############################################################################################################
 */
 
 /*Realizacion de la renta*/
@@ -72,6 +74,7 @@ arg id_factura
 */ CALL register_payment(1); 
 
 /*
+##############################################################################################################
 ESCENARIO 2 (CON RECARGO) 
 La persona con id_usuario = 2 (Olivia Heathcote) alquila el vehíhculo con id = 23 teniendo en cuenta:
 - El alquiler se realiza el día 05-febrero-2022
@@ -87,6 +90,7 @@ El vehículo con id = 23 tiene un valor de alquiler semanal de 695.000 y alquile
 la persona debería pagar 695.000x4 + 84.392x2 = 2.948.784 
 A lo anterior se suman los 7 días de retraso 84.392x7 = 590744 + (84.392x7)*0.08 = 638003.52
 Por tanto, el valor final a pagar es de: $3.586.787.52
+##############################################################################################################
 */
 SELECT *
 FROM VEHÍCULOS; 
@@ -143,3 +147,84 @@ arg id_factura
 /* 
 arg id_factura
 */ CALL register_payment(2); 
+
+/*
+##############################################################################################################
+ESCENARIO 3 (CON RECARGO) 
+La persona con id_usuario = 3 (Ted Wintheiser) alquila el vehíhculo con id = 17 teniendo en cuenta:
+- El alquiler se realiza el día 01-febrero-2022
+- El vehículo se alquila en la sucursal de Medellín (2) y se entrega en la misma sucursal
+- El vehículo se alquila durante 15 días
+- La venta se lleva a cabo por el trabajador con id_usuario = 58 (Suzanne Toy)
+- La fecha estimada de salida es el el mismo día de la compra
+- La fecha estimada de llegada es el mismo día de la compra
+- El vehículo es recogido el mismo día de la compra
+- El vehículo es entregado el 20-febrero-2022 (Por tanto sí se debería generar recargo). 
+
+El vehículo con id = 17 tiene un valor de alquiler semanal de 695.000 y alquiler diario de 84.392, por tanto,
+la persona debería pagar 540.000x2 + 65.571x1 = 1.145.571
+A lo anterior se suman los 4 días de retraso 65.571x4 = 262284 + (65.571x4)*0.08 = 283266.72
+Por tanto, el valor final a pagar es de: $1,428,837.72
+##############################################################################################################
+*/
+
+SELECT * FROM vehículos; 
+
+/*Realizacion de la renta*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-01');
+
+/* 
+	arg id_cliente
+	arg id_empleado 
+	arg id_vehículo 
+	arg id_sucursal_alquiler
+	arg id_sucursal_entrega 
+	arg fecha_salida
+	arg fecha_esperada_llegada 
+	arg dias
+*/ CALL register_vehicle_rental(
+	3, 
+	58, 
+	17, 
+	2, 
+	2, 
+	(
+SELECT NOW()),
+	(
+SELECT NOW()
+	), 
+	15
+);
+
+/*Registrar la llegada del vehículo a la sucursal destino*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-01');
+/* 
+arg id_orden
+*/ CALL register_vehicle_arrival(3); 
+
+/*Registrar la recogida del vehículo*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-01');
+/* 
+arg id_orden
+*/ CALL register_vehicle_pickup(3); 
+
+/*Registrar la devolución del vehículo al finalizar los 30 días*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-20');
+/* 
+arg id_orden
+*/ CALL register_vehicle_return(3); 
+
+/*Generar la factura*/
+/* 
+arg id_orden
+*/ CALL create_bill(3); 
+
+/*Mostrar la factura*/
+/* 
+arg id_factura
+*/ CALL consult_bill(3);
+
+/*Registrar el pago*/
+/* 
+arg id_factura
+*/ CALL register_payment(3); 
+
+SELECT * FROM usuarios; 
+SELECT * FROM alquileres;
+SELECT * FROM factura; 
