@@ -1,6 +1,5 @@
-DROP DATABASE IF EXISTS proyecto_aula_bd; 
-CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
-USE proyecto_aula_bd; 
+DROP DATABASE IF EXISTS proyecto_aula_bd;
+CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; USE proyecto_aula_bd; 
 
 /* -- */
 CREATE TABLE TIPO_USUARIO(
@@ -73,8 +72,12 @@ CREATE TABLE CIUDADES(
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';  
 
 /* 
+################################
+################################
 ANTES DE INSERTAR LAS SUCURSALES ES NECESARIO INTSERTAR LAS CIUDADES DESDE
 EL SCRIPT LOADER_MUNICIPIOS.sql
+################################
+################################
 */
 
 /* -- */
