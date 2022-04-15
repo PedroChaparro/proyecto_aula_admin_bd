@@ -339,3 +339,16 @@ CREATE TABLE FACTURA(
 )
 CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
 	
+/* 
+##############################################
+CREACIÓN DE LOS USUARIOS PARA LAS APLICACIONES
+##############################################
+*/
+
+CREATE USER 'WebApp'@'%' IDENTIFIED WITH mysql_native_password BY 'WebAppPassword41*/'; 
+GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'WebApp'@'%'; 
+
+CREATE USER 'MobileApp'@'%' IDENTIFIED WITH mysql_native_password BY 'MobileAppPassword41*/'; 
+GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'MobileApp'@'%'; 
+
+
