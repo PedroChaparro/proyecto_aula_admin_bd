@@ -64,8 +64,9 @@ DELIMITER //
 CREATE PROCEDURE disable_vehicle(
 	IN id_vehículo INT UNSIGNED
 ) BEGIN
-UPDATE VEHÍCULOS SET disponible = 0
-WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; END//
+	UPDATE VEHÍCULOS SET disponible = 0
+	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+END//
 
 DELIMITER ;
 
@@ -101,9 +102,10 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS get_available_vehicles; 
 DELIMITER //
 CREATE PROCEDURE get_available_vehicles() BEGIN
-SELECT *
-FROM VEHICLES_INFORMATION_PRETTY
-WHERE disponible = 1; END //
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE disponible = 1; 
+END //
 
 DELIMITER ; 
 
@@ -118,11 +120,12 @@ DELIMITER //
 CREATE PROCEDURE get_available_vehicles_filter_by_type(
 	IN tipo_vehículo VARCHAR(255) 
 ) BEGIN
-SELECT *
-FROM VEHICLES_INFORMATION_PRETTY
-WHERE 
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE 
 		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; END //
+		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
+END //
 
 DELIMITER ; 
 
@@ -138,12 +141,13 @@ CREATE PROCEDURE get_available_vehicles_filter_by_price(
 	IN min_price DECIMAL(12,2), 
 	IN max_price DECIMAL(12,2)
 ) BEGIN
-SELECT *
-FROM VEHICLES_INFORMATION_PRETTY
-WHERE 
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE 
 		disponible = 1 AND
 		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal >= min_price AND
-		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; END //
+		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; 
+END //
 
 DELIMITER ;
 
@@ -159,8 +163,9 @@ CREATE PROCEDURE set_disccount_to_vehicle_type(
 	IN tipo_vehículo INT UNSIGNED, 
 	IN descuento DECIMAL(3,1)
 ) BEGIN
-UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
-WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo; END //
+	UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
+	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo;
+END //
 
 DELIMITER ; 
 
