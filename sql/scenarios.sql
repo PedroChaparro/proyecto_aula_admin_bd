@@ -19,6 +19,10 @@ la persona debería pagar 460.000x2 + 55857 = 975.857
 ##############################################################################################################
 */
 
+SELECT id_vehículo, tipo_vehículo, valor_alquiler_semanal, valor_alquiler_diario 
+FROM vehicles_information_pretty 
+WHERE id_vehículo = 1;
+
 /*Realizacion de la renta*/
 SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
 
@@ -44,17 +48,20 @@ SELECT NOW()),
 ); 
 
 
-/*Registrar la llegada del vehículo a la sucursal destino*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-15');
+/*Registrar la llegada del vehículo a la sucursal destino*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-15');
 /* 
 arg id_orden
 */ CALL register_vehicle_arrival(1); 
 
-/*Registrar la recogida del vehículo*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-15 8:00');
+/*Registrar la recogida del vehículo*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-15 8:00');
 /* 
 arg id_orden
 */ CALL register_vehicle_pickup(1); 
 
-/*Registrar la devolución del vehículo al finalizar los 30 días*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-30 8:00');
+/*Registrar la devolución del vehículo al finalizar los 30 días*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-30 8:00');
 /* 
 arg id_orden
 */ CALL register_vehicle_return(1); 
@@ -72,6 +79,7 @@ arg id_factura
 /* 
 arg id_factura
 */ CALL register_payment(1); 
+
 
 /*
 ##############################################################################################################
