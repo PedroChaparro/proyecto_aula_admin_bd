@@ -100,10 +100,12 @@ A lo anterior se suman los 7 días de retraso 84.392x7 = 590744 + (84.392x7)*0.0
 Por tanto, el valor final a pagar es de: $3.586.787.52
 ##############################################################################################################
 */
-SELECT *
-FROM VEHÍCULOS; 
+SELECT id_vehículo, tipo_vehículo, valor_alquiler_semanal, valor_alquiler_diario 
+FROM vehicles_information_pretty 
+WHERE id_vehículo = 23;
 
-/*Realizacion de la renta*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
+/*Realizacion de la renta*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
 
 /* 
 	arg id_cliente
@@ -126,17 +128,20 @@ SELECT NOW()),
 	30
 ); 
 
-/*Registrar la llegada del vehículo a la sucursal destino*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-15 8:00');
+/*Registrar la llegada del vehículo a la sucursal destino*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-15 8:00');
 /* 
 arg id_orden
 */ CALL register_vehicle_arrival(2); 
 
-/*Registrar la recogida del vehículo*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-16 8:00');
+/*Registrar la recogida del vehículo*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-16 8:00');
 /* 
 arg id_orden
 */ CALL register_vehicle_pickup(2); 
 
-/*Registrar la devolución del vehículo al finalizar los 30 días*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-03-25 8:00');
+/*Registrar la devolución del vehículo al finalizar los 30 días*/ 
+SET TIMESTAMP = UNIX_TIMESTAMP('2022-03-25 8:00');
 /* 
 arg id_orden
 */ CALL register_vehicle_return(2); 
@@ -155,6 +160,7 @@ arg id_factura
 /* 
 arg id_factura
 */ CALL register_payment(2); 
+
 
 /*
 ##############################################################################################################
