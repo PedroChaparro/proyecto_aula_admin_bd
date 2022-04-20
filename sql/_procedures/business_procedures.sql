@@ -41,10 +41,10 @@ CREATE PROCEDURE register_vehicle_rental(
 			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
 					
 			/*El vehículo ya no estará disponible para alquilar*/
-			UPDATE VEHÍCULOS SET 
-				VEHÍCULOS.disponible = 0, 
-				VEHICULOS.veces_alquilado = VEHÍCULOS.veces_alquilado + 1 
-			WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
+			UPDATE `VEHÍCULOS` SET 
+				`VEHÍCULOS`.disponible = 0, 
+				`VEHÍCULOS`.veces_alquilado = `VEHÍCULOS`.veces_alquilado + 1 
+			WHERE `VEHÍCULOS`.id_vehículo = id_vehículo; 
 					
 			/*
 			Insertar el registro del alquiler
@@ -205,9 +205,11 @@ CREATE PROCEDURE register_vehicle_return(
 	FROM alquileres
 	WHERE alquileres.id_alquiler = id_alquiler; 
 		
-		IF @fecha_entrega_pactada < @fecha_entrega THEN SET @mora = TIMESTAMPDIFF(DAY, @fecha_entrega_pactada,@fecha_entrega);
-	UPDATE alquileres SET alquileres.dias_mora = @mora
-	WHERE alquileres.id_alquiler = id_alquiler; END IF; 
+		IF @fecha_entrega_pactada < @fecha_entrega THEN 
+			SET @mora = TIMESTAMPDIFF(DAY, @fecha_entrega_pactada,@fecha_entrega);
+			UPDATE alquileres SET alquileres.dias_mora = @mora
+			WHERE alquileres.id_alquiler = id_alquiler; 
+		END IF; 
 		
 		/*Se actualiza el estado disponible del vehículo*/
 	UPDATE `VEHÍCULOS` SET
