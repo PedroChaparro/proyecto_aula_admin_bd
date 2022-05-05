@@ -52,7 +52,7 @@ CREATE TABLE `alquileres` (
   CONSTRAINT `fk_alquileres_sucursal_entrega` FOREIGN KEY (`id_sucursal_entrega`) REFERENCES `sucursales` (`id_sucursal`) ON UPDATE CASCADE,
   CONSTRAINT `fk_alquileres_trabajador` FOREIGN KEY (`id_empleado`) REFERENCES `usuarios` (`id_usuario`) ON UPDATE CASCADE,
   CONSTRAINT `fk_alquileres_vehículo` FOREIGN KEY (`id_vehículo`) REFERENCES `vehículos` (`id_vehículo`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,11 +91,11 @@ DROP TABLE IF EXISTS `ciudades`;
 CREATE TABLE `ciudades` (
   `id_ciudad` int unsigned NOT NULL AUTO_INCREMENT,
   `id_departamento` int unsigned NOT NULL,
-  `ciudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ciudad` varchar(255) NOT NULL,
   PRIMARY KEY (`id_ciudad`),
   KEY `fk_ciudad_departamento` (`id_departamento`),
   CONSTRAINT `fk_ciudad_departamento` FOREIGN KEY (`id_departamento`) REFERENCES `departamentos` (`id_departamento`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,10 +117,10 @@ DROP TABLE IF EXISTS `departamentos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `departamentos` (
   `id_departamento` int unsigned NOT NULL AUTO_INCREMENT,
-  `departamento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departamento` varchar(255) NOT NULL,
   PRIMARY KEY (`id_departamento`),
   UNIQUE KEY `departamento` (`departamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `factura` (
   PRIMARY KEY (`id_factura`),
   KEY `fk_factura_alquiler` (`id_alquiler`),
   CONSTRAINT `fk_factura_alquiler` FOREIGN KEY (`id_alquiler`) REFERENCES `alquileres` (`id_alquiler`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,10 +209,10 @@ DROP TABLE IF EXISTS `sucursales`;
 CREATE TABLE `sucursales` (
   `id_sucursal` int unsigned NOT NULL AUTO_INCREMENT,
   `id_ciudad` int unsigned NOT NULL,
-  `dirección` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `teléfono_fijo` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `celular` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `correo_electrónico` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirección` varchar(255) NOT NULL,
+  `teléfono_fijo` varchar(7) NOT NULL,
+  `celular` varchar(10) NOT NULL,
+  `correo_electrónico` varchar(255) NOT NULL,
   PRIMARY KEY (`id_sucursal`),
   UNIQUE KEY `dirección` (`dirección`),
   UNIQUE KEY `teléfono_fijo` (`teléfono_fijo`),
@@ -221,7 +221,7 @@ CREATE TABLE `sucursales` (
   KEY `fk_sucursal_ciudad` (`id_ciudad`),
   KEY `sucursales_correo_electrónico` (`correo_electrónico`),
   CONSTRAINT `fk_sucursal_ciudad` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id_ciudad`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,10 +243,10 @@ DROP TABLE IF EXISTS `tipo_motor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_motor` (
   `código_tipo_motor` int unsigned NOT NULL AUTO_INCREMENT,
-  `motor` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `motor` varchar(64) NOT NULL,
   PRIMARY KEY (`código_tipo_motor`),
   UNIQUE KEY `motor` (`motor`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,9 +268,9 @@ DROP TABLE IF EXISTS `tipo_usuario`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_usuario` (
   `código_tipo_usuario` int unsigned NOT NULL AUTO_INCREMENT,
-  `tipo_usuario` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_usuario` varchar(64) NOT NULL,
   PRIMARY KEY (`código_tipo_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla para el manejo de usuarios / roles en el sistema, se incluyen: Administrador, Trabajador y Clientes.';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla para el manejo de usuarios / roles en el sistema, se incluyen: Administrador, Trabajador y Clientes.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,9 +292,9 @@ DROP TABLE IF EXISTS `tipo_vehículo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_vehículo` (
   `código_tipo_vehículo` int unsigned NOT NULL AUTO_INCREMENT,
-  `tipo_vehículo` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_vehículo` varchar(64) NOT NULL,
   PRIMARY KEY (`código_tipo_vehículo`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,14 +332,14 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuario` int unsigned NOT NULL AUTO_INCREMENT,
-  `nombres` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `apellidos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `identificacion` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Cédula del cliente',
-  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombres` varchar(255) NOT NULL,
+  `apellidos` varchar(255) NOT NULL,
+  `identificacion` varchar(14) NOT NULL COMMENT 'Cédula del cliente',
+  `direccion` varchar(255) NOT NULL,
   `id_ciudad_residencia` int unsigned NOT NULL,
-  `celular` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `correo_electrónico` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contraseña` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `celular` varchar(10) NOT NULL,
+  `correo_electrónico` varchar(255) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
   `código_tipo_usuario` int unsigned NOT NULL,
   `código_sucursal` int unsigned DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
   `is_active` tinyint unsigned NOT NULL DEFAULT '1',
@@ -356,7 +356,7 @@ CREATE TABLE `usuarios` (
   CONSTRAINT `fk_usuario_ciudad` FOREIGN KEY (`id_ciudad_residencia`) REFERENCES `ciudades` (`id_ciudad`) ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_sucursal` FOREIGN KEY (`código_sucursal`) REFERENCES `sucursales` (`id_sucursal`) ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`código_tipo_usuario`) REFERENCES `tipo_usuario` (`código_tipo_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -402,14 +402,14 @@ DROP TABLE IF EXISTS `vehículos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehículos` (
   `id_vehículo` int unsigned NOT NULL AUTO_INCREMENT,
-  `matrícula` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `matrícula` varchar(6) NOT NULL,
   `código_tipo_vehículo` int unsigned NOT NULL,
-  `modelo` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modelo` varchar(64) NOT NULL,
   `numero_puertas` tinyint unsigned NOT NULL,
   `capacidad` tinyint unsigned NOT NULL,
   `has_sunroof` tinyint unsigned NOT NULL,
   `código_tipo_motor` int unsigned NOT NULL,
-  `color` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(64) NOT NULL,
   `disponible` tinyint unsigned NOT NULL,
   `valor_alquiler_semanal` decimal(12,2) NOT NULL,
   `valor_alquiler_diario` decimal(12,2) NOT NULL,
@@ -425,7 +425,7 @@ CREATE TABLE `vehículos` (
   KEY `fk_vehículo_tipo_motor` (`código_tipo_motor`),
   CONSTRAINT `fk_vehículo_tipo_motor` FOREIGN KEY (`código_tipo_motor`) REFERENCES `tipo_motor` (`código_tipo_motor`) ON UPDATE CASCADE,
   CONSTRAINT `fk_vehículo_tipo_vehículo` FOREIGN KEY (`código_tipo_vehículo`) REFERENCES `tipo_vehículo` (`código_tipo_vehículo`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,17 +451,17 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_CITY`(
-	IN depto VARCHAR(255), 
-	IN mun VARCHAR(255)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_CITY`(
+	IN depto VARCHAR(255), 
+	IN mun VARCHAR(255)
 )
-BEGIN
-	
-	SELECT id_departamento INTO @id_depto FROM departamentos 
-		WHERE departamentos.departamento = depto; 
-	
-	INSERT INTO ciudades(id_departamento, ciudad) VALUES(@id_depto, mun); 
-	
+BEGIN
+	
+	SELECT id_departamento INTO @id_depto FROM departamentos 
+		WHERE departamentos.departamento = depto; 
+	
+	INSERT INTO ciudades(id_departamento, ciudad) VALUES(@id_depto, mun); 
+	
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -478,13 +478,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_bill`(
-	id_alquiler INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_bill`(
+	id_alquiler INT UNSIGNED
 )
-BEGIN
-	SELECT *
-	FROM factura AS f
-	WHERE f.id_alquiler = id_alquiler; 
+BEGIN
+	SELECT *
+	FROM factura AS f
+	WHERE f.id_alquiler = id_alquiler; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -501,32 +501,32 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `create_bill`(
-	id_alquiler INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_bill`(
+	id_alquiler INT UNSIGNED
 )
-BEGIN SET @recargo = 0; 
-	
-	/*Se genera el valor a pagar a partir del valor cotizado y los días de mora (si se da el caso)*/
-	
-	/*Valor base que el cliente paga si no hay nada de mora*/
-	SELECT a.valor_cotizado, a.dias_mora, a.valor_diario_cotizado INTO @total_pagar, @dias_mora, @freezed_daily
-	FROM alquileres AS a
-	WHERE a.id_alquiler = id_alquiler; 
-		
-	/*Interés por mora que se cobra al cliente por los días de retraso*/
-	IF (@dias_mora > 0) THEN 
-		/*Cálculo del 8% de recargo*/ 
-		SET @interes = (@dias_mora * @freezed_daily) * 0.08; 
-		SET @recargo = (@dias_mora * @freezed_daily) + @interes; 
-	END IF; 	
-	
-	/*Crea la factura, siendo el total a pagar el valor cotizado por el cliente mas los recargos por mora, 
-	en caso de ser necesario */
-	INSERT INTO factura (id_alquiler, totaL_pagar) VALUES (
-		id_alquiler, 
-		(@totaL_pagar + @recargo)
-	);
-
+BEGIN SET @recargo = 0; 
+	
+	/*Se genera el valor a pagar a partir del valor cotizado y los días de mora (si se da el caso)*/
+	
+	/*Valor base que el cliente paga si no hay nada de mora*/
+	SELECT a.valor_cotizado, a.dias_mora, a.valor_diario_cotizado INTO @total_pagar, @dias_mora, @freezed_daily
+	FROM alquileres AS a
+	WHERE a.id_alquiler = id_alquiler; 
+		
+	/*Interés por mora que se cobra al cliente por los días de retraso*/
+	IF (@dias_mora > 0) THEN 
+		/*Cálculo del 8% de recargo*/ 
+		SET @interes = (@dias_mora * @freezed_daily) * 0.08; 
+		SET @recargo = (@dias_mora * @freezed_daily) + @interes; 
+	END IF; 	
+	
+	/*Crea la factura, siendo el total a pagar el valor cotizado por el cliente mas los recargos por mora, 
+	en caso de ser necesario */
+	INSERT INTO factura (id_alquiler, totaL_pagar) VALUES (
+		id_alquiler, 
+		(@totaL_pagar + @recargo)
+	);
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -543,12 +543,12 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_user`(
-	IN id_usuario INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_user`(
+	IN id_usuario INT UNSIGNED
 )
-BEGIN
-	UPDATE usuarios SET is_active = 0
-	WHERE usuarios.id_usuario = id_usuario; 
+BEGIN
+	UPDATE usuarios SET is_active = 0
+	WHERE usuarios.id_usuario = id_usuario; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -565,12 +565,12 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_vehicle`(
-	IN id_vehículo INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_vehicle`(
+	IN id_vehículo INT UNSIGNED
 )
-BEGIN
-	UPDATE VEHÍCULOS SET disponible = 0
-	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+BEGIN
+	UPDATE VEHÍCULOS SET disponible = 0
+	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -588,10 +588,10 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles`()
-BEGIN
-	SELECT *
-	FROM VEHICLES_INFORMATION_PRETTY
-	WHERE disponible = 1; 
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE disponible = 1; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -608,17 +608,17 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_price`(
-	IN min_price DECIMAL(12,2), 
-	IN max_price DECIMAL(12,2)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_price`(
+	IN min_price DECIMAL(12,2), 
+	IN max_price DECIMAL(12,2)
 )
-BEGIN
-	SELECT *
-	FROM VEHICLES_INFORMATION_PRETTY
-	WHERE 
-		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal >= min_price AND
-		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; 
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE 
+		disponible = 1 AND
+		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal >= min_price AND
+		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -635,15 +635,15 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_type`(
-	IN tipo_vehículo VARCHAR(255) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_type`(
+	IN tipo_vehículo VARCHAR(255) 
 )
-BEGIN
-	SELECT *
-	FROM VEHICLES_INFORMATION_PRETTY
-	WHERE 
-		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE 
+		disponible = 1 AND
+		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -661,9 +661,9 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_rental_history`()
-BEGIN
-	SELECT *
-	FROM rental_data_history_pretty; 
+BEGIN
+	SELECT *
+	FROM rental_data_history_pretty; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -680,42 +680,42 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_client`(
-	IN nombres VARCHAR(255), 
-	IN apellidos VARCHAR(255), 
-	IN identificacion VARCHAR(14), 
-	IN direccion VARCHAR(255), 
-	IN id_ciudad_residencia INT UNSIGNED, 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_client`(
+	IN nombres VARCHAR(255), 
+	IN apellidos VARCHAR(255), 
+	IN identificacion VARCHAR(14), 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electrónico VARCHAR(255), 
+	IN contraseña VARCHAR(255) 
 )
-BEGIN 
-
-	/*Encriptar la contraseña*/ 
-	SET @hashed = SHA2(contraseña, 256);
-
-	INSERT INTO 
-	usuarios(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario
-	) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		@hashed, 
-		3
+BEGIN 
+
+	/*Encriptar la contraseña*/ 
+	SET @hashed = SHA2(contraseña, 256);
+
+	INSERT INTO 
+	usuarios(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario
+	) VALUES(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		@hashed, 
+		3
 ); END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -732,42 +732,42 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_internal_user`(
-	IN nombres VARCHAR(255), 
-	IN apellidos VARCHAR(255), 
-	IN identificacion VARCHAR(14), 
-	IN direccion VARCHAR(255), 
-	IN id_ciudad_residencia INT UNSIGNED, 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255), 
-	IN código_tipo_usuario INT UNSIGNED, 
-	IN código_sucursal INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_internal_user`(
+	IN nombres VARCHAR(255), 
+	IN apellidos VARCHAR(255), 
+	IN identificacion VARCHAR(14), 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electrónico VARCHAR(255), 
+	IN contraseña VARCHAR(255), 
+	IN código_tipo_usuario INT UNSIGNED, 
+	IN código_sucursal INT UNSIGNED
 )
-BEGIN
-INSERT INTO usuarios(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
-	) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
-	); 
+BEGIN
+INSERT INTO usuarios(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario, 
+		código_sucursal
+	) VALUES(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario, 
+		código_sucursal
+	); 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -784,17 +784,17 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_payment`(
- IN id_factura INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_payment`(
+ IN id_factura INT UNSIGNED
 )
-BEGIN 
-
-	/*Cambia la columna de estado was_paid*/
-	UPDATE factura SET 
-			factura.was_paid = 1,
-			factura.valor_pagado = factura.totaL_pagar
-	WHERE factura.id_factura = id_factura; 
-
+BEGIN 
+
+	/*Cambia la columna de estado was_paid*/
+	UPDATE factura SET 
+			factura.was_paid = 1,
+			factura.valor_pagado = factura.totaL_pagar
+	WHERE factura.id_factura = id_factura; 
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -811,47 +811,47 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle`(
-	IN matrícula VARCHAR(6), 
-	IN código_tipo_vehículo INT UNSIGNED, 
-	IN modelo VARCHAR(64), 
-	IN número_puertas TINYINT(2) UNSIGNED, 
-	IN capacidad TINYINT(2) UNSIGNED,
-	IN has_sunroof TINYINT(1) UNSIGNED, 
-	IN código_tipo_motor INT UNSIGNED, 
-	IN color VARCHAR(64), 
-	IN disponible TINYINT(1) UNSIGNED, 
-	IN valor_alquiler_semanal DECIMAL(12,2), 
-	IN valor_alquiler_diario DECIMAL(12,2),
-	IN descuento DECIMAL(3,1) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle`(
+	IN matrícula VARCHAR(6), 
+	IN código_tipo_vehículo INT UNSIGNED, 
+	IN modelo VARCHAR(64), 
+	IN número_puertas TINYINT(2) UNSIGNED, 
+	IN capacidad TINYINT(2) UNSIGNED,
+	IN has_sunroof TINYINT(1) UNSIGNED, 
+	IN código_tipo_motor INT UNSIGNED, 
+	IN color VARCHAR(64), 
+	IN disponible TINYINT(1) UNSIGNED, 
+	IN valor_alquiler_semanal DECIMAL(12,2), 
+	IN valor_alquiler_diario DECIMAL(12,2),
+	IN descuento DECIMAL(3,1) 
 )
-BEGIN
-INSERT INTO VEHÍCULOS(
-		matrícula, 
-		código_tipo_vehículo, 
-		modelo, 
-		número_puertas, 
-		capacidad, 
-		has_sunroof, 
-		código_tipo_motor, 
-		color, 
-		disponible, 
-		valor_alquiler_semanal, 
-		valor_alquiler_diario, 
-		descuento
-	) VALUES (
-		matrícula, 
-		código_tipo_vehículo, 
-		modelo, 
-		número_puertas, 
-		capacidad, 
-		has_sunroof, 
-		código_tipo_motor, 
-		color, 
-		disponible, 
-		valor_alquiler_semanal, 
-		valor_alquiler_diario, 
-		descuento
+BEGIN
+INSERT INTO VEHÍCULOS(
+		matrícula, 
+		código_tipo_vehículo, 
+		modelo, 
+		número_puertas, 
+		capacidad, 
+		has_sunroof, 
+		código_tipo_motor, 
+		color, 
+		disponible, 
+		valor_alquiler_semanal, 
+		valor_alquiler_diario, 
+		descuento
+	) VALUES (
+		matrícula, 
+		código_tipo_vehículo, 
+		modelo, 
+		número_puertas, 
+		capacidad, 
+		has_sunroof, 
+		código_tipo_motor, 
+		color, 
+		disponible, 
+		valor_alquiler_semanal, 
+		valor_alquiler_diario, 
+		descuento
 	); END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -868,15 +868,15 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_arrival`(
-	id_alquiler INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_arrival`(
+	id_alquiler INT UNSIGNED
 )
-BEGIN 
-
-	/*Se actualiza la fecha de llegada*/
-	UPDATE alquileres SET alquileres.fecha_llegada = CURRENT_TIMESTAMP
-	WHERE alquileres.id_alquiler = id_alquiler; 
-
+BEGIN 
+
+	/*Se actualiza la fecha de llegada*/
+	UPDATE alquileres SET alquileres.fecha_llegada = CURRENT_TIMESTAMP
+	WHERE alquileres.id_alquiler = id_alquiler; 
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -893,19 +893,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_pickup`(
-	id_alquiler INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_pickup`(
+	id_alquiler INT UNSIGNED
 )
-BEGIN 
-
-	/*Se actualiza la fecha de recogida*/
-	UPDATE alquileres SET alquileres.fecha_recogida = CURRENT_TIMESTAMP
-	WHERE alquileres.id_alquiler = id_alquiler; 
-		
-		/*Se actualiza la fecha máxima de entrega a partir de los días del alquiler y la fecha de recogida*/
-	UPDATE alquileres SET alquileres.fecha_entrega_pactada = ADDDATE(alquileres.fecha_recogida, alquileres.dias)
-	WHERE alquileres.id_alquiler = id_alquiler;
-
+BEGIN 
+
+	/*Se actualiza la fecha de recogida*/
+	UPDATE alquileres SET alquileres.fecha_recogida = CURRENT_TIMESTAMP
+	WHERE alquileres.id_alquiler = id_alquiler; 
+		
+		/*Se actualiza la fecha máxima de entrega a partir de los días del alquiler y la fecha de recogida*/
+	UPDATE alquileres SET alquileres.fecha_entrega_pactada = ADDDATE(alquileres.fecha_recogida, alquileres.dias)
+	WHERE alquileres.id_alquiler = id_alquiler;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -922,76 +922,76 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_rental`(
-	IN id_cliente INT UNSIGNED, 
-	IN id_empleado INT UNSIGNED, 
-	IN id_vehículo INT UNSIGNED, 
-	IN id_sucursal_alquiler INT UNSIGNED,
-	IN id_sucursal_entrega INT UNSIGNED, 
-	IN fecha_salida TIMESTAMP, 
-	IN fecha_esperada_llegada TIMESTAMP, 
-	IN dias TINYINT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_rental`(
+	IN id_cliente INT UNSIGNED, 
+	IN id_empleado INT UNSIGNED, 
+	IN id_vehículo INT UNSIGNED, 
+	IN id_sucursal_alquiler INT UNSIGNED,
+	IN id_sucursal_entrega INT UNSIGNED, 
+	IN fecha_salida TIMESTAMP, 
+	IN fecha_esperada_llegada TIMESTAMP, 
+	IN dias TINYINT UNSIGNED
 )
-BEGIN 
-
-	SET @success = 0; 
-
-		/*Revisa que el vehículo aún se encuentre disponible*/
-	SELECT disponible INTO @is_disponible
-	FROM VEHÍCULOS
-	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
-			
-		IF @is_disponible = 1 THEN
-		
-			/*Calcular el precio*/
-			SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
-			FROM VEHÍCULOS
-			WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
-			
-			SET @semanas =TRUNCATE((dias/7), 0); 
-			SET @dias_restantes = dias - (@semanas * 7); 
-			SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); 
-			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
-					
-			/*El vehículo ya no estará disponible para alquilar*/
-			UPDATE `VEHÍCULOS` SET 
-				`VEHÍCULOS`.disponible = 0, 
-				`VEHÍCULOS`.veces_alquilado = `VEHÍCULOS`.veces_alquilado + 1 
-			WHERE `VEHÍCULOS`.id_vehículo = id_vehículo; 
-					
-			/*
-			Insertar el registro del alquiler
-			Dentro del registro del alquiler, debeinsertar el precio de alquiler diario y semanal del vehículo al momento
-			en que el usuario realizó la solicitud
-			*/
-			INSERT INTO ALQUILERES(
-				id_cliente, 
-				id_empleado, 
-				id_vehículo,
-				id_sucursal_alquiler, 
-				id_sucursal_entrega, 
-				fecha_salida, 
-				fecha_esperada_llegada, 
-				dias, 
-				valor_diario_cotizado, 
-				valor_semanal_cotizado, 
-				valor_cotizado) VALUES (
-				id_cliente, 
-				id_empleado, 
-				id_vehículo, 
-				id_sucursal_alquiler, 
-				id_sucursal_entrega,
-				fecha_salida, 
-				fecha_esperada_llegada, 
-				dias, 
-				@alquiler_diario, 
-				@alquiler_semanal,
-				@valor_cotizado
-			); SET @success = 1; 
-			
-		END IF;
-		
-	SELECT @success; 
+BEGIN 
+
+	SET @success = 0; 
+
+		/*Revisa que el vehículo aún se encuentre disponible*/
+	SELECT disponible INTO @is_disponible
+	FROM VEHÍCULOS
+	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+			
+		IF @is_disponible = 1 THEN
+		
+			/*Calcular el precio*/
+			SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
+			FROM VEHÍCULOS
+			WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
+			
+			SET @semanas =TRUNCATE((dias/7), 0); 
+			SET @dias_restantes = dias - (@semanas * 7); 
+			SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); 
+			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
+					
+			/*El vehículo ya no estará disponible para alquilar*/
+			UPDATE `VEHÍCULOS` SET 
+				`VEHÍCULOS`.disponible = 0, 
+				`VEHÍCULOS`.veces_alquilado = `VEHÍCULOS`.veces_alquilado + 1 
+			WHERE `VEHÍCULOS`.id_vehículo = id_vehículo; 
+					
+			/*
+			Insertar el registro del alquiler
+			Dentro del registro del alquiler, debeinsertar el precio de alquiler diario y semanal del vehículo al momento
+			en que el usuario realizó la solicitud
+			*/
+			INSERT INTO ALQUILERES(
+				id_cliente, 
+				id_empleado, 
+				id_vehículo,
+				id_sucursal_alquiler, 
+				id_sucursal_entrega, 
+				fecha_salida, 
+				fecha_esperada_llegada, 
+				dias, 
+				valor_diario_cotizado, 
+				valor_semanal_cotizado, 
+				valor_cotizado) VALUES (
+				id_cliente, 
+				id_empleado, 
+				id_vehículo, 
+				id_sucursal_alquiler, 
+				id_sucursal_entrega,
+				fecha_salida, 
+				fecha_esperada_llegada, 
+				dias, 
+				@alquiler_diario, 
+				@alquiler_semanal,
+				@valor_cotizado
+			); SET @success = 1; 
+			
+		END IF;
+		
+	SELECT @success; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1008,31 +1008,31 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_return`(
-	id_alquiler INT UNSIGNED
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_return`(
+	id_alquiler INT UNSIGNED
 )
-BEGIN 
-
-	/*Se agrega el registro de la devolución del vehículo por parte del cliente*/
-	UPDATE alquileres SET alquileres.fecha_entrega = CURRENT_TIMESTAMP
-	WHERE alquileres.id_alquiler = id_alquiler; 
-		
-		/*Se calculan los días de mora*/
-	SELECT fecha_entrega_pactada, fecha_entrega, id_vehículo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
-	FROM alquileres
-	WHERE alquileres.id_alquiler = id_alquiler; 
-		
-		IF @fecha_entrega_pactada < @fecha_entrega THEN 
-			SET @mora = TIMESTAMPDIFF(DAY, @fecha_entrega_pactada,@fecha_entrega);
-			UPDATE alquileres SET alquileres.dias_mora = @mora
-			WHERE alquileres.id_alquiler = id_alquiler; 
-		END IF; 
-		
-		/*Se actualiza el estado disponible del vehículo*/
-	UPDATE `VEHÍCULOS` SET
-			`VEHÍCULOS`.disponible = 1
-	WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
-
+BEGIN 
+
+	/*Se agrega el registro de la devolución del vehículo por parte del cliente*/
+	UPDATE alquileres SET alquileres.fecha_entrega = CURRENT_TIMESTAMP
+	WHERE alquileres.id_alquiler = id_alquiler; 
+		
+		/*Se calculan los días de mora*/
+	SELECT fecha_entrega_pactada, fecha_entrega, id_vehículo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
+	FROM alquileres
+	WHERE alquileres.id_alquiler = id_alquiler; 
+		
+		IF @fecha_entrega_pactada < @fecha_entrega THEN 
+			SET @mora = TIMESTAMPDIFF(DAY, @fecha_entrega_pactada,@fecha_entrega);
+			UPDATE alquileres SET alquileres.dias_mora = @mora
+			WHERE alquileres.id_alquiler = id_alquiler; 
+		END IF; 
+		
+		/*Se actualiza el estado disponible del vehículo*/
+	UPDATE `VEHÍCULOS` SET
+			`VEHÍCULOS`.disponible = 1
+	WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1049,13 +1049,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `set_disccount_to_vehicle_type`(
-	IN tipo_vehículo INT UNSIGNED, 
-	IN descuento DECIMAL(3,1)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `set_disccount_to_vehicle_type`(
+	IN tipo_vehículo INT UNSIGNED, 
+	IN descuento DECIMAL(3,1)
 )
-BEGIN
-	UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo;
+BEGIN
+	UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
+	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1072,39 +1072,39 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_user`(
-	IN id_usuario INT UNSIGNED, 
-	IN direccion VARCHAR(255), 
-	IN id_ciudad_residencia INT UNSIGNED, 
-	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255),
-	IN contraseña_actual VARCHAR(255)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_user`(
+	IN id_usuario INT UNSIGNED, 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electrónico VARCHAR(255),
+	IN contraseña_actual VARCHAR(255)
 )
-BEGIN 
-
-	SET @success = 0; 
-
-	/*Encriptar la contraseña*/ 
-	SET @hashed = SHA2(contraseña_actual, 256); 
-	
-	/*Obtener la contraseña actual*/
-	SELECT usuarios.contraseña INTO @saved_password
-	FROM usuarios
-	WHERE usuarios.id_usuario = id_usuario; 
-	
-	IF @hashed = @saved_password THEN
-		UPDATE usuarios SET
-			usuarios.direccion = direccion, 
-			usuarios.id_ciudad_residencia = id_ciudad_residencia, 
-			usuarios.celular = celular, 
-			usuarios.`correo_electrónico` = correo_electrónico
-		WHERE usuarios.id_usuario = id_usuario; 
-		
-		SET @success = 1; 
-	END IF;
-
-	SELECT @success;
-
+BEGIN 
+
+	SET @success = 0; 
+
+	/*Encriptar la contraseña*/ 
+	SET @hashed = SHA2(contraseña_actual, 256); 
+	
+	/*Obtener la contraseña actual*/
+	SELECT usuarios.contraseña INTO @saved_password
+	FROM usuarios
+	WHERE usuarios.id_usuario = id_usuario; 
+	
+	IF @hashed = @saved_password THEN
+		UPDATE usuarios SET
+			usuarios.direccion = direccion, 
+			usuarios.id_ciudad_residencia = id_ciudad_residencia, 
+			usuarios.celular = celular, 
+			usuarios.`correo_electrónico` = correo_electrónico
+		WHERE usuarios.id_usuario = id_usuario; 
+		
+		SET @success = 1; 
+	END IF;
+
+	SELECT @success;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1121,27 +1121,27 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_vehicle`(
-	IN id_vehículo INT UNSIGNED,
-	IN matrícula VARCHAR(6), 
-	IN has_sunroof TINYINT(1) UNSIGNED, 
-	IN código_tipo_motor INT UNSIGNED, 
-	IN color VARCHAR(64), 
-	IN disponible TINYINT(1) UNSIGNED, 
-	IN valor_alquiler_semanal DECIMAL(12,2), 
-	IN valor_alquiler_diario DECIMAL(12,2),
-	IN descuento DECIMAL(3,1) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_vehicle`(
+	IN id_vehículo INT UNSIGNED,
+	IN matrícula VARCHAR(6), 
+	IN has_sunroof TINYINT(1) UNSIGNED, 
+	IN código_tipo_motor INT UNSIGNED, 
+	IN color VARCHAR(64), 
+	IN disponible TINYINT(1) UNSIGNED, 
+	IN valor_alquiler_semanal DECIMAL(12,2), 
+	IN valor_alquiler_diario DECIMAL(12,2),
+	IN descuento DECIMAL(3,1) 
 )
-BEGIN
-UPDATE VEHÍCULOS SET
-		VEHÍCULOS.`matrícula` = matrícula, 
-		VEHÍCULOS.has_sunroof = has_sunroof, 
-		VEHÍCULOS.`código_tipo_motor` = código_tipo_motor, 
-		VEHÍCULOS.color = color, 
-		VEHÍCULOS.disponible = disponible, 
-		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
-		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
-		VEHÍCULOS.descuento = descuento
+BEGIN
+UPDATE VEHÍCULOS SET
+		VEHÍCULOS.`matrícula` = matrícula, 
+		VEHÍCULOS.has_sunroof = has_sunroof, 
+		VEHÍCULOS.`código_tipo_motor` = código_tipo_motor, 
+		VEHÍCULOS.color = color, 
+		VEHÍCULOS.disponible = disponible, 
+		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
+		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
+		VEHÍCULOS.descuento = descuento
 WHERE VEHÍCULOS.`id_vehículo` = `id_vehículo`; END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1158,34 +1158,38 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `user_login`(
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_login`(
+	IN correo_electrónico VARCHAR(255), 
+	IN contraseña VARCHAR(255) 
 )
-BEGIN 
-
-	SET @success = 0;
-	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists
-	FROM usuarios
-	WHERE usuarios.correo_electrónico = correo_electrónico; 
-	
-	/*Si el usuario existe verifica que la contraseña sea correcta*/
-	IF @user_exists = 1 THEN 
-		
-		/*Encripta la contraseña para compararla con la que está en la base de datos*/ 
-		SET @hashed = SHA2(contraseña, 256);
-
-		SELECT usuarios.contraseña INTO @saved_password
-		FROM usuarios
-		WHERE usuarios.correo_electrónico = correo_electrónico; 
-		
-		IF @saved_password = @hashed THEN SET @success = 1; 
-		END IF; 
-	
-	END IF; 
-	
-	/*Retorna True (1) o False (0) según si el login fue correcto*/
-SELECT @success; END ;;
+BEGIN 
+
+	SET @success = 0;
+	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists
+	FROM usuarios
+	WHERE usuarios.correo_electrónico = correo_electrónico; 
+	
+	/*Si el usuario existe verifica que la contraseña sea correcta*/
+	IF @user_exists = 1 THEN 
+		
+		/*Encripta la contraseña para compararla con la que está en la base de datos*/ 
+		SET @hashed = SHA2(contraseña, 256);
+
+		SELECT usuarios.contraseña INTO @saved_password
+		FROM usuarios
+		WHERE usuarios.correo_electrónico = correo_electrónico; 
+		
+		IF @saved_password = @hashed THEN 
+        
+			-- Si la contraseña es correcta, regresa algunos datos del usuario para la sesión
+			SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'NAME', `correo_electrónico` 'MAIL' 
+            FROM USUARIOS
+            WHERE USUARIOS.`correo_electrónico` = correo_electrónico;
+            
+		END IF; 
+	
+	END IF; 
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1291,4 +1295,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05  8:31:55
+-- Dump completed on 2022-05-05 11:24:06
