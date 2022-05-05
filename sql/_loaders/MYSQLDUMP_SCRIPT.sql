@@ -356,7 +356,7 @@ CREATE TABLE `usuarios` (
   CONSTRAINT `fk_usuario_ciudad` FOREIGN KEY (`id_ciudad_residencia`) REFERENCES `ciudades` (`id_ciudad`) ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_sucursal` FOREIGN KEY (`código_sucursal`) REFERENCES `sucursales` (`id_sucursal`) ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`código_tipo_usuario`) REFERENCES `tipo_usuario` (`código_tipo_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,7 +365,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Violet','Nicolas','37614521','Cra 6002 Vía Ankunding Passage',538,'3145641789','Violet.Nicolas@gmail.com','440b87eb90b816118a29dcdfab0350f095534cc480fdcb68188174136898ab24',3,NULL,1),(2,'Olivia','Heathcote','39090152','Cra 03550 Vía Parker Loop',538,'3146296504','Olivia.Heathcote@gmail.com','d1bebb16f8a9e6f21aa6ac5c644706a71ab62d7dec56d7aa1c9f0f494c2cc9d0',3,NULL,1),(3,'Ted','Wintheiser','40565783','Cra 516 Vía D.Amore Valleys',538,'3146951219','Ted.Wintheiser@gmail.com','7743a6ff0bb07518a9401633370c2f375f5e614a7aedc58746579f3e80e2d4ea',3,NULL,1),(4,'Oliver','Runolfsson','42041414','Cra 7317 Vía Araceli Mall',538,'3147605934','Oliver.Runolfsson@gmail.com','2524338fc7ddba552199637bedc4b7e2541cc366df7892d4d0965aecf1800a13',3,NULL,1),(5,'Clinton','Bosco','43517045','Cra 83324 Vía Kunze Prairie',538,'3148260649','Clinton.Bosco@gmail.com','762a76dc8c44200645073ec858d9ee80e346dfd079c7bd342c1d96b79e57eb14',3,NULL,1),(6,'Louis','Cummerata','44992676','Cra 255 Vía Laron Drives',486,'3148915364','Louis.Cummerata@gmail.com','5950b95f250dea758aa360ff96fcc02adbb6b581267051d7198c3357c006789f',3,NULL,1),(7,'Diane','Smith','46468307','Cra 6091 Vía Darlene Lake',486,'3149570079','Diane.Smith@gmail.com','a7cfdd09eab12c9e8c7e0dd154928354c42e2341e93a49123d05d60c37e9b272',3,NULL,1),(8,'Phyllis','Krajcik','47943938','Cra 011 Vía Ubaldo Shoal',486,'3150224794','Phyllis.Krajcik@gmail.com','3459128867db1429e60aea6404084fbde107abc1837e2e992ce66db80f4e6059',3,NULL,1),(9,'Allison','Corwin','49419569','Cra 8869 Vía Maximillian Throughway',486,'3150879509','Allison.Corwin@gmail.com','08e3f721cd115609e87333ace695d56c981b2e5f985ea8b1b273a2e2c15be169',3,NULL,1),(10,'Angelo','Osinski','50895200','Cra 755 Vía Coty Mount',486,'3151534224','Angelo.Osinski@gmail.com','19c5a4541dc435815e01a3f89132d287b95809734f4b25c5ad072237070a936d',3,NULL,1),(11,'Jimmie','Thompson','52370831','Cra 06365 Vía Green Pike',757,'3152188939','Jimmie.Thompson@gmail.com','51ec7a71e55004ea08ccfa35822437d5d3b28d877c0aa66f2f6a2a73cc46af9c',3,NULL,1),(12,'Mable','Fahey','53846462','Cra 8974 Vía Tromp Squares',757,'3152843654','Mable.Fahey@gmail.com','228d50ceb4426d0a4da39d5be1ca398256cbbf38e0949aa718c1638c8f147242',3,NULL,1),(13,'Matthew','Howell','55322093','Cra 4120 Vía Cormier Walk',757,'3153498369','Matthew.Howell@gmail.com','b41c2f52614053bb5544612f9a3c79a520573b6fcc8f2dd7d5860e84bc1efa00',3,NULL,1),(14,'Mary','White','56797724','Cra 465 Vía Adelbert Islands',757,'3154153084','Mary.White@gmail.com','cb4ec729215695a3de37c5f2e1d388198d4ba60e0b56cd0fcee7db2ce2c82681',3,NULL,1),(15,'Verna','Hessel','58273355','Cra 588 Vía Rempel Island',757,'3154807799','Verna.Hessel@gmail.com','545f0a8e7f2b79844304ab86ecffd632d5d81f87e526438beada042c0c77dadb',3,NULL,1),(16,'Javier','Senger','59748986','Cra 0455 Vía Hammes Avenue',757,'3155462514','Javier.Senger@gmail.com','dea0b45a74a7adc2b7c571eba4f7bd507968794924b61d94119817c8174bbf7a',3,NULL,1),(17,'Betsy','Hahn','61224617','Cra 695 Vía Ottis Grove',757,'3156117229','Betsy.Hahn@gmail.com','c1b42ba1bcda6c9018954749170525a0209e10ad3d1f4d0dd8be3bfaf400c055',3,NULL,1),(18,'Elizabeth','Champlin','62700248','Cra 5366 Vía Gottlieb Point',757,'3156771944','Elizabeth.Champlin@gmail.com','a567dc290513361285ae1600af06f86bf5780aff41aeb216644d5dcdb068e308',3,NULL,1),(19,'Bertha','Corwin','64175879','Cra 4300 Vía Hellen Locks',757,'3157426659','Bertha.Corwin@gmail.com','d6921ec773373cd8e6b90175ff8fc6258cb6d6aef066d26a4c603b923bd86eea',3,NULL,1),(20,'Jean','Ratke','65651510','Cra 6511 Vía Domenick Parks',757,'3158081374','Jean.Ratke@gmail.com','483cf5cc8bd2f6135fe32dc2bf0f5322c7b18298d4d4a2b12c015b288453f97e',3,NULL,1),(21,'Brent','Cruickshank','67127141','Cra 4453 Vía Fadel Drive',198,'3158736089','Brent.Cruickshank@gmail.com','105dca0b5ee417384d18c57f52aa33542e7a5ed7e3e7a88326ebd781043542ed',3,NULL,1),(22,'Brandi','Lowe','68602772','Cra 041 Vía Camden Forges',198,'3159390804','Brandi.Lowe@gmail.com','087826ddddac4f499b5306dc4fd06a6c31128de87775369231ede5a9ed1fdc6d',3,NULL,1),(23,'Moses','Lubowitz','70078403','Cra 24629 Vía Goyette Inlet',198,'3160045519','Moses.Lubowitz@gmail.com','f5b6ea8bb1040f09be70960619812148ae806683920f0a51fa83a104f22732d9',3,NULL,1),(24,'Jonathon','Macejkovic','71554034','Cra 498 Vía Von Estates',198,'3160700234','Jonathon.Macejkovic@gmail.com','8bf528180d3006ad0b4b7cf396cabce4e4d332a2197cc01082dfd3c247e8b1b5',3,NULL,1),(25,'Nina','Welch','73029665','Cra 1981 Vía Victor Isle',198,'3161354949','Nina.Welch@gmail.com','6aa789aad2c55db4a556c40032b3f6a96497ea95090f1f43bb9aff746e1597ff',3,NULL,1),(26,'Hector','Braun','74505296','Cra 12182 Vía Brayan Landing',198,'3162009664','Hector.Braun@gmail.com','cf5097f9779b79c3e25a3f2c0e888a99112c1aa8fee36f27799fa5b0366c9450',3,NULL,1),(27,'Cedric','Schuster','75980927','Cra 23374 Vía Larson Drives',198,'3162664379','Cedric.Schuster@gmail.com','b78c1b0dbea6e55a431350530e03cd88db0fd7446fca142e3030c39fb901d25f',3,NULL,1),(28,'Isaac','Ankunding','77456558','Cra 6472 Vía Alycia Knolls',198,'3163319094','Isaac.Ankunding@gmail.com','43a46de507aa9f840bbd30b4a1c0d39ef4407591b62f672752ad72fb8932c2b2',3,NULL,1),(29,'Stella','Raynor','78932189','Cra 2868 Vía Skyla Stravenue',198,'3163973809','Stella.Raynor@gmail.com','165ecb2b076de96d237b4d5c2ae6992bfe865b0331de2deb0ed07fa61c29de3b',3,NULL,1),(30,'Faith','Doyle','80407820','Cra 797 Vía Estella Track',198,'3164628524','Faith.Doyle@gmail.com','8eebbd898c1591c0cce9a272ded137c8522002931a5cd5d0f505108cc69ecf01',3,NULL,1),(31,'Jonathon','Yost','81883451','Cra 45757 Vía Farrell Club',1090,'3165283239','Jonathon.Yost@gmail.com','936ad1395b71fad9c7310154a3901a8840eb78c0f517ac397a681cf5c68d4e8f',3,NULL,1),(32,'Emilio','Bartell','83359082','Cra 62492 Vía Anabelle Causeway',1090,'3165937954','Emilio.Bartell@gmail.com','ec27e6b1e1a4cb13961b383f1431e032d1c427cb82c5e195036681ec035cf5da',3,NULL,1),(33,'Adrian','Zulauf','84834713','Cra 122 Vía Denesik Tunnel',1090,'3166592669','Adrian.Zulauf@gmail.com','b146985dfe939e73840bed0e9020027714c9d51d78dd181e02af5d6abcf8d93e',3,NULL,1),(34,'Dale','Harris','86310344','Cra 1774 Vía Schowalter Parkways',1090,'3167247384','Dale.Harris@gmail.com','32e32a97025fc1ca10366378586a654d40eba0760b1b8b0fb29e8c9d38001eeb',3,NULL,1),(35,'Jean','Kreiger','87785975','Cra 8120 Vía Kertzmann Skyway',1090,'3167902099','Jean.Kreiger@gmail.com','75994d1eda33ecb4883a5ed71356115be7cdf2aeb43fa83c9273b6e0925440bf',3,NULL,1),(36,'Delbert','Schamberger','89261606','Cra 783 Vía Karlee Tunnel',1090,'3168556814','Delbert.Schamberger@gmail.com','c112b343137af618d500bc5b1d64a67b7667b30a88529a58462c78f32d91b8f5',3,NULL,1),(37,'Clyde','O','90737237','Cra 738 Vía Amara Streets',1090,'3169211529','Clyde.O@gmail.com','bf92be1e11da76af29fe2caa4ce2a2d59a12c2911528a0c52c96128560d18b45',3,NULL,1),(38,'Jody','Romaguera','92212868','Cra 0514 Vía Goyette Throughway',1090,'3169866244','Jody.Romaguera@gmail.com','0d07d5b2c876440341d6b70a4ebdc05c709e456248e305692d80c64ae511b859',3,NULL,1),(39,'Gerardo','McLaughlin','93688499','Cra 0410 Vía Solon Ville',1090,'3170520959','Gerardo.McLaughlin@gmail.com','009d4575b5493d24236d9de4a764c2daf8aeee2a817f1085aa981176089463d6',3,NULL,1),(40,'Mona','Heathcote','95164130','Cra 2906 Vía Doyle Prairie',1090,'3171175674','Mona.Heathcote@gmail.com','4de837f1dfd7a29bbdeb5e72da933f8a0e85c51f0721ccd8821513ccb555a533',3,NULL,1),(41,'Joanne','Buckridge','96639761','Cra 38659 Vía Mosciski Fords',4,'3171830389','Joanne.Buckridge@gmail.com','cf40e3de040a0b78473d6ba6b3a8b57a7da4b14186405baf2cb55dc6e3314a51',3,NULL,1),(42,'Jan','Boehm','98115392','Cra 481 Vía Rippin Ranch',4,'3172485104','Jan.Boehm@gmail.com','a686778451bebc821f593603441aa2246360445465f521fd1da5735c67a797d1',3,NULL,1),(43,'Deborah','Nicolas','99591023','Cra 46593 Vía Zoila Spring',4,'3173139819','Deborah.Nicolas@gmail.com','dd66884427dba18a46425304191f2e05ac4530830cf17e5d77d0ed5f2129bb65',3,NULL,1),(44,'Maria','Feil','101066654','Cra 47586 Vía Issac Avenue',4,'3173794534','Maria.Feil@gmail.com','5a3cc860eddb3244eb42e0a962350fe345e6c384185aba663cfb427646c12468',3,NULL,1),(45,'Rachel','Zboncak','102542285','Cra 1946 Vía Ruecker Rapids',4,'3174449249','Rachel.Zboncak@gmail.com','e770115248d2fd1f2ad7a607ee5640e29b754abb563e55c7acd3df24a5cd78ac',3,NULL,1),(46,'Rebecca','Morissette','104017916','Cra 4367 Vía Schmidt Pass',4,'3175103964','Rebecca.Morissette@gmail.com','776f795572341b4d9873691d060546cd58b6308531ddf5544e4de56f5d62e7d1',3,NULL,1),(47,'Kelli','Zemlak','105493547','Cra 7946 Vía Robel Mill',4,'3175758679','Kelli.Zemlak@gmail.com','fd06602dfee03200d42c82267b5258b7d65b1330e71e5246369e004f5c8450d3',3,NULL,1),(48,'Kellie','Kunde','106969178','Cra 909 Vía Ofelia Crossroad',4,'3176413394','Kellie.Kunde@gmail.com','84998f80260243ee6dd6995a1d332c32135b51057775d3df86b9db21a138c860',3,NULL,1),(49,'Debra','McGlynn','108444809','Cra 285 Vía McGlynn Garden',4,'3177068109','Debra.McGlynn@gmail.com','e85dd8051f5dd52efffc3e8226e805140efbb635778903bea2362ef9d691a04c',3,NULL,1),(50,'Johanna','Halvorson','109920440','Cra 967 Vía Connelly Loop',4,'3177722824','Johanna.Halvorson@gmail.com','4c56127abfd8b61660c8b9f931f97e464b74b7b27df78c1698ffa3c8adcfc813',3,NULL,1),(52,'Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,1,1),(53,'Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,2,1),(54,'Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,3,1),(55,'Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,4,1),(56,'Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,5,1),(57,'Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,1,1),(58,'Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,1,1),(59,'Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,2,1),(60,'Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,2,1),(61,'Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,3,1),(62,'Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,3,1),(63,'Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,4,1),(64,'Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,4,1),(65,'Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,5,1),(66,'Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,5,1);
+INSERT INTO `usuarios` VALUES (1,'Violet','Nicolas','37614521','Cra 6002 Vía Ankunding Passage',538,'3145641789','Violet.Nicolas@gmail.com','440b87eb90b816118a29dcdfab0350f095534cc480fdcb68188174136898ab24',3,NULL,1),(2,'Olivia','Heathcote','39090152','Cra 03550 Vía Parker Loop',538,'3146296504','Olivia.Heathcote@gmail.com','d1bebb16f8a9e6f21aa6ac5c644706a71ab62d7dec56d7aa1c9f0f494c2cc9d0',3,NULL,1),(3,'Ted','Wintheiser','40565783','Cra 516 Vía D.Amore Valleys',538,'3146951219','Ted.Wintheiser@gmail.com','7743a6ff0bb07518a9401633370c2f375f5e614a7aedc58746579f3e80e2d4ea',3,NULL,1),(4,'Oliver','Runolfsson','42041414','Cra 7317 Vía Araceli Mall',538,'3147605934','Oliver.Runolfsson@gmail.com','2524338fc7ddba552199637bedc4b7e2541cc366df7892d4d0965aecf1800a13',3,NULL,1),(5,'Clinton','Bosco','43517045','Cra 83324 Vía Kunze Prairie',538,'3148260649','Clinton.Bosco@gmail.com','762a76dc8c44200645073ec858d9ee80e346dfd079c7bd342c1d96b79e57eb14',3,NULL,1),(6,'Louis','Cummerata','44992676','Cra 255 Vía Laron Drives',486,'3148915364','Louis.Cummerata@gmail.com','5950b95f250dea758aa360ff96fcc02adbb6b581267051d7198c3357c006789f',3,NULL,1),(7,'Diane','Smith','46468307','Cra 6091 Vía Darlene Lake',486,'3149570079','Diane.Smith@gmail.com','a7cfdd09eab12c9e8c7e0dd154928354c42e2341e93a49123d05d60c37e9b272',3,NULL,1),(8,'Phyllis','Krajcik','47943938','Cra 011 Vía Ubaldo Shoal',486,'3150224794','Phyllis.Krajcik@gmail.com','3459128867db1429e60aea6404084fbde107abc1837e2e992ce66db80f4e6059',3,NULL,1),(9,'Allison','Corwin','49419569','Cra 8869 Vía Maximillian Throughway',486,'3150879509','Allison.Corwin@gmail.com','08e3f721cd115609e87333ace695d56c981b2e5f985ea8b1b273a2e2c15be169',3,NULL,1),(10,'Angelo','Osinski','50895200','Cra 755 Vía Coty Mount',486,'3151534224','Angelo.Osinski@gmail.com','19c5a4541dc435815e01a3f89132d287b95809734f4b25c5ad072237070a936d',3,NULL,1),(11,'Jimmie','Thompson','52370831','Cra 06365 Vía Green Pike',757,'3152188939','Jimmie.Thompson@gmail.com','51ec7a71e55004ea08ccfa35822437d5d3b28d877c0aa66f2f6a2a73cc46af9c',3,NULL,1),(12,'Mable','Fahey','53846462','Cra 8974 Vía Tromp Squares',757,'3152843654','Mable.Fahey@gmail.com','228d50ceb4426d0a4da39d5be1ca398256cbbf38e0949aa718c1638c8f147242',3,NULL,1),(13,'Matthew','Howell','55322093','Cra 4120 Vía Cormier Walk',757,'3153498369','Matthew.Howell@gmail.com','b41c2f52614053bb5544612f9a3c79a520573b6fcc8f2dd7d5860e84bc1efa00',3,NULL,1),(14,'Mary','White','56797724','Cra 465 Vía Adelbert Islands',757,'3154153084','Mary.White@gmail.com','cb4ec729215695a3de37c5f2e1d388198d4ba60e0b56cd0fcee7db2ce2c82681',3,NULL,1),(15,'Verna','Hessel','58273355','Cra 588 Vía Rempel Island',757,'3154807799','Verna.Hessel@gmail.com','545f0a8e7f2b79844304ab86ecffd632d5d81f87e526438beada042c0c77dadb',3,NULL,1),(16,'Javier','Senger','59748986','Cra 0455 Vía Hammes Avenue',757,'3155462514','Javier.Senger@gmail.com','dea0b45a74a7adc2b7c571eba4f7bd507968794924b61d94119817c8174bbf7a',3,NULL,1),(17,'Betsy','Hahn','61224617','Cra 695 Vía Ottis Grove',757,'3156117229','Betsy.Hahn@gmail.com','c1b42ba1bcda6c9018954749170525a0209e10ad3d1f4d0dd8be3bfaf400c055',3,NULL,1),(18,'Elizabeth','Champlin','62700248','Cra 5366 Vía Gottlieb Point',757,'3156771944','Elizabeth.Champlin@gmail.com','a567dc290513361285ae1600af06f86bf5780aff41aeb216644d5dcdb068e308',3,NULL,1),(19,'Bertha','Corwin','64175879','Cra 4300 Vía Hellen Locks',757,'3157426659','Bertha.Corwin@gmail.com','d6921ec773373cd8e6b90175ff8fc6258cb6d6aef066d26a4c603b923bd86eea',3,NULL,1),(20,'Jean','Ratke','65651510','Cra 6511 Vía Domenick Parks',757,'3158081374','Jean.Ratke@gmail.com','483cf5cc8bd2f6135fe32dc2bf0f5322c7b18298d4d4a2b12c015b288453f97e',3,NULL,1),(21,'Brent','Cruickshank','67127141','Cra 4453 Vía Fadel Drive',198,'3158736089','Brent.Cruickshank@gmail.com','105dca0b5ee417384d18c57f52aa33542e7a5ed7e3e7a88326ebd781043542ed',3,NULL,1),(22,'Brandi','Lowe','68602772','Cra 041 Vía Camden Forges',198,'3159390804','Brandi.Lowe@gmail.com','087826ddddac4f499b5306dc4fd06a6c31128de87775369231ede5a9ed1fdc6d',3,NULL,1),(23,'Moses','Lubowitz','70078403','Cra 24629 Vía Goyette Inlet',198,'3160045519','Moses.Lubowitz@gmail.com','f5b6ea8bb1040f09be70960619812148ae806683920f0a51fa83a104f22732d9',3,NULL,1),(24,'Jonathon','Macejkovic','71554034','Cra 498 Vía Von Estates',198,'3160700234','Jonathon.Macejkovic@gmail.com','8bf528180d3006ad0b4b7cf396cabce4e4d332a2197cc01082dfd3c247e8b1b5',3,NULL,1),(25,'Nina','Welch','73029665','Cra 1981 Vía Victor Isle',198,'3161354949','Nina.Welch@gmail.com','6aa789aad2c55db4a556c40032b3f6a96497ea95090f1f43bb9aff746e1597ff',3,NULL,1),(26,'Hector','Braun','74505296','Cra 12182 Vía Brayan Landing',198,'3162009664','Hector.Braun@gmail.com','cf5097f9779b79c3e25a3f2c0e888a99112c1aa8fee36f27799fa5b0366c9450',3,NULL,1),(27,'Cedric','Schuster','75980927','Cra 23374 Vía Larson Drives',198,'3162664379','Cedric.Schuster@gmail.com','b78c1b0dbea6e55a431350530e03cd88db0fd7446fca142e3030c39fb901d25f',3,NULL,1),(28,'Isaac','Ankunding','77456558','Cra 6472 Vía Alycia Knolls',198,'3163319094','Isaac.Ankunding@gmail.com','43a46de507aa9f840bbd30b4a1c0d39ef4407591b62f672752ad72fb8932c2b2',3,NULL,1),(29,'Stella','Raynor','78932189','Cra 2868 Vía Skyla Stravenue',198,'3163973809','Stella.Raynor@gmail.com','165ecb2b076de96d237b4d5c2ae6992bfe865b0331de2deb0ed07fa61c29de3b',3,NULL,1),(30,'Faith','Doyle','80407820','Cra 797 Vía Estella Track',198,'3164628524','Faith.Doyle@gmail.com','8eebbd898c1591c0cce9a272ded137c8522002931a5cd5d0f505108cc69ecf01',3,NULL,1),(31,'Jonathon','Yost','81883451','Cra 45757 Vía Farrell Club',1090,'3165283239','Jonathon.Yost@gmail.com','936ad1395b71fad9c7310154a3901a8840eb78c0f517ac397a681cf5c68d4e8f',3,NULL,1),(32,'Emilio','Bartell','83359082','Cra 62492 Vía Anabelle Causeway',1090,'3165937954','Emilio.Bartell@gmail.com','ec27e6b1e1a4cb13961b383f1431e032d1c427cb82c5e195036681ec035cf5da',3,NULL,1),(33,'Adrian','Zulauf','84834713','Cra 122 Vía Denesik Tunnel',1090,'3166592669','Adrian.Zulauf@gmail.com','b146985dfe939e73840bed0e9020027714c9d51d78dd181e02af5d6abcf8d93e',3,NULL,1),(34,'Dale','Harris','86310344','Cra 1774 Vía Schowalter Parkways',1090,'3167247384','Dale.Harris@gmail.com','32e32a97025fc1ca10366378586a654d40eba0760b1b8b0fb29e8c9d38001eeb',3,NULL,1),(35,'Jean','Kreiger','87785975','Cra 8120 Vía Kertzmann Skyway',1090,'3167902099','Jean.Kreiger@gmail.com','75994d1eda33ecb4883a5ed71356115be7cdf2aeb43fa83c9273b6e0925440bf',3,NULL,1),(36,'Delbert','Schamberger','89261606','Cra 783 Vía Karlee Tunnel',1090,'3168556814','Delbert.Schamberger@gmail.com','c112b343137af618d500bc5b1d64a67b7667b30a88529a58462c78f32d91b8f5',3,NULL,1),(37,'Clyde','O','90737237','Cra 738 Vía Amara Streets',1090,'3169211529','Clyde.O@gmail.com','bf92be1e11da76af29fe2caa4ce2a2d59a12c2911528a0c52c96128560d18b45',3,NULL,1),(38,'Jody','Romaguera','92212868','Cra 0514 Vía Goyette Throughway',1090,'3169866244','Jody.Romaguera@gmail.com','0d07d5b2c876440341d6b70a4ebdc05c709e456248e305692d80c64ae511b859',3,NULL,1),(39,'Gerardo','McLaughlin','93688499','Cra 0410 Vía Solon Ville',1090,'3170520959','Gerardo.McLaughlin@gmail.com','009d4575b5493d24236d9de4a764c2daf8aeee2a817f1085aa981176089463d6',3,NULL,1),(40,'Mona','Heathcote','95164130','Cra 2906 Vía Doyle Prairie',1090,'3171175674','Mona.Heathcote@gmail.com','4de837f1dfd7a29bbdeb5e72da933f8a0e85c51f0721ccd8821513ccb555a533',3,NULL,1),(41,'Joanne','Buckridge','96639761','Cra 38659 Vía Mosciski Fords',4,'3171830389','Joanne.Buckridge@gmail.com','cf40e3de040a0b78473d6ba6b3a8b57a7da4b14186405baf2cb55dc6e3314a51',3,NULL,1),(42,'Jan','Boehm','98115392','Cra 481 Vía Rippin Ranch',4,'3172485104','Jan.Boehm@gmail.com','a686778451bebc821f593603441aa2246360445465f521fd1da5735c67a797d1',3,NULL,1),(43,'Deborah','Nicolas','99591023','Cra 46593 Vía Zoila Spring',4,'3173139819','Deborah.Nicolas@gmail.com','dd66884427dba18a46425304191f2e05ac4530830cf17e5d77d0ed5f2129bb65',3,NULL,1),(44,'Maria','Feil','101066654','Cra 47586 Vía Issac Avenue',4,'3173794534','Maria.Feil@gmail.com','5a3cc860eddb3244eb42e0a962350fe345e6c384185aba663cfb427646c12468',3,NULL,1),(45,'Rachel','Zboncak','102542285','Cra 1946 Vía Ruecker Rapids',4,'3174449249','Rachel.Zboncak@gmail.com','e770115248d2fd1f2ad7a607ee5640e29b754abb563e55c7acd3df24a5cd78ac',3,NULL,1),(46,'Rebecca','Morissette','104017916','Cra 4367 Vía Schmidt Pass',4,'3175103964','Rebecca.Morissette@gmail.com','776f795572341b4d9873691d060546cd58b6308531ddf5544e4de56f5d62e7d1',3,NULL,1),(47,'Kelli','Zemlak','105493547','Cra 7946 Vía Robel Mill',4,'3175758679','Kelli.Zemlak@gmail.com','fd06602dfee03200d42c82267b5258b7d65b1330e71e5246369e004f5c8450d3',3,NULL,1),(48,'Kellie','Kunde','106969178','Cra 909 Vía Ofelia Crossroad',4,'3176413394','Kellie.Kunde@gmail.com','84998f80260243ee6dd6995a1d332c32135b51057775d3df86b9db21a138c860',3,NULL,1),(49,'Debra','McGlynn','108444809','Cra 285 Vía McGlynn Garden',4,'3177068109','Debra.McGlynn@gmail.com','e85dd8051f5dd52efffc3e8226e805140efbb635778903bea2362ef9d691a04c',3,NULL,1),(50,'Johanna','Halvorson','109920440','Cra 967 Vía Connelly Loop',4,'3177722824','Johanna.Halvorson@gmail.com','4c56127abfd8b61660c8b9f931f97e464b74b7b27df78c1698ffa3c8adcfc813',3,NULL,1),(51,'Carlos','Laferte','36616203','Cra 5ta #6-70 La Rioja',538,'3117156320','carloslaferte@outlook.com','Carlos.Laferte2021*/',1,1,1),(52,'Alejandra','Hernández','1004152789','Cra 6ta #20-50 El Prado',757,'3147895201','alejandrahdez@gmail.com','Alejandra.Hernandez2021*/',1,2,1),(53,'Juan Sebastián','Urán','1004789522','Cll 5C #782-740 Kennedy',198,'3168952200','juanuran@outlook.com','Juan.Uran2021*/',1,3,1),(54,'Maria','Vargas','37895620','Cll 7D #20-35 La Merced',1090,'3187452033','mariavargas@gmail.com','Maria.Vargas2021*/',1,4,1),(55,'Breiner','Aguilar','1002156321','Cra 7 #20-35 Barlovento',4,'3174552217','breineraguilar@outlook.com','Breiner.Aguilar2021*/',1,5,1),(56,'Eva','Batz','36781299','Cra 155 Bechtelar Street',538,'3167852239','Eva.Batz@gmail.com','Eva.Batz2021*/',2,1,1),(57,'Brett','Abshire','36860203','Cra 73254 Padberg Cliff',538,'3167932080','Brett.Abshire@gmail.com','Brett.Abshire2021*/',2,1,1),(58,'Suzanne','Toy','36939107','Cra 89576 Maggio Meadows',757,'3168011921','Suzanne.Toy@gmail.com','Suzanne.Toy2021*/',2,2,1),(59,'Jennifer','Morar','37018011','Cra 750 Stella Brook',757,'3168091762','Jennifer.Morar@gmail.com','Jennifer.Morar2021*/',2,2,1),(60,'Salvatore','Douglas','37096915','Cra 6624 OConnell Well',198,'3168171603','Salvatore.Douglas@gmail.com','Salvatore.Douglas2021*/',2,3,1),(61,'Emilio','Welch','37175819','Cra 26737 Quigley Mission',198,'3168251444','Emilio.Welch@gmail.com','Emilio.Welch2021*/',2,3,1),(62,'Karl','Ziemann','37254723','Cra 3161 Hermiston Flat',1090,'3168331285','Karl.Ziemann@gmail.com','Karl.Ziemann2021*/',2,4,1),(63,'Kellie','Dietrich','37333627','Cra 84537 Jana Centers',1090,'3168411126','Kellie.Dietrich@gmail.com','Kellie.Dietrich2021*/',2,4,1),(64,'Wilbur','Grimes','37412531','Cra 1758 Wilderman Ways',4,'3168490967','Wilbur.Grimes@gmail.com','Wilbur.Grimes2021*/',2,5,1),(65,'Roman','Hoeger','37491435','Cra 31737 Hanna Viaduct',4,'3168570808','Roman.Hoeger@gmail.com','Roman.Hoeger2021*/',2,5,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,6 +378,7 @@ DROP TABLE IF EXISTS `vehicles_information_pretty`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vehicles_information_pretty` AS SELECT 
+ 1 AS `id_vehículo`,
  1 AS `matrícula`,
  1 AS `tipo_vehículo`,
  1 AS `modelo`,
@@ -480,12 +481,10 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_bill`(
 	id_alquiler INT UNSIGNED
 )
-BEGIN 
-
-	SELECT * 
-		FROM factura AS f
-		WHERE f.id_alquiler = id_alquiler; 
-
+BEGIN
+	SELECT *
+	FROM factura AS f
+	WHERE f.id_alquiler = id_alquiler; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -505,9 +504,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `create_bill`(
 	id_alquiler INT UNSIGNED
 )
-BEGIN 
-	
-	SET @recargo = 0; 
+BEGIN SET @recargo = 0; 
 	
 	/*Se genera el valor a pagar a partir del valor cotizado y los días de mora (si se da el caso)*/
 	
@@ -515,11 +512,12 @@ BEGIN
 	SELECT a.valor_cotizado, a.dias_mora, a.valor_diario_cotizado INTO @total_pagar, @dias_mora, @freezed_daily
 	FROM alquileres AS a
 	WHERE a.id_alquiler = id_alquiler; 
-	
+		
 	/*Interés por mora que se cobra al cliente por los días de retraso*/
-	IF ( @dias_mora > 0 ) THEN 
-		/*Cálculo del 8% de recargo*/
-		SET @recargo = (@dias_mora * @freezed_daily) * 0.08 ; 
+	IF (@dias_mora > 0) THEN 
+		/*Cálculo del 8% de recargo*/ 
+		SET @interes = (@dias_mora * @freezed_daily) * 0.08; 
+		SET @recargo = (@dias_mora * @freezed_daily) + @interes; 
 	END IF; 	
 	
 	/*Crea la factura, siendo el total a pagar el valor cotizado por el cliente mas los recargos por mora, 
@@ -527,7 +525,7 @@ BEGIN
 	INSERT INTO factura (id_alquiler, totaL_pagar) VALUES (
 		id_alquiler, 
 		(@totaL_pagar + @recargo)
-	); 
+	);
 
 END ;;
 DELIMITER ;
@@ -548,11 +546,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_user`(
 	IN id_usuario INT UNSIGNED
 )
-BEGIN 
-
+BEGIN
 	UPDATE usuarios SET is_active = 0
-		WHERE usuarios.id_usuario = id_usuario; 
-
+	WHERE usuarios.id_usuario = id_usuario; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -572,11 +568,9 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `disable_vehicle`(
 	IN id_vehículo INT UNSIGNED
 )
-BEGIN 
-	
-	UPDATE VEHÍCULOS SET disponible = 0 
-		WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
-	
+BEGIN
+	UPDATE VEHÍCULOS SET disponible = 0
+	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -594,10 +588,10 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles`()
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY WHERE disponible = 1; 
-
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
+	WHERE disponible = 1; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -618,14 +612,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_pr
 	IN min_price DECIMAL(12,2), 
 	IN max_price DECIMAL(12,2)
 )
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
 	WHERE 
 		disponible = 1 AND
 		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal >= min_price AND
 		VEHICLES_INFORMATION_PRETTY.valor_alquiler_semanal <= max_price; 
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -645,13 +638,12 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_available_vehicles_filter_by_type`(
 	IN tipo_vehículo VARCHAR(255) 
 )
-BEGIN 
-
-	SELECT * FROM VEHICLES_INFORMATION_PRETTY
+BEGIN
+	SELECT *
+	FROM VEHICLES_INFORMATION_PRETTY
 	WHERE 
 		disponible = 1 AND
 		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -669,10 +661,9 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_rental_history`()
-BEGIN 
-
-	SELECT * FROM rental_data_history_pretty; 
-	
+BEGIN
+	SELECT *
+	FROM rental_data_history_pretty; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -701,10 +692,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_client`(
 )
 BEGIN 
 
-	/*Encriptar la contraseña*/
-	SET @hashed = SHA2(contraseña, 256); 
-	
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, id_ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario) VALUES(
+	/*Encriptar la contraseña*/ 
+	SET @hashed = SHA2(contraseña, 256);
+
+	INSERT INTO 
+	usuarios(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario
+	) VALUES(
 		nombres, 
 		apellidos, 
 		identificacion, 
@@ -714,9 +716,7 @@ BEGIN
 		correo_electrónico, 
 		@hashed, 
 		3
-	); 
-
-END ;;
+); END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -744,9 +744,19 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_new_internal_user`(
 	IN código_tipo_usuario INT UNSIGNED, 
 	IN código_sucursal INT UNSIGNED
 )
-BEGIN 
-
-	INSERT INTO usuarios(nombres, apellidos, identificacion, direccion, id_ciudad_residencia, celular, correo_electrónico, contraseña, código_tipo_usuario, código_sucursal) VALUES(
+BEGIN
+INSERT INTO usuarios(
+		nombres, 
+		apellidos, 
+		identificacion, 
+		direccion, 
+		id_ciudad_residencia, 
+		celular, 
+		correo_electrónico, 
+		contraseña, 
+		código_tipo_usuario, 
+		código_sucursal
+	) VALUES(
 		nombres, 
 		apellidos, 
 		identificacion, 
@@ -758,7 +768,6 @@ BEGIN
 		código_tipo_usuario, 
 		código_sucursal
 	); 
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -782,9 +791,9 @@ BEGIN
 
 	/*Cambia la columna de estado was_paid*/
 	UPDATE factura SET 
-		factura.was_paid = 1,
-		factura.valor_pagado = factura.totaL_pagar
-		WHERE factura.id_factura = id_factura; 
+			factura.was_paid = 1,
+			factura.valor_pagado = factura.totaL_pagar
+	WHERE factura.id_factura = id_factura; 
 
 END ;;
 DELIMITER ;
@@ -817,8 +826,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle`(
 	IN descuento DECIMAL(3,1) 
 )
 BEGIN
-
-	INSERT INTO VEHÍCULOS(
+INSERT INTO VEHÍCULOS(
 		matrícula, 
 		código_tipo_vehículo, 
 		modelo, 
@@ -844,10 +852,7 @@ BEGIN
 		valor_alquiler_semanal, 
 		valor_alquiler_diario, 
 		descuento
-	); 
-
-
-END ;;
+	); END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -869,10 +874,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_arrival`(
 BEGIN 
 
 	/*Se actualiza la fecha de llegada*/
-	UPDATE alquileres
-	SET alquileres.fecha_llegada = CURRENT_TIMESTAMP
+	UPDATE alquileres SET alquileres.fecha_llegada = CURRENT_TIMESTAMP
 	WHERE alquileres.id_alquiler = id_alquiler; 
-	
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -895,14 +899,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_pickup`(
 BEGIN 
 
 	/*Se actualiza la fecha de recogida*/
-	UPDATE alquileres
-	SET alquileres.fecha_recogida = CURRENT_TIMESTAMP
+	UPDATE alquileres SET alquileres.fecha_recogida = CURRENT_TIMESTAMP
 	WHERE alquileres.id_alquiler = id_alquiler; 
-	
-	/*Se actualiza la fecha máxima de entrega a partir de los días del alquiler y la fecha de recogida*/
-	UPDATE alquileres
-	SET alquileres.fecha_entrega_pactada = ADDDATE(alquileres.fecha_recogida, alquileres.dias)
-	WHERE alquileres.id_alquiler = id_alquiler; 
+		
+		/*Se actualiza la fecha máxima de entrega a partir de los días del alquiler y la fecha de recogida*/
+	UPDATE alquileres SET alquileres.fecha_entrega_pactada = ADDDATE(alquileres.fecha_recogida, alquileres.dias)
+	WHERE alquileres.id_alquiler = id_alquiler;
 
 END ;;
 DELIMITER ;
@@ -934,53 +936,62 @@ BEGIN
 
 	SET @success = 0; 
 
-	/*Revisa que el vehículo aún se encuentre disponible*/
-	SELECT disponible INTO @is_disponible FROM VEHÍCULOS 
-		WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+		/*Revisa que el vehículo aún se encuentre disponible*/
+	SELECT disponible INTO @is_disponible
+	FROM VEHÍCULOS
+	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+			
+		IF @is_disponible = 1 THEN
 		
-	IF @is_disponible = 1 THEN
-	
-		/*Calcular el precio*/
-		SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
-		FROM VEHÍCULOS
-		WHERE VEHÍCULOS.id_vehículo = id_vehículo;  
+			/*Calcular el precio*/
+			SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
+			FROM VEHÍCULOS
+			WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
+			
+			SET @semanas =TRUNCATE((dias/7), 0); 
+			SET @dias_restantes = dias - (@semanas * 7); 
+			SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); 
+			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
+					
+			/*El vehículo ya no estará disponible para alquilar*/
+			UPDATE `VEHÍCULOS` SET 
+				`VEHÍCULOS`.disponible = 0, 
+				`VEHÍCULOS`.veces_alquilado = `VEHÍCULOS`.veces_alquilado + 1 
+			WHERE `VEHÍCULOS`.id_vehículo = id_vehículo; 
+					
+			/*
+			Insertar el registro del alquiler
+			Dentro del registro del alquiler, debeinsertar el precio de alquiler diario y semanal del vehículo al momento
+			en que el usuario realizó la solicitud
+			*/
+			INSERT INTO ALQUILERES(
+				id_cliente, 
+				id_empleado, 
+				id_vehículo,
+				id_sucursal_alquiler, 
+				id_sucursal_entrega, 
+				fecha_salida, 
+				fecha_esperada_llegada, 
+				dias, 
+				valor_diario_cotizado, 
+				valor_semanal_cotizado, 
+				valor_cotizado) VALUES (
+				id_cliente, 
+				id_empleado, 
+				id_vehículo, 
+				id_sucursal_alquiler, 
+				id_sucursal_entrega,
+				fecha_salida, 
+				fecha_esperada_llegada, 
+				dias, 
+				@alquiler_diario, 
+				@alquiler_semanal,
+				@valor_cotizado
+			); SET @success = 1; 
+			
+		END IF;
 		
-		SET @semanas = TRUNCATE((dias/7), 0);
-		SET @dias_restantes = dias - (@semanas * 7); 
-		
-		SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario);
-		SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
-		
-		/*El vehículo ya no estará disponible para alquilar*/
-		UPDATE VEHÍCULOS 
-		SET VEHÍCULOS.disponible = 0 
-		WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
-		
-		/*
-		Insertar el registro del alquiler
-		Dentro del registro del alquiler, debe calcular insertar el precio de alquiler diario y semanal del vehículo al momento
-		en que el usuario realizó la solicitud
-		*/
-		INSERT INTO ALQUILERES(id_cliente, id_empleado, id_vehículo, id_sucursal_alquiler, id_sucursal_entrega, fecha_salida, fecha_esperada_llegada, dias, valor_diario_cotizado, valor_semanal_cotizado, valor_cotizado) VALUES (
-			id_cliente, 
-			id_empleado, 
-			id_vehículo, 
-			id_sucursal_alquiler, 
-			id_sucursal_entrega,
-			fecha_salida,  
-			fecha_esperada_llegada, 
-			dias, 
-			@alquiler_diario, 
-			@alquiler_semanal,
-			@valor_cotizado
-		); 
-		
-		SET @success = 1; 
-	
-	END IF;
-	
 	SELECT @success; 
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1003,29 +1014,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `register_vehicle_return`(
 BEGIN 
 
 	/*Se agrega el registro de la devolución del vehículo por parte del cliente*/
-	UPDATE alquileres
-	SET alquileres.fecha_entrega = CURRENT_TIMESTAMP
+	UPDATE alquileres SET alquileres.fecha_entrega = CURRENT_TIMESTAMP
 	WHERE alquileres.id_alquiler = id_alquiler; 
-	
-	/*Se calculan los días de mora*/
+		
+		/*Se calculan los días de mora*/
 	SELECT fecha_entrega_pactada, fecha_entrega, id_vehículo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
 	FROM alquileres
 	WHERE alquileres.id_alquiler = id_alquiler; 
-	
-	IF @fecha_entrega_pactada < @fecha_entrega THEN
-	
+		
+		IF @fecha_entrega_pactada < @fecha_entrega THEN 
 			SET @mora = TIMESTAMPDIFF(DAY, @fecha_entrega_pactada,@fecha_entrega);
-			
-			UPDATE alquileres
-			SET alquileres.dias_mora = @mora
+			UPDATE alquileres SET alquileres.dias_mora = @mora
 			WHERE alquileres.id_alquiler = id_alquiler; 
-			
-	END IF; 
-	
-	/*Se actualiza el estado disponible del vehículo*/
+		END IF; 
+		
+		/*Se actualiza el estado disponible del vehículo*/
 	UPDATE `VEHÍCULOS` SET
-		`VEHÍCULOS`.disponible = 1
-		WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
+			`VEHÍCULOS`.disponible = 1
+	WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
 
 END ;;
 DELIMITER ;
@@ -1047,13 +1053,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `set_disccount_to_vehicle_type`(
 	IN tipo_vehículo INT UNSIGNED, 
 	IN descuento DECIMAL(3,1)
 )
-BEGIN 
-
-	UPDATE VEHÍCULOS
-	SET VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo; 
-	 
-
+BEGIN
+	UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
+	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1082,28 +1084,27 @@ BEGIN
 
 	SET @success = 0; 
 
-	/*Encriptar la contraseña*/
+	/*Encriptar la contraseña*/ 
 	SET @hashed = SHA2(contraseña_actual, 256); 
 	
 	/*Obtener la contraseña actual*/
-	SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
-			WHERE usuarios.id_usuario = id_usuario; 
+	SELECT usuarios.contraseña INTO @saved_password
+	FROM usuarios
+	WHERE usuarios.id_usuario = id_usuario; 
 	
-	IF @hashed = @saved_password THEN 
-		
+	IF @hashed = @saved_password THEN
 		UPDATE usuarios SET
 			usuarios.direccion = direccion, 
 			usuarios.id_ciudad_residencia = id_ciudad_residencia, 
 			usuarios.celular = celular, 
 			usuarios.`correo_electrónico` = correo_electrónico
-		WHERE usuarios.id_usuario = id_usuario;
+		WHERE usuarios.id_usuario = id_usuario; 
 		
 		SET @success = 1; 
-		
-	END IF; 
-	
-	SELECT @success; 
-	
+	END IF;
+
+	SELECT @success;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1132,8 +1133,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_vehicle`(
 	IN descuento DECIMAL(3,1) 
 )
 BEGIN
-
-	UPDATE VEHÍCULOS SET
+UPDATE VEHÍCULOS SET
 		VEHÍCULOS.`matrícula` = matrícula, 
 		VEHÍCULOS.has_sunroof = has_sunroof, 
 		VEHÍCULOS.`código_tipo_motor` = código_tipo_motor, 
@@ -1142,10 +1142,7 @@ BEGIN
 		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
 		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
 		VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`id_vehículo` = `id_vehículo`; 
-
-
-END ;;
+WHERE VEHÍCULOS.`id_vehículo` = `id_vehículo`; END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1167,30 +1164,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `user_login`(
 )
 BEGIN 
 
-	SET @success = 0; 
-
-	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists FROM usuarios
-			WHERE usuarios.correo_electrónico = correo_electrónico; 
+	SET @success = 0;
+	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists
+	FROM usuarios
+	WHERE usuarios.correo_electrónico = correo_electrónico; 
 	
 	/*Si el usuario existe verifica que la contraseña sea correcta*/
-	IF @user_exists = 1 THEN  
+	IF @user_exists = 1 THEN 
 		
-		/*Encripta la contraseña para compararla con la que está en la base de datos*/
-		SET @hashed = SHA2(contraseña, 256); 
-		
-		SELECT usuarios.contraseña INTO @saved_password FROM usuarios 
-			WHERE usuarios.correo_electrónico = correo_electrónico; 
-		
-		IF @saved_password = @hashed THEN
-			SET @success = 1; 
-		END IF;
+		/*Encripta la contraseña para compararla con la que está en la base de datos*/ 
+		SET @hashed = SHA2(contraseña, 256);
 
+		SELECT usuarios.contraseña INTO @saved_password
+		FROM usuarios
+		WHERE usuarios.correo_electrónico = correo_electrónico; 
+		
+		IF @saved_password = @hashed THEN SET @success = 1; 
+		END IF; 
+	
 	END IF; 
 	
 	/*Retorna True (1) o False (0) según si el login fue correcto*/
-	SELECT @success; 
-	
-END ;;
+SELECT @success; END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1282,7 +1277,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vehicles_information_pretty` AS select `v`.`matrícula` AS `matrícula`,`tv`.`tipo_vehículo` AS `tipo_vehículo`,`v`.`modelo` AS `modelo`,`v`.`numero_puertas` AS `numero_puertas`,`v`.`capacidad` AS `capacidad`,`v`.`has_sunroof` AS `has_sunroof`,`tm`.`motor` AS `motor`,`v`.`color` AS `color`,`v`.`descuento` AS `descuento`,`v`.`valor_alquiler_semanal` AS `valor_alquiler_semanal`,`v`.`valor_alquiler_diario` AS `valor_alquiler_diario`,`v`.`disponible` AS `disponible` from ((`vehículos` `v` join `tipo_vehículo` `tv`) join `tipo_motor` `tm`) where ((`v`.`código_tipo_vehículo` = `tv`.`código_tipo_vehículo`) and (`v`.`código_tipo_motor` = `tm`.`código_tipo_motor`)) */;
+/*!50001 VIEW `vehicles_information_pretty` AS select `v`.`id_vehículo` AS `id_vehículo`,`v`.`matrícula` AS `matrícula`,`tv`.`tipo_vehículo` AS `tipo_vehículo`,`v`.`modelo` AS `modelo`,`v`.`numero_puertas` AS `numero_puertas`,`v`.`capacidad` AS `capacidad`,`v`.`has_sunroof` AS `has_sunroof`,`tm`.`motor` AS `motor`,`v`.`color` AS `color`,`v`.`descuento` AS `descuento`,`v`.`valor_alquiler_semanal` AS `valor_alquiler_semanal`,`v`.`valor_alquiler_diario` AS `valor_alquiler_diario`,`v`.`disponible` AS `disponible` from ((`vehículos` `v` join `tipo_vehículo` `tv`) join `tipo_motor` `tm`) where ((`v`.`código_tipo_vehículo` = `tv`.`código_tipo_vehículo`) and (`v`.`código_tipo_motor` = `tm`.`código_tipo_motor`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1296,4 +1291,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-31 19:19:01
+-- Dump completed on 2022-05-05  8:31:55
