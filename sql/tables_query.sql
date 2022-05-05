@@ -1,12 +1,13 @@
 DROP DATABASE IF EXISTS proyecto_aula_bd;
-CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; USE proyecto_aula_bd; 
+CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4';
+USE proyecto_aula_bd; 
 
 /* -- */
 CREATE TABLE TIPO_USUARIO(
 	código_tipo_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	tipo_usuario VARCHAR(64) NOT NULL
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'
+CHARACTER SET 'utf8mb4' 
 COMMENT 'Tabla para el manejo de usuarios / roles en el sistema, se incluyen: Administrador, Trabajador y Clientes.';
 
 INSERT INTO TIPO_USUARIO(tipo_usuario) VALUES
@@ -20,7 +21,7 @@ CREATE TABLE DEPARTAMENTOS(
 	id_departamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	departamento VARCHAR(255) NOT NULL UNIQUE
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 
 INSERT INTO DEPARTAMENTOS (departamento) VALUES
 	('Antioquia'),
@@ -69,7 +70,7 @@ CREATE TABLE CIUDADES(
 		ON UPDATE CASCADE
 	
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';  
+CHARACTER SET 'utf8mb4' ;  
 
 /* 
 ################################
@@ -96,7 +97,7 @@ CREATE TABLE SUCURSALES(
 	
 	INDEX sucursales_correo_electrónico(correo_electrónico)
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 
 INSERT INTO SUCURSALES(id_ciudad, dirección, teléfono_fijo, celular, correo_electrónico) VALUES
 	(486, 'Cra 4 #6-75 San Cristóbal', '6550000', '3170000000', 'sucursalbga@gmail.com'),
@@ -141,15 +142,14 @@ CREATE TABLE USUARIOS(
 		REFERENCES `CIUDADES`(id_ciudad)
 		ON UPDATE CASCADE
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
-
+CHARACTER SET 'utf8mb4' ;
 
 /* -- */
 CREATE TABLE TIPO_MOTOR(
 	código_tipo_motor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	motor VARCHAR(64) NOT NULL UNIQUE
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
+CHARACTER SET 'utf8mb4' ;
 
 INSERT INTO TIPO_MOTOR(motor) VALUES
 	('Atmosférico'), 
@@ -163,7 +163,7 @@ CREATE TABLE TIPO_VEHÍCULO(
 	código_tipo_vehículo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	tipo_vehículo VARCHAR(64) NOT NULL
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 
 
 INSERT INTO TIPO_VEHÍCULO(tipo_vehículo) VALUES
@@ -213,7 +213,7 @@ CREATE TABLE VEHÍCULOS(
 		ON UPDATE CASCADE
 	
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 
 
 INSERT INTO VEHÍCULOS(matrícula, código_tipo_vehículo, modelo, numero_puertas, capacidad, has_sunroof, código_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
@@ -322,7 +322,7 @@ CREATE TABLE ALQUILERES(
 		ON UPDATE CASCADE
 	
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 
 /* -- */ 
 CREATE TABLE FACTURA(
@@ -337,7 +337,7 @@ CREATE TABLE FACTURA(
 		REFERENCES ALQUILERES(id_alquiler)
 		ON UPDATE CASCADE
 )
-CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'; 
+CHARACTER SET 'utf8mb4' ; 
 	
 /* 
 ##############################################
@@ -351,4 +351,6 @@ GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'WebApp'@'%';
 CREATE USER 'MobileApp'@'%' IDENTIFIED WITH mysql_native_password BY 'MobileAppPassword41*/'; 
 GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'MobileApp'@'%'; 
 
-
+SHOW SESSION VARIABLES LIKE 'character\_set\_%';
+SHOW SESSION VARIABLES LIKE 'collation\_%';
+SHOW TABLE STATUS;
