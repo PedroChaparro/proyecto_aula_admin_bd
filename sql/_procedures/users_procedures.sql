@@ -178,13 +178,17 @@ CREATE PROCEDURE user_login(
 		FROM usuarios
 		WHERE usuarios.correo_electrónico = correo_electrónico; 
 		
-		IF @saved_password = @hashed THEN SET @success = 1; 
+		IF @saved_password = @hashed THEN 
+        
+			-- Si la contraseña es correcta, regresa algunos datos del usuario para la sesión
+			SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'NAME', `correo_electrónico` 'MAIL' 
+            FROM USUARIOS
+            WHERE USUARIOS.`correo_electrónico` = correo_electrónico;
+            
 		END IF; 
 	
 	END IF; 
-	
-	/*Retorna True (1) o False (0) según si el login fue correcto*/
-SELECT @success; END //
+END //
 
 DELIMITER ;
 
