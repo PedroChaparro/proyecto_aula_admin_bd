@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------*/
-/* PROCEDIMIENTOS RELACIONADOS AL MANEJO DE VEHÍCULOS 		   */
+/* PROCEDIMIENTOS RELACIONADOS AL MANEJO DE VEHICULOS 		   */
 /* ------------------------------------------------------------*/
 
 /* ------------------------- */
@@ -11,40 +11,40 @@
 DROP PROCEDURE IF EXISTS register_vehicle; 
 DELIMITER //
 CREATE PROCEDURE register_vehicle(
-	IN matrícula VARCHAR(6), 
-	IN código_tipo_vehículo INT UNSIGNED, 
+	IN matricula VARCHAR(6), 
+	IN codigo_tipo_vehiculo INT UNSIGNED, 
 	IN modelo VARCHAR(64), 
 	IN número_puertas TINYINT(2) UNSIGNED, 
 	IN capacidad TINYINT(2) UNSIGNED,
 	IN has_sunroof TINYINT(1) UNSIGNED, 
-	IN código_tipo_motor INT UNSIGNED, 
+	IN codigo_tipo_motor INT UNSIGNED, 
 	IN color VARCHAR(64), 
 	IN disponible TINYINT(1) UNSIGNED, 
 	IN valor_alquiler_semanal DECIMAL(12,2), 
 	IN valor_alquiler_diario DECIMAL(12,2),
 	IN descuento DECIMAL(3,1) 
 ) BEGIN
-INSERT INTO VEHÍCULOS(
-		matrícula, 
-		código_tipo_vehículo, 
+INSERT INTO VEHICULOS(
+		matricula, 
+		codigo_tipo_vehiculo, 
 		modelo, 
 		número_puertas, 
 		capacidad, 
 		has_sunroof, 
-		código_tipo_motor, 
+		codigo_tipo_motor, 
 		color, 
 		disponible, 
 		valor_alquiler_semanal, 
 		valor_alquiler_diario, 
 		descuento
 	) VALUES (
-		matrícula, 
-		código_tipo_vehículo, 
+		matricula, 
+		codigo_tipo_vehiculo, 
 		modelo, 
 		número_puertas, 
 		capacidad, 
 		has_sunroof, 
-		código_tipo_motor, 
+		codigo_tipo_motor, 
 		color, 
 		disponible, 
 		valor_alquiler_semanal, 
@@ -62,10 +62,10 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS disable_vehicle; 
 DELIMITER //
 CREATE PROCEDURE disable_vehicle(
-	IN id_vehículo INT UNSIGNED
+	IN id_vehiculo INT UNSIGNED
 ) BEGIN
-	UPDATE VEHÍCULOS SET disponible = 0
-	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+	UPDATE VEHICULOS SET disponible = 0
+	WHERE VEHICULOS.`id_vehiculo` = id_vehiculo; 
 END//
 
 DELIMITER ;
@@ -75,26 +75,26 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_vehicle; 
 DELIMITER //
 CREATE PROCEDURE update_vehicle(
-	IN id_vehículo INT UNSIGNED,
-	IN matrícula VARCHAR(6), 
+	IN id_vehiculo INT UNSIGNED,
+	IN matricula VARCHAR(6), 
 	IN has_sunroof TINYINT(1) UNSIGNED, 
-	IN código_tipo_motor INT UNSIGNED, 
+	IN codigo_tipo_motor INT UNSIGNED, 
 	IN color VARCHAR(64), 
 	IN disponible TINYINT(1) UNSIGNED, 
 	IN valor_alquiler_semanal DECIMAL(12,2), 
 	IN valor_alquiler_diario DECIMAL(12,2),
 	IN descuento DECIMAL(3,1) 
 ) BEGIN
-UPDATE VEHÍCULOS SET
-		VEHÍCULOS.`matrícula` = matrícula, 
-		VEHÍCULOS.has_sunroof = has_sunroof, 
-		VEHÍCULOS.`código_tipo_motor` = código_tipo_motor, 
-		VEHÍCULOS.color = color, 
-		VEHÍCULOS.disponible = disponible, 
-		VEHÍCULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
-		VEHÍCULOS.valor_alquiler_diario = valor_alquiler_diario, 
-		VEHÍCULOS.descuento = descuento
-WHERE VEHÍCULOS.`id_vehículo` = `id_vehículo`; END//
+UPDATE VEHICULOS SET
+		VEHICULOS.`matricula` = matricula, 
+		VEHICULOS.has_sunroof = has_sunroof, 
+		VEHICULOS.`codigo_tipo_motor` = codigo_tipo_motor, 
+		VEHICULOS.color = color, 
+		VEHICULOS.disponible = disponible, 
+		VEHICULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
+		VEHICULOS.valor_alquiler_diario = valor_alquiler_diario, 
+		VEHICULOS.descuento = descuento
+WHERE VEHICULOS.`id_vehiculo` = `id_vehiculo`; END//
 DELIMITER ;
 
 /* ----- */
@@ -118,13 +118,13 @@ CALL get_available_vehicles();
 DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_type; 
 DELIMITER //
 CREATE PROCEDURE get_available_vehicles_filter_by_type(
-	IN tipo_vehículo VARCHAR(255) 
+	IN tipo_vehiculo VARCHAR(255) 
 ) BEGIN
 	SELECT *
 	FROM VEHICLES_INFORMATION_PRETTY
 	WHERE 
 		disponible = 1 AND
-		VEHICLES_INFORMATION_PRETTY.tipo_vehículo = tipo_vehículo; 
+		VEHICLES_INFORMATION_PRETTY.tipo_vehiculo = tipo_vehiculo; 
 END //
 
 DELIMITER ; 
@@ -160,11 +160,11 @@ CALL get_available_vehicles_filter_by_price(400000, 540000);
 DROP PROCEDURE IF EXISTS set_disccount_to_vehicle_type; 
 DELIMITER //
 CREATE PROCEDURE set_disccount_to_vehicle_type(
-	IN tipo_vehículo INT UNSIGNED, 
+	IN tipo_vehiculo INT UNSIGNED, 
 	IN descuento DECIMAL(3,1)
 ) BEGIN
-	UPDATE VEHÍCULOS SET VEHÍCULOS.descuento = descuento
-	WHERE VEHÍCULOS.`código_tipo_vehículo` = tipo_vehículo;
+	UPDATE VEHICULOS SET VEHICULOS.descuento = descuento
+	WHERE VEHICULOS.`codigo_tipo_vehiculo` = tipo_vehiculo;
 END //
 
 DELIMITER ; 

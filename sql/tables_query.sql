@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS proyecto_aula_bd;
-CREATE DATABASE proyecto_aula_bd CHARACTER SET 'utf8mb4';
-USE proyecto_aula_bd; 
+DROP DATABASE IF EXISTS PROYECTO_AULA_BD;
+CREATE DATABASE PROYECTO_AULA_BD CHARACTER SET 'utf8mb4';
+USE PROYECTO_AULA_BD; 
 
 /* -- */
 CREATE TABLE TIPO_USUARIO(
-	código_tipo_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	codigo_tipo_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	tipo_usuario VARCHAR(64) NOT NULL
 )
 CHARACTER SET 'utf8mb4' 
@@ -85,21 +85,21 @@ EL SCRIPT LOADER_MUNICIPIOS.sql
 CREATE TABLE SUCURSALES(
 	id_sucursal INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	id_ciudad INT UNSIGNED NOT NULL, 
-	dirección VARCHAR(255) NOT NULL UNIQUE, 
-	teléfono_fijo VARCHAR(7) NOT NULL UNIQUE, 
+	direccion VARCHAR(255) NOT NULL UNIQUE, 
+	telefono_fijo VARCHAR(7) NOT NULL UNIQUE, 
 	celular VARCHAR(10) NOT NULL UNIQUE, 
-	correo_electrónico VARCHAR(255) NOT NULL UNIQUE, 
+	correo_electronico VARCHAR(255) NOT NULL UNIQUE, 
 	
 	CONSTRAINT fk_sucursal_ciudad 
 		FOREIGN KEY (id_ciudad)
 		REFERENCES `CIUDADES`(id_ciudad)
 		ON UPDATE CASCADE, 
 	
-	INDEX sucursales_correo_electrónico(correo_electrónico)
+	INDEX sucursales_correo_electronico(correo_electronico)
 )
 CHARACTER SET 'utf8mb4' ; 
 
-INSERT INTO SUCURSALES(id_ciudad, dirección, teléfono_fijo, celular, correo_electrónico) VALUES
+INSERT INTO SUCURSALES(id_ciudad, direccion, telefono_fijo, celular, correo_electronico) VALUES
 	(486, 'Cra 4 #6-75 San Cristóbal', '6550000', '3170000000', 'sucursalbga@gmail.com'),
 	(757, 'Cra 4 #6-75 San Joaquín', '6550001', '3170000001', 'sucursalmedellin@gmail.com'),
 	(198, 'Cra 4 #6-75 Chapinero', '6550002', '3170000002', 'sucursalbgta@gmail.com'), 
@@ -115,25 +115,25 @@ CREATE TABLE USUARIOS(
 	direccion VARCHAR(255) NOT NULL, 
 	id_ciudad_residencia INT UNSIGNED NOT NULL, 
 	celular VARCHAR(10) NOT NULL, 
-	correo_electrónico VARCHAR(255) NOT NULL UNIQUE, 
-	contraseña VARCHAR(255) NOT NULL, 
-	código_tipo_usuario INT UNSIGNED NOT NULL, 
-	código_sucursal INT UNSIGNED NULL DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
+	correo_electronico VARCHAR(255) NOT NULL UNIQUE, 
+	user_password VARCHAR(255) NOT NULL, 
+	codigo_tipo_usuario INT UNSIGNED NOT NULL, 
+	codigo_sucursal INT UNSIGNED NULL DEFAULT NULL COMMENT 'Columna usada para asociar los trabajadores a la sucursal en la que trabajan',
 	is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
 	
 	
 	INDEX usuarios_id_usuario(id_usuario), 
 	INDEX usuario_nombres(nombres), 
 	INDEX usuario_apellidos(apellidos), 
-	INDEX usuario_correo_electrónico(correo_electrónico),
+	INDEX usuario_correo_electronico(correo_electronico),
 	
 	CONSTRAINT fk_usuario_tipo_usuario 
-		FOREIGN KEY (código_tipo_usuario)
-		REFERENCES `TIPO_USUARIO`(código_tipo_usuario)
+		FOREIGN KEY (codigo_tipo_usuario)
+		REFERENCES `TIPO_USUARIO`(codigo_tipo_usuario)
 		ON UPDATE CASCADE, 
 		
 	CONSTRAINT fk_usuario_sucursal
-		FOREIGN KEY (código_sucursal)
+		FOREIGN KEY (codigo_sucursal)
 		REFERENCES `sucursales`(id_sucursal)
 		ON UPDATE CASCADE, 
 		
@@ -146,7 +146,7 @@ CHARACTER SET 'utf8mb4' ;
 
 /* -- */
 CREATE TABLE TIPO_MOTOR(
-	código_tipo_motor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	codigo_tipo_motor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	motor VARCHAR(64) NOT NULL UNIQUE
 )
 CHARACTER SET 'utf8mb4' ;
@@ -159,14 +159,14 @@ INSERT INTO TIPO_MOTOR(motor) VALUES
 	('Multicilíndrico');  
 
 /* -- */
-CREATE TABLE TIPO_VEHÍCULO(
-	código_tipo_vehículo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	tipo_vehículo VARCHAR(64) NOT NULL
+CREATE TABLE TIPO_VEHICULO(
+	codigo_tipo_vehiculo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	tipo_vehiculo VARCHAR(64) NOT NULL
 )
 CHARACTER SET 'utf8mb4' ; 
 
 
-INSERT INTO TIPO_VEHÍCULO(tipo_vehículo) VALUES
+INSERT INTO TIPO_VEHICULO(tipo_vehiculo) VALUES
 	('Sedán / Berlina'),
 	('Compacto'), 
 	('Camioneta platón'),
@@ -180,15 +180,15 @@ INSERT INTO TIPO_VEHÍCULO(tipo_vehículo) VALUES
 
 
 /* -- */
-CREATE TABLE VEHÍCULOS(
-	id_vehículo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	matrícula VARCHAR(6) NOT NULL UNIQUE, 	
-	código_tipo_vehículo INT UNSIGNED NOT NULL, 
+CREATE TABLE VEHICULOS(
+	id_vehiculo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	matricula VARCHAR(6) NOT NULL UNIQUE, 	
+	codigo_tipo_vehiculo INT UNSIGNED NOT NULL, 
 	modelo VARCHAR(64) NOT NULL, 
 	numero_puertas TINYINT(2) UNSIGNED NOT NULL, 
 	capacidad TINYINT(2) UNSIGNED NOT NULL, 
 	has_sunroof TINYINT(1) UNSIGNED NOT NULL, 
-	código_tipo_motor INT UNSIGNED NOT NULL, 
+	codigo_tipo_motor INT UNSIGNED NOT NULL, 
 	color VARCHAR(64) NOT NULL, 
 	disponible TINYINT(1) UNSIGNED NOT NULL, 
 	valor_alquiler_semanal DECIMAL(12,2) NOT NULL, 
@@ -196,27 +196,27 @@ CREATE TABLE VEHÍCULOS(
 	descuento DECIMAL(3,1) NOT NULL, 
 	veces_alquilado INT UNSIGNED NOT NULL DEFAULT 0,
 	
-	INDEX vehículos_matrícula(matrícula), 
-	INDEX vehículos_modelo(modelo), 
-	INDEX vehículos_disponible(disponible), 
-	INDEX vehículos_tipo_vehículo(código_tipo_vehículo), 
-	INDEX vehículos_descuento(descuento), 
+	INDEX vehiculo_matricula(matricula), 
+	INDEX vehiculo_modelo(modelo), 
+	INDEX vehiculo_disponible(disponible), 
+	INDEX vehiculo_tipo_vehiculo(codigo_tipo_vehiculo), 
+	INDEX vehiculo_descuento(descuento), 
 	
-	CONSTRAINT fk_vehículo_tipo_vehículo
-		FOREIGN KEY (código_tipo_vehículo)
-		REFERENCES TIPO_VEHÍCULO(código_tipo_vehículo)
+	CONSTRAINT fk_vehiculo_tipo_vehiculo
+		FOREIGN KEY (codigo_tipo_vehiculo)
+		REFERENCES TIPO_VEHICULO(codigo_tipo_vehiculo)
 		ON UPDATE CASCADE, 
 		
-	CONSTRAINT fk_vehículo_tipo_motor
-		FOREIGN KEY (código_tipo_motor)
-		REFERENCES TIPO_MOTOR(código_tipo_motor)
+	CONSTRAINT fk_vehiculo_tipo_motor
+		FOREIGN KEY (codigo_tipo_motor)
+		REFERENCES TIPO_MOTOR(codigo_tipo_motor)
 		ON UPDATE CASCADE
 	
 )
 CHARACTER SET 'utf8mb4' ; 
 
 
-INSERT INTO VEHÍCULOS(matrícula, código_tipo_vehículo, modelo, numero_puertas, capacidad, has_sunroof, código_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
+INSERT INTO VEHICULOS(matricula, codigo_tipo_vehiculo, modelo, numero_puertas, capacidad, has_sunroof, codigo_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
 ('GOA001',1,'Onix',4,5,1,2,'Negro',1,460000,55857, 0),
 ('GOA002',1,'Logan',4,5,0,3,'Blanco',1,470000,57071, 0),
 ('GOA003',1,'Beat',4,5,1,4,'Azul',1,480000,58285, 0),
@@ -273,7 +273,7 @@ CREATE TABLE ALQUILERES(
 	id_alquiler INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 	id_cliente INT UNSIGNED NOT NULL, 
 	id_empleado INT UNSIGNED NOT NULL,
-	id_vehículo INT UNSIGNED NOT NULL,  
+	id_vehiculo INT UNSIGNED NOT NULL,  
 	id_sucursal_alquiler INT UNSIGNED NOT NULL, 
 	id_sucursal_entrega INT UNSIGNED NOT NULL, 
 	dias TINYINT UNSIGNED NOT NULL, 
@@ -294,7 +294,7 @@ CREATE TABLE ALQUILERES(
 	dias_mora TINYINT UNSIGNED NULL DEFAULT NULL COMMENT 'Una vez se entregue el vehículo, se calcula si hubo retrasos', 
 	
 	INDEX alquileres_id_cliente(id_cliente), 
-	INDEX alquileres_id_vehículo(id_vehículo), 
+	INDEX alquileres_id_vehiculo(id_vehiculo), 
 	
 	CONSTRAINT fk_alquileres_cliente
 		FOREIGN KEY (id_cliente)
@@ -317,8 +317,8 @@ CREATE TABLE ALQUILERES(
 		ON UPDATE CASCADE, 
 	
 	CONSTRAINT fk_alquileres_vehículo
-		FOREIGN KEY (id_vehículo)
-		REFERENCES VEHÍCULOS(id_vehículo)
+		FOREIGN KEY (id_vehiculo)
+		REFERENCES VEHICULOS(id_vehiculo)
 		ON UPDATE CASCADE
 	
 )
@@ -346,10 +346,10 @@ CREACIÓN DE LOS USUARIOS PARA LAS APLICACIONES
 */
 
 CREATE USER 'WebApp'@'%' IDENTIFIED WITH mysql_native_password BY 'WebAppPassword41*/'; 
-GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'WebApp'@'%'; 
+GRANT EXECUTE ON `PROYECTO_AULA_BD`.* TO 'WebApp'@'%'; 
 
 CREATE USER 'MobileApp'@'%' IDENTIFIED WITH mysql_native_password BY 'MobileAppPassword41*/'; 
-GRANT EXECUTE ON `proyecto_aula_bd`.* TO 'MobileApp'@'%'; 
+GRANT EXECUTE ON `PROYECTO_AULA_BD`.* TO 'MobileApp'@'%'; 
 
 SHOW SESSION VARIABLES LIKE 'character\_set\_%';
 SHOW SESSION VARIABLES LIKE 'collation\_%';

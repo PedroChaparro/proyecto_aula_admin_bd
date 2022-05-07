@@ -19,9 +19,9 @@ la persona debería pagar 460.000x2 + 55857 = 975.857
 ##############################################################################################################
 */
 
-SELECT id_vehículo, tipo_vehículo, valor_alquiler_semanal, valor_alquiler_diario 
+SELECT id_vehiculo, tipo_vehiculo, valor_alquiler_semanal, valor_alquiler_diario 
 FROM vehicles_information_pretty 
-WHERE id_vehículo = 1;
+WHERE id_vehiculo = 1;
 
 /*Realizacion de la renta*/
 SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
@@ -29,7 +29,7 @@ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
 /* 
 	arg id_cliente
 	arg id_empleado 
-	arg id_vehículo 
+	arg id_vehiculo 
 	arg id_sucursal_alquiler
 	arg id_sucursal_entrega 
 	arg fecha_salida
@@ -100,9 +100,9 @@ A lo anterior se suman los 7 días de retraso 84.392x7 = 590744 + (84.392x7)*0.0
 Por tanto, el valor final a pagar es de: $3.586.787.52
 ##############################################################################################################
 */
-SELECT id_vehículo, tipo_vehículo, valor_alquiler_semanal, valor_alquiler_diario 
+SELECT id_vehiculo, tipo_vehiculo, valor_alquiler_semanal, valor_alquiler_diario 
 FROM vehicles_information_pretty 
-WHERE id_vehículo = 23;
+WHERE id_vehiculo = 23;
 
 /*Realizacion de la renta*/ 
 SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
@@ -110,7 +110,7 @@ SET TIMESTAMP = UNIX_TIMESTAMP('2022-01-10');
 /* 
 	arg id_cliente
 	arg id_empleado 
-	arg id_vehículo 
+	arg id_vehiculo 
 	arg id_sucursal_alquiler
 	arg id_sucursal_entrega 
 	arg fecha_salida
@@ -189,7 +189,7 @@ SELECT * FROM vehículos;
 /* 
 	arg id_cliente
 	arg id_empleado 
-	arg id_vehículo 
+	arg id_vehiculo 
 	arg id_sucursal_alquiler
 	arg id_sucursal_entrega 
 	arg fecha_salida

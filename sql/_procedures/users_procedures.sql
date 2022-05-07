@@ -22,12 +22,12 @@ CREATE PROCEDURE register_new_client(
 	IN direccion VARCHAR(255), 
 	IN id_ciudad_residencia INT UNSIGNED, 
 	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
+	IN correo_electronico VARCHAR(255), 
+	IN user_password VARCHAR(255) 
 ) BEGIN 
 
-	/*Encriptar la contraseña*/ 
-	SET @hashed = SHA2(contraseña, 256);
+	/*Encriptar la user_password*/ 
+	SET @hashed = SHA2(user_password, 256);
 
 	INSERT INTO 
 	usuarios(
@@ -37,9 +37,9 @@ CREATE PROCEDURE register_new_client(
 		direccion, 
 		id_ciudad_residencia, 
 		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario
+		correo_electronico, 
+		user_password, 
+		codigo_tipo_usuario
 	) VALUES(
 		nombres, 
 		apellidos, 
@@ -47,7 +47,7 @@ CREATE PROCEDURE register_new_client(
 		direccion, 
 		id_ciudad_residencia, 
 		celular, 
-		correo_electrónico, 
+		correo_electronico, 
 		@hashed, 
 		3
 ); END //
@@ -67,10 +67,10 @@ CREATE PROCEDURE register_new_internal_user(
 	IN direccion VARCHAR(255), 
 	IN id_ciudad_residencia INT UNSIGNED, 
 	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255), 
-	IN código_tipo_usuario INT UNSIGNED, 
-	IN código_sucursal INT UNSIGNED
+	IN correo_electronico VARCHAR(255), 
+	IN user_password VARCHAR(255), 
+	IN codigo_tipo_usuario INT UNSIGNED, 
+	IN codigo_sucursal INT UNSIGNED
 ) BEGIN
 INSERT INTO usuarios(
 		nombres, 
@@ -79,10 +79,10 @@ INSERT INTO usuarios(
 		direccion, 
 		id_ciudad_residencia, 
 		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
+		correo_electronico, 
+		user_password, 
+		codigo_tipo_usuario, 
+		codigo_sucursal
 	) VALUES(
 		nombres, 
 		apellidos, 
@@ -90,10 +90,10 @@ INSERT INTO usuarios(
 		direccion, 
 		id_ciudad_residencia, 
 		celular, 
-		correo_electrónico, 
-		contraseña, 
-		código_tipo_usuario, 
-		código_sucursal
+		correo_electronico, 
+		user_password, 
+		codigo_tipo_usuario, 
+		codigo_sucursal
 	); 
 END //
 
@@ -125,17 +125,17 @@ CREATE PROCEDURE update_user(
 	IN direccion VARCHAR(255), 
 	IN id_ciudad_residencia INT UNSIGNED, 
 	IN celular VARCHAR(10), 
-	IN correo_electrónico VARCHAR(255),
-	IN contraseña_actual VARCHAR(255)
+	IN correo_electronico VARCHAR(255),
+	IN user_password_actual VARCHAR(255)
 ) BEGIN 
 
 	SET @success = 0; 
 
-	/*Encriptar la contraseña*/ 
-	SET @hashed = SHA2(contraseña_actual, 256); 
+	/*Encriptar la user_password*/ 
+	SET @hashed = SHA2(user_password_actual, 256); 
 	
-	/*Obtener la contraseña actual*/
-	SELECT usuarios.contraseña INTO @saved_password
+	/*Obtener la user_password actual*/
+	SELECT usuarios.user_password INTO @saved_password
 	FROM usuarios
 	WHERE usuarios.id_usuario = id_usuario; 
 	
@@ -144,7 +144,7 @@ CREATE PROCEDURE update_user(
 			usuarios.direccion = direccion, 
 			usuarios.id_ciudad_residencia = id_ciudad_residencia, 
 			usuarios.celular = celular, 
-			usuarios.`correo_electrónico` = correo_electrónico
+			usuarios.`correo_electronico` = correo_electronico
 		WHERE usuarios.id_usuario = id_usuario; 
 		
 		SET @success = 1; 
@@ -159,31 +159,31 @@ END//
 DROP PROCEDURE IF EXISTS user_login; 
 DELIMITER //
 CREATE PROCEDURE user_login(
-	IN correo_electrónico VARCHAR(255), 
-	IN contraseña VARCHAR(255) 
+	IN correo_electronico VARCHAR(255), 
+	IN user_password VARCHAR(255) 
 ) BEGIN 
 
 	SET @success = 0;
-	SELECT COUNT(correo_electrónico) 'exists' INTO @user_exists
+	SELECT COUNT(correo_electronico) 'exists' INTO @user_exists
 	FROM usuarios
-	WHERE usuarios.correo_electrónico = correo_electrónico; 
+	WHERE usuarios.correo_electronico = correo_electronico; 
 	
-	/*Si el usuario existe verifica que la contraseña sea correcta*/
+	/*Si el usuario existe verifica que la user_password sea correcta*/
 	IF @user_exists = 1 THEN 
 		
-		/*Encripta la contraseña para compararla con la que está en la base de datos*/ 
-		SET @hashed = SHA2(contraseña, 256);
+		/*Encripta la user_password para compararla con la que está en la base de datos*/ 
+		SET @hashed = SHA2(user_password, 256);
 
-		SELECT usuarios.contraseña INTO @saved_password
+		SELECT usuarios.user_password INTO @saved_password
 		FROM usuarios
-		WHERE usuarios.correo_electrónico = correo_electrónico; 
+		WHERE usuarios.correo_electronico = correo_electronico; 
 		
 		IF @saved_password = @hashed THEN 
         
-			-- Si la contraseña es correcta, regresa algunos datos del usuario para la sesión
-			SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'NAME', `correo_electrónico` 'MAIL' 
+			-- Si la user_password es correcta, regresa algunos datos del usuario para la sesión
+			SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'NAME', `correo_electronico` 'MAIL' 
             FROM USUARIOS
-            WHERE USUARIOS.`correo_electrónico` = correo_electrónico;
+            WHERE USUARIOS.`correo_electronico` = correo_electronico;
             
 		END IF; 
 	

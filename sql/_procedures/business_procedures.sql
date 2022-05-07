@@ -13,7 +13,7 @@ DELIMITER //
 CREATE PROCEDURE register_vehicle_rental(
 	IN id_cliente INT UNSIGNED, 
 	IN id_empleado INT UNSIGNED, 
-	IN id_vehículo INT UNSIGNED, 
+	IN id_vehiculo INT UNSIGNED, 
 	IN id_sucursal_alquiler INT UNSIGNED,
 	IN id_sucursal_entrega INT UNSIGNED, 
 	IN fecha_salida TIMESTAMP, 
@@ -25,15 +25,15 @@ CREATE PROCEDURE register_vehicle_rental(
 
 		/*Revisa que el vehículo aún se encuentre disponible*/
 	SELECT disponible INTO @is_disponible
-	FROM VEHÍCULOS
-	WHERE VEHÍCULOS.`id_vehículo` = id_vehículo; 
+	FROM VEHICULOS
+	WHERE VEHICULOS.`id_vehiculo` = id_vehiculo; 
 			
 		IF @is_disponible = 1 THEN
 		
 			/*Calcular el precio*/
 			SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
-			FROM VEHÍCULOS
-			WHERE VEHÍCULOS.id_vehículo = id_vehículo; 
+			FROM VEHICULOS
+			WHERE VEHICULOS.id_vehiculo = id_vehiculo; 
 			
 			SET @semanas =TRUNCATE((dias/7), 0); 
 			SET @dias_restantes = dias - (@semanas * 7); 
@@ -41,10 +41,10 @@ CREATE PROCEDURE register_vehicle_rental(
 			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
 					
 			/*El vehículo ya no estará disponible para alquilar*/
-			UPDATE `VEHÍCULOS` SET 
-				`VEHÍCULOS`.disponible = 0, 
-				`VEHÍCULOS`.veces_alquilado = `VEHÍCULOS`.veces_alquilado + 1 
-			WHERE `VEHÍCULOS`.id_vehículo = id_vehículo; 
+			UPDATE `VEHICULOS` SET 
+				`VEHICULOS`.disponible = 0, 
+				`VEHICULOS`.veces_alquilado = `VEHICULOS`.veces_alquilado + 1 
+			WHERE `VEHICULOS`.id_vehiculo = id_vehiculo; 
 					
 			/*
 			Insertar el registro del alquiler
@@ -54,7 +54,7 @@ CREATE PROCEDURE register_vehicle_rental(
 			INSERT INTO ALQUILERES(
 				id_cliente, 
 				id_empleado, 
-				id_vehículo,
+				id_vehiculo,
 				id_sucursal_alquiler, 
 				id_sucursal_entrega, 
 				fecha_salida, 
@@ -65,7 +65,7 @@ CREATE PROCEDURE register_vehicle_rental(
 				valor_cotizado) VALUES (
 				id_cliente, 
 				id_empleado, 
-				id_vehículo, 
+				id_vehiculo, 
 				id_sucursal_alquiler, 
 				id_sucursal_entrega,
 				fecha_salida, 
@@ -201,7 +201,7 @@ CREATE PROCEDURE register_vehicle_return(
 	WHERE alquileres.id_alquiler = id_alquiler; 
 		
 		/*Se calculan los días de mora*/
-	SELECT fecha_entrega_pactada, fecha_entrega, id_vehículo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
+	SELECT fecha_entrega_pactada, fecha_entrega, id_vehiculo INTO @fecha_entrega_pactada, @fecha_entrega, @vehiculo
 	FROM alquileres
 	WHERE alquileres.id_alquiler = id_alquiler; 
 		
@@ -212,9 +212,9 @@ CREATE PROCEDURE register_vehicle_return(
 		END IF; 
 		
 		/*Se actualiza el estado disponible del vehículo*/
-	UPDATE `VEHÍCULOS` SET
-			`VEHÍCULOS`.disponible = 1
-	WHERE `VEHÍCULOS`.`id_vehículo` = @vehiculo;
+	UPDATE `VEHICULOS` SET
+			`VEHICULOS`.disponible = 1
+	WHERE `VEHICULOS`.`id_vehiculo` = @vehiculo;
 
 END // 
 
@@ -233,7 +233,9 @@ DROP PROCEDURE IF EXISTS create_bill;
 DELIMITER //
 CREATE PROCEDURE create_bill(
 	id_alquiler INT UNSIGNED
-) BEGIN SET @recargo = 0; 
+) BEGIN 
+
+	SET @recargo = 0; 
 	
 	/*Se genera el valor a pagar a partir del valor cotizado y los días de mora (si se da el caso)*/
 	
