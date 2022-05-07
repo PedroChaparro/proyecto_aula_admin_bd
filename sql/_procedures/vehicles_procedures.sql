@@ -98,7 +98,7 @@ WHERE VEHICULOS.`id_vehiculo` = `id_vehiculo`; END//
 DELIMITER ;
 
 /* ----- */
-/*Procedimiento para consultar vehículos disponibles*/
+/*Procedimiento para consultar vehiculos disponibles*/
 DROP PROCEDURE IF EXISTS get_available_vehicles; 
 DELIMITER //
 CREATE PROCEDURE get_available_vehicles() BEGIN
@@ -114,7 +114,7 @@ CALL get_available_vehicles();
 */
 
 /* ----- */
-/*Procedimiento para consultar vehículos disponibles por su tipo*/
+/*Procedimiento para consultar vehiculos disponibles por su tipo*/
 DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_type; 
 DELIMITER //
 CREATE PROCEDURE get_available_vehicles_filter_by_type(
@@ -134,7 +134,7 @@ CALL get_available_vehicles_filter_by_type('Compacto');
 */
 
 /* ----- */
-/*Procedimiento para consultar vehículos disponibles por un rango de precios*/
+/*Procedimiento para consultar vehiculos disponibles por un rango de precios*/
 DROP PROCEDURE IF EXISTS get_available_vehicles_filter_by_price; 
 DELIMITER //
 CREATE PROCEDURE get_available_vehicles_filter_by_price(

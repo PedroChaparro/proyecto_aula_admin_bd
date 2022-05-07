@@ -11,7 +11,7 @@ FROM tipo_vehiculo;
 SELECT *
 FROM usuarios;
 SELECT *
-FROM vehículos;
+FROM vehiculos;
 SELECT *
 FROM rental_data_history_pretty;
 SELECT *
@@ -61,7 +61,7 @@ CREATE VIEW rental_data_history_pretty AS
 SELECT CONCAT(u1.nombres,' ',u1.apellidos) 'Nombre_cliente', CONCAT(u2.nombres,' ',u2.apellidos) 'Nombre_vendedor', 
 	v.modelo, v.matricula, c1.ciudad 'Ciudad_alquiler', c2.ciudad 'Ciudad_entrega', a.dias, a.valor_cotizado, 
 	a.fecha_salida, a.fecha_esperada_llegada, a.fecha_llegada
-FROM vehículos AS v, alquileres AS a
+FROM vehiculos AS v, alquileres AS a
 LEFT JOIN usuarios u1 ON u1.id_usuario = a.id_cliente
 LEFT JOIN usuarios u2 ON u2.id_usuario = a.id_empleado
 LEFT JOIN sucursales s1 ON s1.id_sucursal = a.id_sucursal_alquiler

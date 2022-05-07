@@ -27,7 +27,7 @@ CREATE PROCEDURE register_new_client(
 ) BEGIN 
 
 	/*Encriptar la user_password*/ 
-	SET @hashed = SHA2(user_password, 256);
+	SET @hashed = SHA2(MD5(user_password), 256);
 
 	INSERT INTO 
 	usuarios(
@@ -172,7 +172,7 @@ CREATE PROCEDURE user_login(
 	IF @user_exists = 1 THEN 
 		
 		/*Encripta la user_password para compararla con la que está en la base de datos*/ 
-		SET @hashed = SHA2(user_password, 256);
+		SET @hashed = SHA2(MD5(user_password), 256);
 
 		SELECT usuarios.user_password INTO @saved_password
 		FROM usuarios

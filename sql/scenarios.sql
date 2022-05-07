@@ -182,7 +182,7 @@ Por tanto, el valor final a pagar es de: $1,428,837.72
 ##############################################################################################################
 */
 
-SELECT * FROM vehículos; 
+SELECT * FROM vehiculos; 
 
 /*Realizacion de la renta*/ SET TIMESTAMP = UNIX_TIMESTAMP('2022-02-01');
 
