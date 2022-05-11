@@ -195,7 +195,6 @@ CREATE TABLE VEHICULOS(
 	valor_alquiler_diario DECIMAL(12,2) NOT NULL,
 	descuento DECIMAL(3,1) NOT NULL, 
 	veces_alquilado INT UNSIGNED NOT NULL DEFAULT 0,
-	url_imagen VARCHAR(255) NOT NULL DEFAULT 'https://i.ibb.co/8xSG3gx/CAR.png',
 	
 	INDEX vehiculo_matricula(matricula), 
 	INDEX vehiculo_modelo(modelo), 
@@ -215,7 +214,6 @@ CREATE TABLE VEHICULOS(
 	
 )
 CHARACTER SET 'utf8mb4' ; 
-
 
 INSERT INTO VEHICULOS(matricula, codigo_tipo_vehiculo, modelo, numero_puertas, capacidad, has_sunroof, codigo_tipo_motor, color, disponible, valor_alquiler_semanal, valor_alquiler_diario, descuento) VALUES 
 ('GOA001',1,'Onix',4,5,1,2,'Negro',1,460000,55857, 0),
