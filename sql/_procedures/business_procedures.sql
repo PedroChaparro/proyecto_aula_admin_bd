@@ -21,64 +21,82 @@ CREATE PROCEDURE register_vehicle_rental(
 	IN dias TINYINT UNSIGNED
 ) BEGIN 
 
-	SET @success = 0; 
+	-- Handler for exceptions
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+	END;
+	
+	-- Transaction 
+	SET autocommit = 0;
+	
+	START TRANSACTION;
+		SET @success = 0; 
 
 		/*Revisa que el vehículo aún se encuentre disponible*/
-	SELECT disponible INTO @is_disponible
-	FROM VEHICULOS
-	WHERE VEHICULOS.`id_vehiculo` = id_vehiculo; 
+		SELECT disponible INTO @is_disponible
+		FROM VEHICULOS
+		WHERE VEHICULOS.`id_vehiculo` = id_vehiculo; 
+				
+			IF @is_disponible = 1 THEN
 			
-		IF @is_disponible = 1 THEN
-		
-			/*Calcular el precio*/
-			SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
-			FROM VEHICULOS
-			WHERE VEHICULOS.id_vehiculo = id_vehiculo; 
+				/*Calcular el precio*/
+				SELECT valor_alquiler_semanal, valor_alquiler_diario, descuento INTO @alquiler_semanal, @alquiler_diario, @descuento
+				FROM VEHICULOS
+				WHERE VEHICULOS.id_vehiculo = id_vehiculo; 
+				
+				SET @semanas =TRUNCATE((dias/7), 0); 
+				SET @dias_restantes = dias - (@semanas * 7); 
+				SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); 
+				SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
+						
+				/*El vehículo ya no estará disponible para alquilar*/
+				UPDATE `VEHICULOS` SET 
+					`VEHICULOS`.disponible = 0, 
+					`VEHICULOS`.veces_alquilado = `VEHICULOS`.veces_alquilado + 1 
+				WHERE `VEHICULOS`.id_vehiculo = id_vehiculo; 
+						
+				/*
+				Insertar el registro del alquiler
+				Dentro del registro del alquiler, debe insertar el precio de alquiler diario y semanal del vehículo al momento
+				en que el usuario realizó la solicitud
+				*/
+				INSERT INTO ALQUILERES(
+						id_cliente, 
+						id_empleado, 
+						id_vehiculo,
+						id_sucursal_alquiler, 
+						id_sucursal_entrega, 
+						fecha_salida, 
+						fecha_esperada_llegada, 
+						dias, 
+						valor_diario_cotizado, 
+						valor_semanal_cotizado, 
+						valor_cotizado
+				) VALUES (
+					id_cliente, 
+					id_empleado, 
+					id_vehiculo, 
+					id_sucursal_alquiler, 
+					id_sucursal_entrega,
+					fecha_salida, 
+					fecha_esperada_llegada, 
+					dias, 
+					@alquiler_diario, 
+					@alquiler_semanal,
+					@valor_cotizado
+				); 
+				
+				SET @success = 1; 
+				
+			END IF;
 			
-			SET @semanas =TRUNCATE((dias/7), 0); 
-			SET @dias_restantes = dias - (@semanas * 7); 
-			SET @valor_cotizado = (@semanas * @alquiler_semanal) + (@dias_restantes * @alquiler_diario); 
-			SET @valor_cotizado = @valor_cotizado - ((@valor_cotizado * @descuento)/100); 
-					
-			/*El vehículo ya no estará disponible para alquilar*/
-			UPDATE `VEHICULOS` SET 
-				`VEHICULOS`.disponible = 0, 
-				`VEHICULOS`.veces_alquilado = `VEHICULOS`.veces_alquilado + 1 
-			WHERE `VEHICULOS`.id_vehiculo = id_vehiculo; 
-					
-			/*
-			Insertar el registro del alquiler
-			Dentro del registro del alquiler, debeinsertar el precio de alquiler diario y semanal del vehículo al momento
-			en que el usuario realizó la solicitud
-			*/
-			INSERT INTO ALQUILERES(
-				id_cliente, 
-				id_empleado, 
-				id_vehiculo,
-				id_sucursal_alquiler, 
-				id_sucursal_entrega, 
-				fecha_salida, 
-				fecha_esperada_llegada, 
-				dias, 
-				valor_diario_cotizado, 
-				valor_semanal_cotizado, 
-				valor_cotizado) VALUES (
-				id_cliente, 
-				id_empleado, 
-				id_vehiculo, 
-				id_sucursal_alquiler, 
-				id_sucursal_entrega,
-				fecha_salida, 
-				fecha_esperada_llegada, 
-				dias, 
-				@alquiler_diario, 
-				@alquiler_semanal,
-				@valor_cotizado
-			); SET @success = 1; 
-			
-		END IF;
-		
+		COMMIT; 
+	
+	-- Final de la operacion
+	SET autocommit = 1;
 	SELECT @success; 
+	
 END //
 
 DELIMITER ;
