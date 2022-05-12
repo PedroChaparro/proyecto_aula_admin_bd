@@ -24,6 +24,7 @@ CREATE PROCEDURE register_vehicle_rental(
 	-- Handler for exceptions
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	BEGIN
+		SELECT JSON_OBJECT('code', -500, 'error', 'Error inesperado') 'Response';
 		ROLLBACK;
 	END;
 	

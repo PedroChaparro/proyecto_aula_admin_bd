@@ -262,6 +262,15 @@ CREATE PROCEDURE update_user(
 
 END//
 
+CREATE PROCEDURE update_user(
+	IN id_usuario INT UNSIGNED, 
+	IN direccion VARCHAR(255), 
+	IN id_ciudad_residencia INT UNSIGNED, 
+	IN celular VARCHAR(10), 
+	IN correo_electronico VARCHAR(255),
+	IN user_password_actual VARCHAR(255)
+)
+
 /* ----- */
 /* Procedimiento para el inicio de sesión por parte de clientes */
 
