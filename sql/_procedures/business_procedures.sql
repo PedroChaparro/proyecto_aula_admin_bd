@@ -31,7 +31,6 @@ CREATE PROCEDURE register_vehicle_rental(
 	SET autocommit = 0;
 	
 	START TRANSACTION;
-		SET @success = 0; 
 
 		/*Revisa que el vehículo aún se encuentre disponible*/
 		SELECT disponible INTO @is_disponible
@@ -87,15 +86,18 @@ CREATE PROCEDURE register_vehicle_rental(
 					@valor_cotizado
 				); 
 				
-				SET @success = 1; 
-				
+				SELECT JSON_OBJECT('code', 201, 'error', null) 'Response';
+			
+            ELSE
+            
+				SELECT JSON_OBJECT('code', -400, 'error', 'El vehiculo no se encuentra disponible') 'Response';
+            
 			END IF;
 			
 		COMMIT; 
 	
 	-- Final de la operacion
 	SET autocommit = 1;
-	SELECT @success; 
 	
 END //
 
