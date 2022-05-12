@@ -6,6 +6,34 @@
 /*        CRUD BASICS        */
 /* ------------------------- */
 
+/*
+Funcion para saber si un vehiculo existe a partir de la matricula
+/*/
+DROP FUNCTION IF EXISTS vehicle_exists_from_plate;
+
+DELIMITER //
+
+CREATE FUNCTION vehicle_exists_from_plate(
+	matricula VARCHAR(6)
+)
+RETURNS BOOLEAN
+NOT DETERMINISTIC
+BEGIN 
+
+	SELECT COUNT(matricula) INTO @is_plate_duplicated
+    FROM vehiculos
+    WHERE vehiculos.matricula = matricula;
+    
+    IF(@is_plate_duplicated = 0) THEN 
+		RETURN FALSE;
+	ELSE
+		RETURN TRUE;
+	END IF;
+    
+END//
+
+DELIMITER ;
+
 /* ----- */
 /* CREATE */
 DROP PROCEDURE IF EXISTS register_vehicle; 
@@ -14,7 +42,7 @@ CREATE PROCEDURE register_vehicle(
 	IN matricula VARCHAR(6), 
 	IN codigo_tipo_vehiculo INT UNSIGNED, 
 	IN modelo VARCHAR(64), 
-	IN número_puertas TINYINT(2) UNSIGNED, 
+	IN numero_puertas TINYINT(2) UNSIGNED, 
 	IN capacidad TINYINT(2) UNSIGNED,
 	IN has_sunroof TINYINT(1) UNSIGNED, 
 	IN codigo_tipo_motor INT UNSIGNED, 
@@ -24,33 +52,50 @@ CREATE PROCEDURE register_vehicle(
 	IN valor_alquiler_diario DECIMAL(12,2),
 	IN descuento DECIMAL(3,1) 
 ) BEGIN
-INSERT INTO VEHICULOS(
-		matricula, 
-		codigo_tipo_vehiculo, 
-		modelo, 
-		número_puertas, 
-		capacidad, 
-		has_sunroof, 
-		codigo_tipo_motor, 
-		color, 
-		disponible, 
-		valor_alquiler_semanal, 
-		valor_alquiler_diario, 
-		descuento
-	) VALUES (
-		matricula, 
-		codigo_tipo_vehiculo, 
-		modelo, 
-		número_puertas, 
-		capacidad, 
-		has_sunroof, 
-		codigo_tipo_motor, 
-		color, 
-		disponible, 
-		valor_alquiler_semanal, 
-		valor_alquiler_diario, 
-		descuento
-	); END//
+
+	/* Se verifica que no exista un vehiculo con la misma matricula */
+    SET @vehicle_exists = vehicle_exists_from_plate(matricula);
+
+	IF(@vehicle_exists = FALSE) THEN
+		INSERT INTO VEHICULOS(
+			matricula, 
+			codigo_tipo_vehiculo, 
+			modelo, 
+			numero_puertas, 
+			capacidad, 
+			has_sunroof, 
+			codigo_tipo_motor, 
+			color, 
+			disponible, 
+			valor_alquiler_semanal, 
+			valor_alquiler_diario, 
+			descuento
+		) VALUES (
+			matricula, 
+			codigo_tipo_vehiculo, 
+			modelo, 
+			numero_puertas, 
+			capacidad, 
+			has_sunroof, 
+			codigo_tipo_motor, 
+			color, 
+			disponible, 
+			valor_alquiler_semanal, 
+			valor_alquiler_diario, 
+			descuento
+		); 
+        
+        SELECT JSON_OBJECT('code', 201, 'error', null) 'Response';
+        
+    ELSE 
+    
+		/*Si es repetido se envia un codigo de respuesta*/
+		SELECT JSON_OBJECT('code', -400, 'error', 'La entrada para la matricula del vehiculo es duplicada') 'Response';
+    
+    END IF;
+    
+END//
+
 DELIMITER ;
 
 /* ----- */
@@ -85,16 +130,33 @@ CREATE PROCEDURE update_vehicle(
 	IN valor_alquiler_diario DECIMAL(12,2),
 	IN descuento DECIMAL(3,1) 
 ) BEGIN
-UPDATE VEHICULOS SET
-		VEHICULOS.`matricula` = matricula, 
-		VEHICULOS.has_sunroof = has_sunroof, 
-		VEHICULOS.`codigo_tipo_motor` = codigo_tipo_motor, 
-		VEHICULOS.color = color, 
-		VEHICULOS.disponible = disponible, 
-		VEHICULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
-		VEHICULOS.valor_alquiler_diario = valor_alquiler_diario, 
-		VEHICULOS.descuento = descuento
-WHERE VEHICULOS.`id_vehiculo` = `id_vehiculo`; END//
+
+	/* Se verifica que no exista un vehiculo con la misma matricula */
+    SET @vehicle_exists = vehicle_exists_from_plate(matricula);
+    
+    IF(@vehicle_exists = TRUE) THEN 
+    
+		UPDATE VEHICULOS SET
+			VEHICULOS.`matricula` = matricula, 
+			VEHICULOS.has_sunroof = has_sunroof, 
+			VEHICULOS.`codigo_tipo_motor` = codigo_tipo_motor, 
+			VEHICULOS.color = color, 
+			VEHICULOS.disponible = disponible, 
+			VEHICULOS.valor_alquiler_semanal = valor_alquiler_semanal, 
+			VEHICULOS.valor_alquiler_diario = valor_alquiler_diario, 
+			VEHICULOS.descuento = descuento
+		WHERE VEHICULOS.`id_vehiculo` = `id_vehiculo`;
+        
+        SELECT JSON_OBJECT('code', 200, 'error', null) 'Response';
+        
+    ELSE 
+		
+        SELECT JSON_OBJECT('code', -400, 'error', 'No se encontro el vehiculo especificado') 'Response';
+        
+    END IF;
+    
+    END//
+    
 DELIMITER ;
 
 /* ----- */
