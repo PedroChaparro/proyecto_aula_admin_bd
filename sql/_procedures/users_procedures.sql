@@ -9,6 +9,73 @@
 /* ----- */
 /* CREATE */
 
+/*
+ Funcion para saber si la entrada de un usuario ya existe
+a partir del correo y el documento
+ */
+ 
+set global log_bin_trust_function_creators=TRUE;
+
+DROP FUNCTION IF EXISTS user_exists;
+
+DELIMITER //
+
+CREATE FUNCTION user_exists(
+	identificacion VARCHAR(14),
+	correo_electronico VARCHAR(255)
+)
+RETURNS BOOLEAN
+NOT DETERMINISTIC
+BEGIN 
+
+	SELECT COUNT(correo_electronico) INTO @is_mail_duplicated
+    FROM usuarios
+    WHERE usuarios.correo_electronico = correo_electronico;
+    
+    SELECT COUNT(identificacion) INTO @is_document_duplicated
+    FROM usuarios
+    WHERE usuarios.identificacion = identificacion;
+    
+    IF(@is_mail_duplicated = 0 AND @is_document_duplicated=0) THEN 
+		RETURN FALSE;
+	ELSE
+		RETURN TRUE;
+	END IF;
+    
+END//
+
+DELIMITER ;
+
+/*
+ Funcion para saber si la entrada de un usuario ya existe
+a partir del correo 
+ */
+ 
+ DROP FUNCTION IF EXISTS mail_exists;
+
+DELIMITER //
+
+CREATE FUNCTION mail_exists(
+	correo_electronico VARCHAR(255)
+)
+RETURNS BOOLEAN
+NOT DETERMINISTIC
+BEGIN 
+
+	SELECT COUNT(correo_electronico) INTO @is_mail_duplicated
+    FROM usuarios
+    WHERE usuarios.correo_electronico = correo_electronico;
+    
+    IF(@is_mail_duplicated = 0) THEN 
+		RETURN FALSE;
+	ELSE
+		RETURN TRUE;
+	END IF;
+    
+END//
+
+DELIMITER ;
+
 /* ----- */
 /*Procedures para el manejo de cuentas de usuario
 Este es el procedure que usarían los clientes al momento de registrarse desde el aplicativo web o móvil
@@ -26,33 +93,52 @@ CREATE PROCEDURE register_new_client(
 	IN user_password VARCHAR(255) 
 ) BEGIN 
 
-	/*Encriptar la user_password*/ 
-	SET @hashed = SHA2(MD5(user_password), 256);
+	/*Verificar que las llaves unicas no existan*/
+    SET @user_exists = user_exists(identificacion, correo_electronico);
+    
+    /*Si la entrada no es duplicada*/
+    IF(@user_exists = FALSE) THEN 
+		
+        /*Encriptar el password*/ 
+		SET @hashed = SHA2(MD5(user_password), 256);
 
-	INSERT INTO 
-	usuarios(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electronico, 
-		user_password, 
-		codigo_tipo_usuario
-	) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electronico, 
-		@hashed, 
-		3
-); END //
+		INSERT INTO 
+		usuarios(
+			nombres, 
+			apellidos, 
+			identificacion, 
+			direccion, 
+			id_ciudad_residencia, 
+			celular, 
+			correo_electronico, 
+			user_password, 
+			codigo_tipo_usuario
+		) VALUES(
+			nombres, 
+			apellidos, 
+			identificacion, 
+			direccion, 
+			id_ciudad_residencia, 
+			celular, 
+			correo_electronico, 
+			@hashed, 
+			3
+		); 
+        
+        SELECT JSON_OBJECT('code', 201, 'error', null) 'Response';
+
+    ELSE 
+    
+		/*Si es repetido se envia un codigo de respuesta*/
+		SELECT JSON_OBJECT('code', -400, 'error', 'La entrada para el documento o el correo es duplicada') 'Response';
+        
+    END IF;
+
+END //
 
 DELIMITER ; 
+
+CALL register_new_client('Camilo Alejandro', 'Vivas Azul', '1005009870', 'Address placeholder', 1, '3227345670', 'camilo.vivas@gmail.com', 'camilo.vivas2021#');
 
 /* ----- */
 /*Procedimiento para el registro de cuentas internas
@@ -72,29 +158,49 @@ CREATE PROCEDURE register_new_internal_user(
 	IN codigo_tipo_usuario INT UNSIGNED, 
 	IN codigo_sucursal INT UNSIGNED
 ) BEGIN
-INSERT INTO usuarios(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electronico, 
-		user_password, 
-		codigo_tipo_usuario, 
-		codigo_sucursal
-	) VALUES(
-		nombres, 
-		apellidos, 
-		identificacion, 
-		direccion, 
-		id_ciudad_residencia, 
-		celular, 
-		correo_electronico, 
-		user_password, 
-		codigo_tipo_usuario, 
-		codigo_sucursal
-	); 
+
+/*Verificar que las llaves unicas no existan*/
+    SET @user_exists = user_exists(identificacion, correo_electronico);
+    
+    /*Si la entrada no es duplicada*/
+    IF(@user_exists = FALSE) THEN 
+		
+        /*Encriptar la user_password*/ 
+		SET @hashed = SHA2(MD5(user_password), 256);
+		
+		INSERT INTO usuarios(
+			nombres, 
+			apellidos, 
+			identificacion, 
+			direccion, 
+			id_ciudad_residencia, 
+			celular, 
+			correo_electronico, 
+			user_password, 
+			codigo_tipo_usuario, 
+			codigo_sucursal
+		) VALUES(
+			nombres, 
+			apellidos, 
+			identificacion, 
+			direccion, 
+			id_ciudad_residencia, 
+			celular, 
+			correo_electronico, 
+			@hashed, 
+			codigo_tipo_usuario, 
+			codigo_sucursal
+		);  
+        
+        SELECT JSON_OBJECT('code', 201, 'error', null) 'Response';
+
+    ELSE 
+    
+		/*Si es repetido se envia un codigo de respuesta*/
+		SELECT JSON_OBJECT('code', -400, 'error', 'La entrada para el documento o el correo es duplicada') 'Response';
+        
+    END IF;
+    
 END //
 
 DELIMITER ; 
@@ -129,12 +235,10 @@ CREATE PROCEDURE update_user(
 	IN user_password_actual VARCHAR(255)
 ) BEGIN 
 
-	SET @success = 0; 
-
-	/*Encriptar la user_password*/ 
+	/*Encriptar el password*/ 
 	SET @hashed = SHA2(user_password_actual, 256); 
 	
-	/*Obtener la user_password actual*/
+	/*Obtener el password actual*/
 	SELECT usuarios.user_password INTO @saved_password
 	FROM usuarios
 	WHERE usuarios.id_usuario = id_usuario; 
@@ -146,16 +250,21 @@ CREATE PROCEDURE update_user(
 			usuarios.celular = celular, 
 			usuarios.`correo_electronico` = correo_electronico
 		WHERE usuarios.id_usuario = id_usuario; 
+        
+        SELECT JSON_OBJECT('code', 200, 'error', null) 'Response';
+        
+	ELSE
 		
-		SET @success = 1; 
-	END IF;
-
-	SELECT @success;
+        /*Si el password no es igual, se envia el codigo de error*/
+		SELECT JSON_OBJECT('code', -401, 'error', 'No está autorizado para realizar la modificación') 'Response';
+        
+    END IF;
 
 END//
 
 /* ----- */
 /* Procedimiento para el inicio de sesión por parte de clientes */
+
 DROP PROCEDURE IF EXISTS user_login; 
 DELIMITER //
 CREATE PROCEDURE user_login(
@@ -163,13 +272,10 @@ CREATE PROCEDURE user_login(
 	IN user_password VARCHAR(255) 
 ) BEGIN 
 
-	SET @success = 0;
-	SELECT COUNT(correo_electronico) 'exists' INTO @user_exists
-	FROM usuarios
-	WHERE usuarios.correo_electronico = correo_electronico; 
+	SET @mail_exists = mail_exists(correo_electronico);
 	
 	/*Si el usuario existe verifica que la user_password sea correcta*/
-	IF @user_exists = 1 THEN 
+	IF @mail_exists = TRUE THEN 
 		
 		/*Encripta la user_password para compararla con la que está en la base de datos*/ 
 		SET @hashed = SHA2(MD5(user_password), 256);
@@ -180,13 +286,22 @@ CREATE PROCEDURE user_login(
 		
 		IF @saved_password = @hashed THEN 
         
-			-- Si la user_password es correcta, regresa algunos datos del usuario para la sesión
-			SELECT id_usuario, CONCAT(nombres, ' ',apellidos) 'NAME', `correo_electronico` 'MAIL' 
+			-- Si el passsword es correcta, regresa algunos datos del usuario para la sesión
+			SELECT id_usuario, nombres, apellidos, correo_electronico 
+            INTO @id, @firtstName, @lastNames, @mail
             FROM USUARIOS
-            WHERE USUARIOS.`correo_electronico` = correo_electronico;
+            WHERE USUARIOS.correo_electronico = correo_electronico;
             
+            SELECT JSON_OBJECT('code', 200, 'error', null, 'id', @id,'firstName', @firtstName, 'lastNames', @lastNames, 'mail', @mail) 'Response';
+		ELSE
+        
+			SELECT JSON_OBJECT('code', -401, 'error', 'Correo o password incorrectos') 'Response';
+        
 		END IF; 
-	
+	ELSE
+    
+		SELECT JSON_OBJECT('code', -404, 'error', 'No se encontró el correo ingresado') 'Response';
+    
 	END IF; 
 END //
 
