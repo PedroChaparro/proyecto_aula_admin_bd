@@ -1,3 +1,5 @@
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
 # PROYECTO DE AULA ADMINISTRACIÓN DE BASES DE DATOS
 
 Repositorio para el manejo de control de versiones del proyecto de aula de la asignatura administración de bases de datos 2022-01. 
